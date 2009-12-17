@@ -28,12 +28,13 @@ _Feedback_ Ad ogni utente registrato viene associato un feedback in qualità di 
 _Commento_ A viaggio concluso il sistema invia alla Inbox di ogni utente che ha partecipato al viaggio una _Richiesta di Commento_: attraverso i link di questo messaggio è possibile rilasciare un commento (facoltativo) per l'_Autista_ (se l'utente è un _Viaggiatore_) o per i _Viaggiatori_ (se viceversa è un _Autista_). 
 Il sistema controlla che sia possibile per un utente rilasciare un commento su di un altro utente solo una volta per ogni _Pacchetto Viaggi_ a cui hanno partecipato entrambi. Nel caso si partecipi ad un _Pacchetto Viaggi_ che comprende più di un viaggio, è possibile rilasciare un commento subito dopo il termine del primo viaggio del pacchetto; ma questo commento potrà essere modificato nel tempo dall'utente stesso.
 
-_Funzionalità offerte agli ospiti del sito_ Per chi accede al sito senza volersi registrare è resa disponibile la ricerca dei viaggi attualmente offerti da PoolMyCar, 
-
-
+_Funzionalità offerte agli ospiti del sito_ Per chi accede al sito senza volersi registrare è resa disponibile la ricerca dei viaggi attualmente offerti da PoolMyCar, ma senza alcuna possibilità di visualizzazione profili e feedback.
 
 
 *Gestione viaggio*
+
+_Tipo di Viaggio_
+
   * pacchetto viaggio vs single (tipologia viaggio)
   * Modalità pagamento
   * inserimento (offerta ok, richiesta???)
