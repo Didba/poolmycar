@@ -53,8 +53,9 @@ _Inserire un nuovo Pacchetto Viaggi_ Ovviamente solo un _Autista_ può inserire 
   * Data/e o Periodicità (*da rivedere*)
   * Note
 
-  * inserimento (offerta ok, richiesta???)
-  * ricerca
+_Ricerca di un Viaggio_
+
+
   * richieste partecipazione
   * modifiche rinunce
   * gestione tappe percorsi
