@@ -14,9 +14,16 @@ _Viaggiatore_ Tutti gli utenti registrati appartengono alla categoria _Viaggiato
 _Autista_ Successivamente all'iscrizione, un utente ha la possibilità di inserire i dati della propria patente di guida e assumere così anche il ruolo di _Autista_. Questo comporta la possibilità di inserire dei nuovi viaggi all'interno del sistema. Durante quest'assunzione di ruolo è obbligatorio anche fornire i dati di almeno una tipologia di mezzo che l'autista intende utilizzare per i propri viaggi.
 
 _Dati profilo_ All'interno del profilo è possibile inserire e modificare alcune delle proprie informazioni personali. E' buona norma compilare questi campi per aiutare gli utenti nella scelta dei compagni di viaggio. Nel caso l'utente sia anche _Autista_ dispone di un'insieme di campi più ampio rispetto a un semplice _Viaggiatore_. Ad un utente _Viaggiatore_ verrà chiesto:
-  * se fumatore/non fumatore
+  * numeri di telefono (fissi e/o mobili)
+  * residenza (via, città, stato)
+  * se fumatore o non fumatore
   * se disposto o meno a viaggiare con animali
-  * 
+  * ...
+ad un _Autista_ verrà ulteriormente chiesto:
+  * numero patente (necessario per diventare _Autista_)
+  * dati di almeno un mezzo (tipologia veicolo, numero posti disponibili)
+
+
 
 
   * viaggiatore autista
