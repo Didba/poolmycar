@@ -33,7 +33,7 @@ _Funzionalità offerte agli ospiti del sito_ Per chi accede al sito senza volers
 
 *Gestione viaggio*
 
-_Tipi di Viaggio_ Quando un _Autista_ mette a disposizione un nuovo viaggio, innanzitutto deve creare un nuovo _Pacchetto Viaggi_. Questo è un insieme di uno o più viaggi messi a disposizione dall'autista. Nel caso di un solo viaggio all'interno del pacchetto
+_Tipi di Viaggio_ Quando un _Autista_ mette a disposizione un nuovo viaggio, innanzitutto deve creare un nuovo _Pacchetto Viaggi_. Questo è un insieme di uno o più viaggi messi a disposizione dall'autista. Questa modalità viene utilizzata per consentire all'_Autista_ di mettere a disposizione in un unico pacchetto viaggi che si ripetono con una cadenza periodica. E' in particolar modo utile per viaggiatori pendolari che desiderano usufruire del trasporto con una certa regolarità.
 
   * pacchetto viaggio vs single (tipologia viaggio)
   * Modalità pagamento
