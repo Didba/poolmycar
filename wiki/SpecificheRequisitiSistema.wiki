@@ -33,7 +33,7 @@ _Funzionalità offerte agli ospiti del sito_ Per chi accede al sito senza volers
 
 *Gestione viaggio*
 
-_Tipi di Viaggio_
+_Tipi di Viaggio_ Quando un _Autista_ mette a disposizione un nuovo viaggio, innanzitutto deve creare un nuovo _Pacchetto Viaggi_. Questo significa che è possibile indicare una data di inizio ed una data di fine validità del viaggio ed una periodicità (giornaliera, settimanale, mensile, etc..) del viaggio. All'interno di un _Pacchetto Viaggi_
 
   * pacchetto viaggio vs single (tipologia viaggio)
   * Modalità pagamento
