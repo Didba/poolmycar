@@ -35,8 +35,10 @@ _Funzionalità offerte agli ospiti del sito_ Per chi accede al sito senza volers
 
 _Tipi di Viaggio_ Quando un _Autista_ mette a disposizione un nuovo viaggio, innanzitutto deve creare un nuovo _Pacchetto Viaggi_. Questo è un insieme di uno o più viaggi messi a disposizione dall'autista. Questa modalità viene utilizzata per consentire all'_Autista_ di mettere a disposizione in un unico pacchetto viaggi che si ripetono con una cadenza periodica. E' in particolar modo utile per viaggiatori pendolari che desiderano usufruire del trasporto con una certa regolarità.
 
-  * pacchetto viaggio vs single (tipologia viaggio)
-  * Modalità pagamento
+_Contributo spese_ La gestione dei pagamenti non rientra nelle funzionalità offerte dal sistema. Alla creazione di un nuovo _Pacchetto Viaggi_ l'_Autista_ può segnalare se richiede o meno un contributo per le spese del viaggio; nel caso saranno gli utenti stessi a concordare l'ammontare del contributo e le modalità di pagamento attraverso il sistema di messaggistica disponibile sul sistema o nella maniera a loro più congeniale.
+
+
+  * bacheca sul pacchetto
   * inserimento (offerta ok, richiesta???)
   * ricerca
   * richieste partecipazione
