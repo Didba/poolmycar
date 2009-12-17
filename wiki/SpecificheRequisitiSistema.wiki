@@ -53,7 +53,7 @@ _Inserire un nuovo Pacchetto Viaggi_ Ovviamente solo un _Autista_ può inserire 
   * Data/e o Periodicità (*da rivedere*)
   * Note
 
-_Ricerca di un Viaggio_ Un qualunque visitatore può utilizzare il sistema di ricerca viaggio presente sul sito. Si può ricercare un viaggio inserendo l'indirizzo di partenza e quello di arrivo (in assenza di una via specifica si assume il centro città) oppure visionando una mappa presente sul sito che riporta graficamente i vari viaggi offerti. In ogni caso è possibile restringere il campo della ricerca ad un determinato intervallo temporale.
+_Ricerca di un Viaggio_ Un qualunque visitatore può utilizzare il sistema di ricerca viaggio presente sul sito. Si può ricercare un viaggio inserendo l'indirizzo di partenza e quello di arrivo (in assenza di una via specifica si assume il centro città) oppure visionando una mappa presente sul sito che riporta graficamente i vari viaggi offerti. Se si utlizza la prima modalità si può specificare un intervallo kilometrico dentro il quale vengano rilevate tutti i viaggi con partenza (o, in maniera speculare, con arrivo) al suo interno. In ogni caso è possibile restringere il campo della ricerca ad un determinato intervallo temporale.
 
 
   * richieste partecipazione
