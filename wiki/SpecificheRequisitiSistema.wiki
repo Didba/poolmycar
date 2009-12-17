@@ -37,7 +37,7 @@ _Dati profilo_ All'interno del profilo è possibile inserire e modificare alcune
 
 
 *Future Work*
-  * open ID
+  * Open ID
 
 *Web services offerti*
 
