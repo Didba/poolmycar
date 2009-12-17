@@ -47,11 +47,13 @@ Il sistema controlla che sia possibile per un utente rilasciare un commento su d
   * API google maps
 
 
+*Web services offerti*
+
+
+
 *Future Work*
   * Open ID
   * Possibilità di rilasciare un feedback ai compagni di viaggio. (e relativi problemi: pacchetti viaggio con persone diverse, persone che partecipano allo stesso viaggio ma in una tratta differente...)
-
-*Web services offerti*
 
 
 
