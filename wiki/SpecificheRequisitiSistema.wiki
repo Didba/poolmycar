@@ -14,16 +14,16 @@ Add your content here.
 
 *Gestione viaggio*
   * pacchetto viaggio vs single (tipologia viaggio)
-* Modalità pagamento
-* inserimento (offerta ok, richiesta???)
-* ricerca
-* richieste partecipazione
-* modifiche rinunce
-* gestione tappe percorsi
+  * Modalità pagamento
+  * inserimento (offerta ok, richiesta???)
+  * ricerca
+  * richieste partecipazione
+  * modifiche rinunce
+  * gestione tappe percorsi
 
 *Web services utilizzati*
-* open ID
-* API google maps
+  * open ID
+  * API google maps
 
 *Web services offerti*
 
