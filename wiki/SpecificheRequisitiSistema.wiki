@@ -1,0 +1,30 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+gestione utenti (viaggiatore autista, funzionalità per ospiti, feedback)
+Gestione viaggio
+   pacchetto viaggio vs single (tipologia viaggio)
+   Modalità pagamento
+   inserimento (offerta ok, richiesta???)
+   ricerca
+   richieste partecipazione
+   modifiche rinunce
+   gestione tappe percorsi
+Web services utilizzati
+    open ID
+    API google maps
+Web services offerti.
+
+
+
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
