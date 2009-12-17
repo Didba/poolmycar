@@ -37,9 +37,9 @@ _Tipi di Viaggio_ Quando un _Autista_ mette a disposizione un nuovo viaggio, inn
 
 _Contributo spese_ La gestione dei pagamenti non rientra nelle funzionalità offerte dal sistema. Alla creazione di un nuovo _Pacchetto Viaggi_ l'_Autista_ può segnalare se richiede o meno un contributo per le spese del viaggio; nel caso saranno gli utenti stessi a concordare l'ammontare del contributo e le modalità di pagamento attraverso il sistema di messaggistica disponibile sul sistema o nella maniera a loro più congeniale.
 
-_Bacheca del Viaggio_ Ad ogni _Pacchetto Viaggi_ è associata una _Bacheca_ in cui gli utenti registrati possono postare dei messaggi relativi al viaggio (o i viaggi) in questione. Tale _Bacheca_ è implementata per favorire una comunicazione efficace riguardo a tutti quegli aspetti relativi al _Viaggio_ per i _Viaggiatori_ interessati a parteciparvi. Il sistema mantiene in memoria lo storico dei messaggi _post_ ati in ogni _Bacheca_. 
+_Bacheca del Viaggio_ Ad ogni _Pacchetto Viaggi_ è associata una _Bacheca_ in cui gli utenti registrati possono postare dei messaggi relativi al viaggio (o i viaggi) in questione. Tale _Bacheca_ è implementata per favorire una comunicazione efficace riguardo a tutti quegli aspetti relativi al _Viaggio_ per i _Viaggiatori_ interessati a parteciparvi. Il sistema mantiene in memoria lo storico dei messaggi inseriti in ogni _Bacheca_. 
 
-  * bacheca sul pacchetto
+
   * inserimento (offerta ok, richiesta???)
   * ricerca
   * richieste partecipazione
