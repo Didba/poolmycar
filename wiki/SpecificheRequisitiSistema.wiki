@@ -8,8 +8,16 @@ Add your content here.
 = Details =
 
 *Gestione utenti*
-Tutti gli utenti registrati appartengono alla categoria _Viaggiatore_, ovvero hanno la possibilità di usufruire di uno dei viaggi messi a disposizione dagli autisti. I dati richiesti sono Nome, Cognome, email (indispensabile per confermare la registrazione) e un codice di verifica per evitare registrazioni automatiche (*spike*).
+
+_Viaggiatore_ Tutti gli utenti registrati appartengono alla categoria _Viaggiatore_, ovvero hanno la possibilità di usufruire di uno dei viaggi messi a disposizione dagli autisti. I dati richiesti sono Nome, Cognome, Sesso (M/F), data di nascita, email (indispensabile per confermare la registrazione), un codice di verifica per evitare registrazioni automatiche (*spike*) e alcuni dati facoltativi specificati più avanti.
+
+_Autista_ Successivamente all'iscrizione, un utente ha la possibilità di inserire i dati della propria patente di guida e assumere così anche il ruolo di _Autista_. Questo comporta la possibilità di inserire dei nuovi viaggi all'interno del sistema.
+
+_Dati profilo_ All'interno del profilo è possibile inserire e modificare alcune delle proprie informazioni personali. E' buona norma compilare questi campi per aiutare gli utenti nella scelta dei compagni di viaggio.  
+
+
   * viaggiatore autista
+  * dati viaggiatore e dati autista
   * funzionalità per ospiti
   * feedback
 
