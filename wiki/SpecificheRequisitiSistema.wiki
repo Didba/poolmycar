@@ -20,16 +20,31 @@ _Dati profilo_ All'interno del profilo è possibile inserire e modificare alcune
   * se disposto o meno a viaggiare con animali
   * ...
 ad un _Autista_ verrà ulteriormente chiesto:
-  * numero patente (necessario per diventare _Autista_)
-  * dati di almeno un mezzo (tipologia veicolo, numero posti disponibili)
+  * ...
+
+
+_Feedback_ Ad ogni utente registrato viene associato un feedback in qualità di viaggiatore. Se l'utente è anche _Autista_ avrà anche un secondo feedback in qualità di conducente. I feedback sono il sunto dei commenti rilasciati da altri utenti che hanno partecipato ad uno stesso viaggio.
+
+_Commento_ A viaggio concluso il sistema invia alla Inbox di ogni utente che ha partecipato al viaggio una _Richiesta di Commento_: attraverso i link di questo messaggio è possibile rilasciare un commento (facoltativo) per ogni utente che ha partecipato a quel viaggio. 
+Il sistema controlla che sia possibile per un utente rilasciare un commento su di un altro utente solo una volta per ogni _Pacchetto Viaggi_ a cui hanno partecipato entrambi. Nel caso si partecipi ad un _Pacchetto Viaggi_ che comprende più di un viaggio, è possibile rilasciare un commento subito dopo il termine del primo viaggio del pacchetto, ma questo commento potrà essere modificato nel tempo dall'utente stesso.
+
+(*rivedere: io partecipo allo stesso pacchetto con lo stesso autista ma mercoledì c'è uno giovedì un altro...*)
 
 
 
 
-  * viaggiatore autista
-  * dati viaggiatore e dati autista
+Un commento su di un utente è rilasciato da un altro utente a seguito di un viaggio al quale entrambi gli utenti hanno partecipato.
+
+(dopo viaggio link via mail per il commento a tutti i compagni)
+
+(rilascio commenti anche tra compagni di viaggio su singolo viaggio o pacchetto)
+
+
+
+
+
   * funzionalità per ospiti
-  * feedback
+
 
 
 
