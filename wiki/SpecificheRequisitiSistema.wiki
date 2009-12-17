@@ -13,7 +13,7 @@ Add your content here.
 
 
 *Gestione viaggio*
-* pacchetto viaggio vs single (tipologia viaggio)
+  * pacchetto viaggio vs single (tipologia viaggio)
 * Modalità pagamento
 * inserimento (offerta ok, richiesta???)
 * ricerca
