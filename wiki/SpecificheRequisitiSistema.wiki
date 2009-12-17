@@ -33,7 +33,7 @@ _Funzionalità offerte agli ospiti del sito_ Per chi accede al sito senza volers
 
 *Gestione viaggio*
 
-_Tipo di Viaggio_
+_Tipi di Viaggio_
 
   * pacchetto viaggio vs single (tipologia viaggio)
   * Modalità pagamento
