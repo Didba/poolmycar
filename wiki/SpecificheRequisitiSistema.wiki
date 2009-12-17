@@ -33,8 +33,11 @@ _Dati profilo_ All'interno del profilo è possibile inserire e modificare alcune
   * gestione tappe percorsi
 
 *Web services utilizzati*
-  * open ID
   * API google maps
+
+
+*Future Work*
+  * open ID
 
 *Web services offerti*
 
