@@ -8,7 +8,10 @@ Add your content here.
 = Details =
 
 *Gestione utenti*
- (viaggiatore autista, funzionalità per ospiti, feedback)
+Tutti gli utenti registrati appartengono alla categoria _Viaggiatore_, ovvero hanno la possibilità di usufruire di uno dei viaggi messi a disposizione dagli autisti. I dati richiesti sono Nome, Cognome, email (indispensabile per confermare la registrazione) e un codice di verifica per evitare registrazioni automatiche (*spike*).
+  * viaggiatore autista
+  * funzionalità per ospiti
+  * feedback
 
 
 
