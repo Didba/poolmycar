@@ -29,12 +29,6 @@ _Commento_ A viaggio concluso il sistema invia alla Inbox di ogni utente che ha 
 Il sistema controlla che sia possibile per un utente rilasciare un commento su di un altro utente solo una volta per ogni _Pacchetto Viaggi_ a cui hanno partecipato entrambi. Nel caso si partecipi ad un _Pacchetto Viaggi_ che comprende più di un viaggio, è possibile rilasciare un commento subito dopo il termine del primo viaggio del pacchetto; ma questo commento potrà essere modificato nel tempo dall'utente stesso.
 
 
-(rilascio commenti anche tra compagni di viaggio su singolo viaggio o pacchetto)
-
-
-
-
-
   * funzionalità per ospiti
 
 
@@ -55,7 +49,7 @@ Il sistema controlla che sia possibile per un utente rilasciare un commento su d
 
 *Future Work*
   * Open ID
-  * Possibilità di lasciare un feedback ai compagni di viaggio. (e relativi problemi: pacchetti viaggio con persone diverse, persone che partecipano allo stesso viaggio ma in una tratta differente...)
+  * Possibilità di rilasciare un feedback ai compagni di viaggio. (e relativi problemi: pacchetti viaggio con persone diverse, persone che partecipano allo stesso viaggio ma in una tratta differente...)
 
 *Web services offerti*
 
