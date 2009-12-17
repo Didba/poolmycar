@@ -29,12 +29,6 @@ _Commento_ A viaggio concluso il sistema invia alla Inbox di ogni utente che ha 
 Il sistema controlla che sia possibile per un utente rilasciare un commento su di un altro utente solo una volta per ogni _Pacchetto Viaggi_ a cui hanno partecipato entrambi. Nel caso si partecipi ad un _Pacchetto Viaggi_ che comprende più di un viaggio, è possibile rilasciare un commento subito dopo il termine del primo viaggio del pacchetto; ma questo commento potrà essere modificato nel tempo dall'utente stesso.
 
 
-
-
-Un commento su di un utente è rilasciato da un altro utente a seguito di un viaggio al quale entrambi gli utenti hanno partecipato.
-
-(dopo viaggio link via mail per il commento a tutti i compagni)
-
 (rilascio commenti anche tra compagni di viaggio su singolo viaggio o pacchetto)
 
 
