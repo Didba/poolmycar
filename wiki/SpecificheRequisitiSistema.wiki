@@ -39,6 +39,7 @@ _Contributo spese_ La gestione dei pagamenti non rientra nelle funzionalità off
 
 _Bacheca del Viaggio_ Ad ogni _Pacchetto Viaggi_ è associata una _Bacheca_ in cui gli utenti registrati possono postare dei messaggi relativi al viaggio (o i viaggi) in questione. Tale _Bacheca_ è implementata per favorire una comunicazione efficace riguardo a tutti quegli aspetti relativi al _Viaggio_ per i _Viaggiatori_ interessati a parteciparvi. Il sistema mantiene in memoria lo storico dei messaggi inseriti in ogni _Bacheca_. 
 
+_Inserire un nuovo Viaggio_ 
 
   * inserimento (offerta ok, richiesta???)
   * ricerca
