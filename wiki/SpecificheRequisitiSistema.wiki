@@ -62,11 +62,11 @@ Un viaggiatore compilando questi campi crea una richiesta che viene inviata a ch
  - rifiutare la richiesta con un'eventuale motivazione.
 Il viaggiatore che ha creato la richiesta e ha ricevuto una proposta di modifica può accettarla, proporre una nuova modifica o annullare la richiesta.
 
-
+_Modifiche, Rinunce e Cancellazioni_ Entro 48 ore dalla partenza è ancora possibile modificare i dati del viaggio (come indirizzo di partenza, ora, data, etc..). La modifica verrà notificata ai partecipanti e richiedenti del viaggio tramite un messaggio sulla Inbox e per i passeggeri già accettati sarà richiesta una nuova conferma.
 
 (arrivo e partenza tappe speciali, ricerca solo considerando tutte le tappe)
 
-  * richieste partecipazione
+
   * modifiche rinunce
   * gestione tappe percorsi
 
