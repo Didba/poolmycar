@@ -62,24 +62,27 @@ Un viaggiatore compilando questi campi crea una richiesta che viene inviata a ch
  - rifiutare la richiesta con un'eventuale motivazione.
 Il viaggiatore che ha creato la richiesta e ha ricevuto una proposta di modifica può accettarla, proporre una nuova modifica o annullare la richiesta.
 
-_Modifiche, Rinunce e Cancellazioni_ Entro 48 ore dalla partenza è ancora possibile modificare i dati del viaggio (come indirizzo di partenza, ora, data, etc..). La modifica verrà notificata ai partecipanti e richiedenti del viaggio tramite un messaggio sulla Inbox e per i passeggeri già accettati sarà richiesta una nuova conferma.
+_Modifiche, Rinunce e Cancellazioni_ Entro 3 giorni dalla partenza è ancora possibile modificare i dati del viaggio (come indirizzo di partenza, ora, data, etc..). La modifica verrà notificata ai partecipanti e richiedenti del viaggio tramite un messaggio sulla Inbox; per i passeggeri già accettati, in particolare, viene considerata ancora valida la loro partecipazione e viene data la possibilità di rifiutare il nuovo viaggio modificato.
+Se il viaggio viene cancellato, sempre entro 3 giorni dalla partenza, il fatto viene notificato ai passeggeri.
+I passeggeri, entro lo stesso limite di tempo, possono rinunciare al viaggio.
+
+_Gestione Tappe e Percorsi_
 
 (arrivo e partenza tappe speciali, ricerca solo considerando tutte le tappe)
 
-
-  * modifiche rinunce
-  * gestione tappe percorsi
 
 *Web services utilizzati*
   * API google maps
 
 
 *Web services offerti*
-
+   * La ricerca dei viaggi
+   * *PALARE CON LA PETRONE*
 
 
 *Future Work*
   * Open ID
+  * Notifiche via SMS
   * Possibilità di rilasciare un feedback ai compagni di viaggio. (e relativi problemi: pacchetti viaggio con persone diverse, persone che partecipano allo stesso viaggio ma in una tratta differente...)
 
 
