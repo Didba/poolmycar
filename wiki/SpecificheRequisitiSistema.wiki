@@ -9,6 +9,8 @@ Add your content here.
 
 *Gestione utenti*
 
+La gestione degli utenti viene fatta attraverso un database interno. Non si è reso necessario l'utilizzo di servizi di autenticazione esterni (come OpenID) in quanto l'unico web service offerto è la ricerca (effettuabile senza autenticazione).
+
 _Viaggiatore_ Tutti gli utenti registrati appartengono alla categoria _Viaggiatore_, ovvero hanno la possibilità di usufruire di uno dei viaggi messi a disposizione dagli autisti. I dati richiesti sono Nome, Cognome, Sesso (M/F), data di nascita, email (indispensabile per confermare la registrazione), un codice di verifica per evitare registrazioni automatiche (*spike*) e alcuni dati facoltativi specificati più avanti.
 
 _Autista_ Successivamente all'iscrizione, un utente ha la possibilità di inserire i dati della propria patente di guida e assumere così anche il ruolo di _Autista_. Questo comporta la possibilità di inserire dei nuovi viaggi all'interno del sistema. Durante quest'assunzione di ruolo è obbligatorio anche fornire i dati di almeno una tipologia di mezzo che l'autista intende utilizzare per i propri viaggi.
@@ -67,8 +69,7 @@ Se il viaggio viene cancellato, sempre entro 3 giorni dalla partenza, il fatto v
 I passeggeri, entro lo stesso limite di tempo, possono rinunciare al viaggio.
 
 _Gestione Tappe e Percorsi_
-
-(arrivo e partenza tappe speciali, ricerca solo considerando tutte le tappe)
+L'inserimento di tappe intermedie nel percorso può essere effettuato solo dall'organizzatore del viaggio su indicazione dei potenziali partecipanti attraverso la bacheca disponibile.
 
 
 *Web services utilizzati*
@@ -77,16 +78,17 @@ _Gestione Tappe e Percorsi_
 
 *Web services offerti*
    * La ricerca dei viaggi
-   * *PALARE CON LA PETRONE*
 
 
 *Future Work*
-  * Open ID
   * Aiuto dinamico nella compilazione campi indirizzi
   * Notifiche via SMS
   * Possibilità di rilasciare un feedback ai compagni di viaggio. (e relativi problemi: pacchetti viaggio con persone diverse, persone che partecipano allo stesso viaggio ma in una tratta differente...)
+  * Ricerca viaggio per località diverse da tappe già definite
 
 
+
+NOTA: le tappe come gestirle? fare caso d'uso "aggiungi tappa"
 
 
 Add your content here.  Format your content with:
