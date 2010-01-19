@@ -1,0 +1,15 @@
+#summary Analisi specifica del progetto da implementare a seguito delle spikes gdata.
+
+= Introduction =
+
+Un primo prototipo vedrà implementate le due principali funzionalità di inserimento e ricerca di un viaggio.
+
+
+= Details =
+  * *Inserimento viaggio*
+  * *Ricerca viaggio*
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
