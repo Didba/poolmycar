@@ -17,10 +17,17 @@ Sui due indirizzi verrà calcolata una funzione di geocoding per ottenere le ris
 //chiamare loffredo
 
 = Ricerca viaggio =
-E` possibile ricercare i viaggi presenti nel sistema inserendo:
+E` possibile ricercare i viaggi presenti nel sistema inserendo la data e:
   * indirizzo di partenza e il raggio chilometrico del suo intorno
   * indirizzo di partenza e di arrivo e i relativi raggi chilometrici degli intorni
 In particolare la prima opzione consente ai viaggiatori di poter trovare un viaggio che parta dall'indirizzo specificato e la cui destinazione sia coperta dalla tratta del viaggio.
+I viaggi che rispettano i criteri di ricerca vengono elencati in base ai seguenti parametri selezionabili dall'utente:
+  * lunghezza percorso: crescente (default) o  decrescente
+  * citta` d'arrivo in ordine alfabetico
+  * data di creazione
+  * data di validita`
+
+Del viaggio selezionato tra quelli elencati verra` visualizzata la mappa con il percorso.
 
 
 
