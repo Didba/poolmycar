@@ -5,9 +5,10 @@
 Un primo prototipo vedrà implementate le due principali funzionalità di inserimento e ricerca di un viaggio.
 
 
-= Details =
-  * *Inserimento viaggio*
-  * *Ricerca viaggio*
+= Inserimento viaggio =
+All'atto dell'inserimento di un viaggio verrà visualizzato un form per specificare gli indirizzi di arrivo e partenza. Sarà resa disponibile un'opzione per l'aggiunta di eventuali tappe intermedie e l'intero percorso sarà visualizzato su mappa.
+
+= Ricerca viaggio =
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
