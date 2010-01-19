@@ -26,10 +26,9 @@ I viaggi che rispettano i criteri di ricerca vengono elencati in base ai seguent
   * citta` d'arrivo in ordine alfabetico
   * data di creazione
   * data di validita`
-
 Del viaggio selezionato tra quelli elencati verra` visualizzata la mappa con il percorso.
 
-
+I dati dei viaggi vengono recupertati dal database e memorizzati in un bean stateless (*da vedere*). Quando si seleziona un viaggio e si vuole visualizzare mappa e percorso la funzione javascript "setDirections" prendera' come parametri i valori memorizzati nel bean.
 
 
 
