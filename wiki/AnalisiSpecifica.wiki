@@ -8,6 +8,9 @@ Un primo prototipo vedrà implementate le due principali funzionalità di inseri
 = Inserimento viaggio =
 All'atto dell'inserimento di un viaggio verrà visualizzato un form per specificare gli indirizzi di arrivo e partenza. Sarà resa disponibile un'opzione per l'aggiunta di eventuali tappe intermedie e l'intero percorso sarà visualizzato su mappa.
 Sui due indirizzi verrà calcolata una funzione di geocoding per ottenere le rispettive coordinate geografiche. Queste coordinate serviranno come parametri per richiamare una funzione javascript che utilizza le API di GoogleMaps per visualizzare un percorso. Le tappe intermedie saranno aggiunte in un secondo momento come oggetti Markers (*da vedere*).
+
+
+
 //gestione tappe
 //ordine per distanza non sempre affidabile
 //ordine da utente...
@@ -17,7 +20,7 @@ Sui due indirizzi verrà calcolata una funzione di geocoding per ottenere le ris
 E` possibile ricercare i viaggi presenti nel sistema inserendo:
   * indirizzo di partenza e il raggio chilometrico del suo intorno
   * indirizzo di partenza e di arrivo e i relativi raggi chilometrici degli intorni
-La prima opzione consente ai viaggiatori di poter trovare un viaggio che parta dall'indirizzo specificato e la cui destinazione sia coperta dalla tratta di un viaggio.
+In particolare la prima opzione consente ai viaggiatori di poter trovare un viaggio che parta dall'indirizzo specificato e la cui destinazione sia coperta dalla tratta del viaggio.
 
 
 
