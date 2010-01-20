@@ -9,6 +9,9 @@ Un primo prototipo vedrà implementate le due principali funzionalità di inseri
 All'atto dell'inserimento di un viaggio verrà visualizzato un form per specificare gli indirizzi di arrivo e partenza. Sarà resa disponibile un'opzione per l'aggiunta di eventuali tappe intermedie e l'intero percorso sarà visualizzato su mappa.
 Sui due indirizzi verrà calcolata una funzione di geocoding per ottenere le rispettive coordinate geografiche. Queste coordinate serviranno come parametri per richiamare una funzione javascript che utilizza le API di GoogleMaps per visualizzare un percorso. Le tappe intermedie saranno aggiunte in un secondo momento come oggetti Markers (*da vedere*).
 
+_Questo viene rappresentato come un "pacchetto viaggio".
+Il pacchetto conterrà una lista di date.
+Al "pacchetto viaggio" è possibile aggiungere alcune eccezioni (tappe straordinarie, date straordinarie...). Questo causerà l'istanziazione di un oggetto di tipo "viaggio". In questo caso la data viene tolta dal pacchetto_
 
 
 = Inserimento e modifica tappe =
