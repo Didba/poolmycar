@@ -13,23 +13,21 @@ _Nell'inserimento viaggio è disponibile un form con due textbox per insierire i
 
 
 = Inserimento e modifica tappe =
-Alla creazione del viaggio o in seguito è possibile aggiungere tappe intermedie nel percorso. Ad esempio un oggetto Richiesta suggerisce all'Autista fino a due tappe da aggiungere al viaggio: l'indirizzo 
+Alla creazione del viaggio o in seguito è possibile aggiungere tappe intermedie nel percorso. Ad esempio un oggetto Richiesta suggerisce all'Autista fino a due tappe da aggiungere al viaggio: la partenza e la destinazione del passeggero (se differenti da quelle speficate nel pacchetto).
 Accanto alla mappa del percorso viene visualizzata la lista degli attuali punti di passaggio del percorso. Ogni tappa potrà essere rimossa o spostata d'ordine. Per ognuna di queste operazioni la mappa visualizzata proporrà lo stato attuale del viaggio secondo le modifiche. Una volta completate le operazioni, con un tasto salva verranno rese persistenti le modifiche.
-
-
-//ordine per distanza non sempre affidabile
-//ordine da utente...
-//chiamare loffredo
+L'ordinamento delle tappe è comunque affidato all'autista.
 
 = Ricerca viaggio =
 E` possibile ricercare i viaggi presenti nel sistema inserendo la data e:
   * indirizzo di partenza e il raggio chilometrico del suo intorno
+  * indirizzo di arrivo e il raggio chilometrico del suo intorno
   * indirizzo di partenza e di arrivo e i relativi raggi chilometrici degli intorni
-In particolare la prima opzione consente ai viaggiatori di poter trovare un viaggio che parta dall'indirizzo specificato e la cui destinazione sia coperta dalla tratta del viaggio.
+In particolare la prima e la seconda opzione consentono ai viaggiatori di poter trovare un viaggio che parta o termini all'indirizzo specificato senza vincolare la tratta coperta dal viaggio.
 I viaggi che rispettano i criteri di ricerca vengono elencati in base ai seguenti parametri selezionabili dall'utente:
   * lunghezza percorso: crescente (default) o  decrescente
   * citta` d'arrivo in ordine alfabetico
+  * città di partenza in ordine alfabetico
   * data di creazione
   * data di validita`
 Del viaggio selezionato tra quelli elencati verra` visualizzata la mappa con il percorso.
-I dati dei viaggi vengono recupertati dal database e memorizzati in un bean stateless (*da vedere*). Quando si seleziona un viaggio e si vuole visualizzare mappa e percorso la funzione javascript "setDirections" prendera' come parametri i valori memorizzati nel bean.
+I dati dei viaggi vengono recupertati dal database e memorizzati in un bean stateless. Quando si seleziona un viaggio e si vuole visualizzare mappa e percorso la funzione javascript "setDirections" prendera' come parametri i valori memorizzati nel bean.
