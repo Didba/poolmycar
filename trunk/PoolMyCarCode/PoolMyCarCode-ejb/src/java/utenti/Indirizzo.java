@@ -27,6 +27,10 @@ public class Indirizzo implements Serializable {
     private String cap;
     private String stato;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Long getId() {
         return id;
     }

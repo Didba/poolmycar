@@ -70,6 +70,30 @@ public class CommentoViaggiatore implements Serializable {
         this.puntualita = puntualita;
     }
 
+    public Date getDataCreazione() {
+        return dataCreazione;
+    }
+
+    public void setDataCreazione(Date dataCreazione) {
+        this.dataCreazione = dataCreazione;
+    }
+
+    public FeedbackViaggiatore getFeedbackViaggiatore() {
+        return feedbackViaggiatore;
+    }
+
+    public void setFeedbackViaggiatore(FeedbackViaggiatore feedbackViaggiatore) {
+        this.feedbackViaggiatore = feedbackViaggiatore;
+    }
+
+    public Pacchetto getPacchetto() {
+        return pacchetto;
+    }
+
+    public void setPacchetto(Pacchetto pacchetto) {
+        this.pacchetto = pacchetto;
+    }
+
 
     public Long getId() {
         return id;

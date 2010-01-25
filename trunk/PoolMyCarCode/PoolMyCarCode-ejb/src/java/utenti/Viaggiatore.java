@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import viaggi.Pacchetto;
 import viaggi.Richiesta;
 import viaggi.Viaggio;
 
@@ -42,6 +41,30 @@ public class Viaggiatore implements Serializable {
     protected boolean fumatore;
     @OneToMany(mappedBy = "autore")
     private List<CommentoAutista> commentiRilasciati;
+
+    public List<CommentoAutista> getCommentiRilasciati() {
+        return commentiRilasciati;
+    }
+
+    public void setCommentiRilasciati(List<CommentoAutista> commentiRilasciati) {
+        this.commentiRilasciati = commentiRilasciati;
+    }
+
+    public List<Richiesta> getRichieste() {
+        return richieste;
+    }
+
+    public void setRichieste(List<Richiesta> richieste) {
+        this.richieste = richieste;
+    }
+
+    public List<Viaggio> getViaggi() {
+        return viaggi;
+    }
+
+    public void setViaggi(List<Viaggio> viaggi) {
+        this.viaggi = viaggi;
+    }
 
     public String getCf() {
         return cf;

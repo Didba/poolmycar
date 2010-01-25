@@ -26,6 +26,10 @@ public class FeedbackViaggiatore implements Serializable {
     @OneToMany(mappedBy = "feedbackViaggiatore")
     private List<CommentoViaggiatore> commenti;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public List<CommentoViaggiatore> getCommenti() {
         return commenti;
     }
