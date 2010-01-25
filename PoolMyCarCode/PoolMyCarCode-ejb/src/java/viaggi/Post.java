@@ -46,6 +46,31 @@ public class Post implements Serializable {
         return hash;
     }
 
+    public Viaggiatore getAutore() {
+        return autore;
+    }
+
+    public void setAutore(Viaggiatore autore) {
+        this.autore = autore;
+    }
+
+    public Date getDataCreazione() {
+        return dataCreazione;
+    }
+
+    public void setDataCreazione(Date dataCreazione) {
+        this.dataCreazione = dataCreazione;
+    }
+
+    public String getTesto() {
+        return testo;
+    }
+
+    public void setTesto(String testo) {
+        this.testo = testo;
+    }
+    
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

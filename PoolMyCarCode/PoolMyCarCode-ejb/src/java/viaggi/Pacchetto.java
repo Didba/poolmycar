@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,7 +18,6 @@ import javax.persistence.Temporal;
 import utenti.Autista;
 import utenti.CommentoAutista;
 import utenti.CommentoViaggiatore;
-import utenti.Viaggiatore;
 
 /**
  *
@@ -65,6 +63,94 @@ public class Pacchetto implements Serializable {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    public Tappa getArrivo() {
+        return arrivo;
+    }
+
+    public void setArrivo(Tappa arrivo) {
+        this.arrivo = arrivo;
+    }
+
+    public Autista getAutista() {
+        return autista;
+    }
+
+    public void setAutista(Autista autista) {
+        this.autista = autista;
+    }
+
+    public Bacheca getBacheca() {
+        return bacheca;
+    }
+
+    public void setBacheca(Bacheca bacheca) {
+        this.bacheca = bacheca;
+    }
+
+    public List<CommentoAutista> getCommentiAutista() {
+        return commentiAutista;
+    }
+
+    public void setCommentiAutista(List<CommentoAutista> commentiAutista) {
+        this.commentiAutista = commentiAutista;
+    }
+
+    public List<CommentoViaggiatore> getCommentiViaggiatori() {
+        return commentiViaggiatori;
+    }
+
+    public void setCommentiViaggiatori(List<CommentoViaggiatore> commentiViaggiatori) {
+        this.commentiViaggiatori = commentiViaggiatori;
+    }
+
+    public Date getFine() {
+        return fine;
+    }
+
+    public void setFine(Date fine) {
+        this.fine = fine;
+    }
+
+    public Date getInizio() {
+        return inizio;
+    }
+
+    public void setInizio(Date inizio) {
+        this.inizio = inizio;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+
+    public Tappa getPartenza() {
+        return partenza;
+    }
+
+    public void setPartenza(Tappa partenza) {
+        this.partenza = partenza;
+    }
+
+    public boolean isRichiestaContributi() {
+        return richiestaContributi;
+    }
+
+    public void setRichiestaContributi(boolean richiestaContributi) {
+        this.richiestaContributi = richiestaContributi;
+    }
+
+    public List<Viaggio> getViaggi() {
+        return viaggi;
+    }
+
+    public void setViaggi(List<Viaggio> viaggi) {
+        this.viaggi = viaggi;
     }
 
     @Override

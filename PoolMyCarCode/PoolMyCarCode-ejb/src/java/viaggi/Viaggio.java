@@ -69,6 +69,54 @@ public class Viaggio implements Serializable {
         return true;
     }
 
+    public Date getDataPartenza() {
+        return dataPartenza;
+    }
+
+    public void setDataPartenza(Date dataPartenza) {
+        this.dataPartenza = dataPartenza;
+    }
+
+    public float getLunghezzaPercorso() {
+        return lunghezzaPercorso;
+    }
+
+    public void setLunghezzaPercorso(float lunghezzaPercorso) {
+        this.lunghezzaPercorso = lunghezzaPercorso;
+    }
+
+    public Pacchetto getPacchetto() {
+        return pacchetto;
+    }
+
+    public void setPacchetto(Pacchetto pacchetto) {
+        this.pacchetto = pacchetto;
+    }
+
+    public List<Richiesta> getRichieste() {
+        return richieste;
+    }
+
+    public void setRichieste(List<Richiesta> richieste) {
+        this.richieste = richieste;
+    }
+
+    public List<Tappa> getTappe() {
+        return tappe;
+    }
+
+    public void setTappe(List<Tappa> tappe) {
+        this.tappe = tappe;
+    }
+
+    public List<Viaggiatore> getViaggiatori() {
+        return viaggiatori;
+    }
+
+    public void setViaggiatori(List<Viaggiatore> viaggiatori) {
+        this.viaggiatori = viaggiatori;
+    }
+
     @Override
     public String toString() {
         return "viaggi.Viaggio[id=" + id + "]";

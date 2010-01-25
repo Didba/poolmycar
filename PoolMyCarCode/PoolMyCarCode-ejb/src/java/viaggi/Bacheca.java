@@ -29,6 +29,23 @@ public class Bacheca implements Serializable {
     @OneToMany
     private List<Post> messaggi;
 
+    public List<Post> getMessaggi() {
+        return messaggi;
+    }
+
+    public void setMessaggi(List<Post> messaggi) {
+        this.messaggi = messaggi;
+    }
+
+    public Pacchetto getPacchetto() {
+        return pacchetto;
+    }
+
+    public void setPacchetto(Pacchetto pacchetto) {
+        this.pacchetto = pacchetto;
+    }
+
+    
 
     public Long getId() {
         return id;

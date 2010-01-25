@@ -6,7 +6,6 @@
 package viaggi;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
 import utenti.Viaggiatore;
 
 /**
@@ -70,6 +68,54 @@ public class Richiesta implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public boolean isAccettata() {
+        return accettata;
+    }
+
+    public void setAccettata(boolean accettata) {
+        this.accettata = accettata;
+    }
+
+    public Viaggiatore getAutore() {
+        return autore;
+    }
+
+    public void setAutore(Viaggiatore autore) {
+        this.autore = autore;
+    }
+
+    public Tappa getDestinazione() {
+        return destinazione;
+    }
+
+    public void setDestinazione(Tappa destinazione) {
+        this.destinazione = destinazione;
+    }
+
+    public Tappa getIncontro() {
+        return incontro;
+    }
+
+    public void setIncontro(Tappa incontro) {
+        this.incontro = incontro;
+    }
+
+    public List<Post> getMessaggi() {
+        return messaggi;
+    }
+
+    public void setMessaggi(List<Post> messaggi) {
+        this.messaggi = messaggi;
+    }
+
+    public List<Viaggio> getViaggi() {
+        return viaggi;
+    }
+
+    public void setViaggi(List<Viaggio> viaggi) {
+        this.viaggi = viaggi;
     }
 
     @Override

@@ -7,12 +7,10 @@ package utenti;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import viaggi.Pacchetto;
@@ -40,6 +38,38 @@ public class CommentoAutista implements Serializable {
     private Pacchetto pacchetto;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCreazione;
+
+    public Viaggiatore getAutore() {
+        return autore;
+    }
+
+    public void setAutore(Viaggiatore autore) {
+        this.autore = autore;
+    }
+
+    public Date getDataCreazione() {
+        return dataCreazione;
+    }
+
+    public void setDataCreazione(Date dataCreazione) {
+        this.dataCreazione = dataCreazione;
+    }
+
+    public FeedbackAutista getFeedbackAutista() {
+        return feedbackAutista;
+    }
+
+    public void setFeedbackAutista(FeedbackAutista feedbackAutista) {
+        this.feedbackAutista = feedbackAutista;
+    }
+
+    public Pacchetto getPacchetto() {
+        return pacchetto;
+    }
+
+    public void setPacchetto(Pacchetto pacchetto) {
+        this.pacchetto = pacchetto;
+    }
 
     public int getCordialitaCorrettezza() {
         return cordialitaCorrettezza;

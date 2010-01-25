@@ -30,6 +30,11 @@ public class FeedbackAutista implements Serializable {
     private int cordialitaCorrettezza;
     private int comfortDiGuida;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+
     public int getComfortDiGuida() {
         return comfortDiGuida;
     }

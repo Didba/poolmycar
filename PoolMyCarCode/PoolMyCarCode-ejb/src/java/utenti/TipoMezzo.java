@@ -24,6 +24,10 @@ public class TipoMezzo implements Serializable {
     private String nome;
     private int posti;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public String getNome() {
         return nome;
     }

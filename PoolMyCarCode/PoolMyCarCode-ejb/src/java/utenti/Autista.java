@@ -31,15 +31,21 @@ public class Autista extends Viaggiatore{
     @OneToOne
     private FeedbackAutista feedback;
     @OneToMany(mappedBy = "autista")
-    private List<Pacchetto> viaggi;
+    private List<Pacchetto> pacchetti;
 
-    public List<Pacchetto> getViaggi() {
-        return viaggi;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setViaggi(List<Pacchetto> viaggi) {
-        this.viaggi = viaggi;
+    public List<Pacchetto> getPacchetti() {
+        return pacchetti;
     }
+
+    public void setPacchetti(List<Pacchetto> pacchetti) {
+        this.pacchetti = pacchetti;
+    }
+
 
 
     /**
