@@ -17,7 +17,7 @@ _Nell'inserimento viaggio è disponibile un form con due textbox per insierire i
 
 
 = Inserimento e modifica tappe =
-Alla creazione del viaggio o in seguito è possibile aggiungere tappe intermedie nel percorso. Ad esempio un oggetto Richiesta suggerisce all'Autista fino a due tappe da aggiungere al viaggio: la partenza e la destinazione del passeggero (se differenti da quelle speficate nel pacchetto).
+Alla creazione del pacchetto è possibile aggiungere tappe intermedie nel percorso. In seguito non è possibile modificare il pacchetto. Le modifiche alle tappe possono essere fatte solo sui singoli viaggi. Ad esempio un oggetto Richiesta suggerisce all'Autista fino a due tappe da aggiungere al viaggio: la partenza e la destinazione del passeggero (se differenti da quelle speficate nel pacchetto).
 Accanto alla mappa del percorso viene visualizzata la lista degli attuali punti di passaggio del percorso. Ogni tappa potrà essere rimossa o spostata d'ordine. Per ognuna di queste operazioni la mappa visualizzata proporrà lo stato attuale del viaggio secondo le modifiche. Una volta completate le operazioni, con un tasto salva verranno rese persistenti le modifiche.
 L'ordinamento delle tappe è comunque affidato all'autista.
 
