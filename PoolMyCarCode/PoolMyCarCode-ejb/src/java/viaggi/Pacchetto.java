@@ -37,6 +37,8 @@ public class Pacchetto implements Serializable {
     private Tappa partenza;
     @OneToOne
     private Tappa arrivo;
+    @OneToMany
+    private List<Tappa> tappeIntermedie;
     @ManyToOne
     private Autista autista;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -169,5 +171,19 @@ public class Pacchetto implements Serializable {
     @Override
     public String toString() {
         return "viaggi.Pacchetto[id=" + id + "]";
+    }
+
+    /**
+     * @return the tappeIntermedie
+     */
+    public List<Tappa> getTappeIntermedie() {
+        return tappeIntermedie;
+    }
+
+    /**
+     * @param tappeIntermedie the tappeIntermedie to set
+     */
+    public void setTappeIntermedie(List<Tappa> tappeIntermedie) {
+        this.tappeIntermedie = tappeIntermedie;
     }
 }

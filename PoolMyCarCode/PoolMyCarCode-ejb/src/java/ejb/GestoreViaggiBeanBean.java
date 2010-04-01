@@ -47,7 +47,6 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
                     String[] coordinate=inputLine.split(",");
                     if(coordinate.length==4){
                         Tappa t=new Tappa();
-                        t.setIndirizzo(/*buahahahahhahahahaha*/);
                         t.setLatitudine(new Double(coordinate[2]));
                         t.setLongitudine(new Double(coordinate[3]));
                         tappe.add(t);
