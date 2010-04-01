@@ -9,6 +9,10 @@ Un primo prototipo vedrà implementate le due principali funzionalità di inseri
 All'atto dell'inserimento di un viaggio verrà visualizzato un form per specificare gli indirizzi di arrivo e partenza. Sarà resa disponibile un'opzione per l'aggiunta di eventuali tappe intermedie e l'intero percorso sarà visualizzato su mappa.
 Sui due indirizzi verrà calcolata una funzione di geocoding per ottenere le rispettive coordinate geografiche. Queste coordinate serviranno come parametri per richiamare una funzione javascript che utilizza le API di GoogleMaps per visualizzare un percorso. Le tappe intermedie saranno aggiunte in un secondo momento come oggetti Markers (*da vedere*).
 
+= Viaggi e Pacchetti =
+Il pacchetto raggruppa viaggi di uno stesso utente con stesse tappe di arrivo e partenza. I viaggi si distinguono per la data. Quando l'autista inserisce i dati del viaggio ne specifica le date con o senza ricorrenza.
+Il pacchetto definisce il percorso di defautl con le tappe intermedie, e i viaggi vengono istanziati con la stessa lista di tappe. La lista delle tappe di un viaggio viene modificata solo attraverso l'aggiunta di nuove tappe per lo scarico e carico di passeggeri.
+
 _Nell'inserimento viaggio è disponibile un form con due textbox per insierire i campi di partenza e arrivo e una mappa a fianco inizialmente centrata su un punto (pier della francesca). Inseriti i primi due campi e cliccato ok verrà visualizzato il percorso su mappa, comparirà un'opzione "aggiungi destinazione" che con javascript aggiunge un campo del form e comparirà un bottone salva viaggio che riporta il percorso fino ad ora creato alla servlet che lo salverà su DB_
 
 
