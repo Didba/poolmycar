@@ -154,6 +154,7 @@ public class Pacchetto implements Serializable {
     public void setViaggi(List<Viaggio> viaggi) {
         this.viaggi = viaggi;
     }
+    
 
     @Override
     public boolean equals(Object object) {
