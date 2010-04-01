@@ -5,17 +5,23 @@
 
 package ejb;
 
+import facades.PacchettoFacadeLocal;
+import facades.ViaggioFacadeLocal;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import viaggi.Pacchetto;
 import viaggi.Tappa;
+import viaggi.Viaggio;
 
 /**
  *
@@ -23,10 +29,14 @@ import viaggi.Tappa;
  */
 @Stateless
 public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
+    @EJB
+    private ViaggioFacadeLocal viaggioFacade;
+    @EJB
+    private PacchettoFacadeLocal pacchettoFacade;
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
-    public void geocoding(List<String> indirizzi){
+    public List<Tappa> geocoding(List<String> indirizzi){
         List<Tappa> tappe=new LinkedList<Tappa>();
         for(String s: indirizzi){
             s.replace(' ', '+');
@@ -57,6 +67,20 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
             }
             
         }
+        return tappe;
+        
     }
- 
+    
+    
+    public boolean inserisciPacchetto(List<Tappa> tappe, List<Date> date){
+        Pacchetto pacchetto=new Pacchetto();
+        pacchetto.setPartenza(tappe.get(0));
+        pacchetto.setArrivo(tappe.get(tappe.size()-1));
+        List<Viaggio> viaggi= new LinkedList();
+        for(Date d:date){
+            Viaggio viaggio=new Viaggio();
+            viaggio.setPacchetto(pacchetto);
+        }
+        return true;
+    }
 }
