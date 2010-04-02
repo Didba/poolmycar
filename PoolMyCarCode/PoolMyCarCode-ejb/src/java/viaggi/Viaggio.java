@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import utenti.Viaggiatore;
 
@@ -30,7 +31,7 @@ public class Viaggio implements Serializable {
     private Date dataPartenza;
     private float lunghezzaPercorso;
     @OneToMany
-    private List<Tappa> tappe;
+    private List<Tappa> tappeIntermedie;
     @ManyToMany
     private List<Viaggiatore> viaggiatori;
 
@@ -40,6 +41,47 @@ public class Viaggio implements Serializable {
     private Long id;
     @ManyToMany
     private List<Richiesta> richieste;
+    @OneToOne
+    private Tappa partenza;
+    @OneToOne
+     private Tappa arrivo;
+
+    /**
+     * Get the value of partenza
+     *
+     * @return the value of partenza
+     */
+    public Tappa getPartenza() {
+        return partenza;
+    }
+
+    /**
+     * Set the value of partenza
+     *
+     * @param partenza new value of partenza
+     */
+    public void setPartenza(Tappa partenza) {
+        this.partenza = partenza;
+    }
+
+
+    /**
+     * Get the value of arrivo
+     *
+     * @return the value of arrivo
+     */
+    public Tappa getArrivo() {
+        return arrivo;
+    }
+
+    /**
+     * Set the value of arrivo
+     *
+     * @param arrivo new value of arrivo
+     */
+    public void setArrivo(Tappa arrivo) {
+        this.arrivo = arrivo;
+    }
 
     public Long getId() {
         return id;
@@ -101,12 +143,12 @@ public class Viaggio implements Serializable {
         this.richieste = richieste;
     }
 
-    public List<Tappa> getTappe() {
-        return tappe;
+    public List<Tappa> getTappeIntermedie() {
+        return tappeIntermedie;
     }
 
-    public void setTappe(List<Tappa> tappe) {
-        this.tappe = tappe;
+    public void setTappeIntermedie(List<Tappa> tappeIntermedie) {
+        this.tappeIntermedie = tappeIntermedie;
     }
 
     public List<Viaggiatore> getViaggiatori() {

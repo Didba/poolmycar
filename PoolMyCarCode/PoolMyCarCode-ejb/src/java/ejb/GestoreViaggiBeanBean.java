@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import utenti.Autista;
+import viaggi.Bacheca;
 import viaggi.Pacchetto;
 import viaggi.Tappa;
 import viaggi.Viaggio;
@@ -72,15 +74,35 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
     }
     
     
-    public boolean inserisciPacchetto(List<Tappa> tappe, List<Date> date){
+    public void inserisciPacchetto(List<Tappa> tappe, List<Date> date, Autista autista, String nota, boolean richiestaContributi, Bacheca bacheca) throws IllegalStateException
+    {
+
+        //controllo dei parametri
+        if(tappe.size()<2)
+            throw new IllegalArgumentException("manca partenza o arrivo");
+        if(date.size()<1)
+            throw new IllegalArgumentException("inserisci almeno una data");
+        if(autista==null)
+            throw new IllegalArgumentException("manca autista");
+        if(bacheca==null)
+            throw new IllegalArgumentException("manca bacheca");
+
         Pacchetto pacchetto=new Pacchetto();
         pacchetto.setPartenza(tappe.get(0));
-        pacchetto.setArrivo(tappe.get(tappe.size()-1));
-        List<Viaggio> viaggi= new LinkedList();
-        for(Date d:date){
-            Viaggio viaggio=new Viaggio();
-            viaggio.setPacchetto(pacchetto);
-        }
-        return true;
+        pacchetto.setArrivo(tappe.get(tappe.size()-1)); //da ottimizzare
+        pacchetto.setTappeIntermedie(tappe.subList(1, tappe.size()-1));
+        pacchetto.setBacheca(bacheca);
+        pacchetto.setInizio(date.get(0));
+        pacchetto.setFine(date.get(date.size()-1));
+        pacchetto.setAutista(autista);
+        pacchetto.setNota(nota);
+        pacchetto.setRichiestaContributi(richiestaContributi);
+        pacchetto.creaViaggi(date);
+
+        //a questo punto abbiamo il pacchetto bello e finito
+        for(Viaggio v: pacchetto.getViaggi())
+            viaggioFacade.create(v);
+        pacchettoFacade.create(pacchetto);
+
     }
 }
