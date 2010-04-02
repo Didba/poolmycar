@@ -6,6 +6,7 @@
 package ejb;
 
 import facades.PacchettoFacadeLocal;
+import facades.TappaFacadeLocal;
 import facades.ViaggioFacadeLocal;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,6 +32,8 @@ import viaggi.Viaggio;
  */
 @Stateless
 public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
+    @EJB
+    private TappaFacadeLocal tappaFacade;
     @EJB
     private ViaggioFacadeLocal viaggioFacade;
     @EJB
@@ -100,9 +103,13 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
         pacchetto.creaViaggi(date);
 
         //a questo punto abbiamo il pacchetto bello e finito
+        for(Tappa t: tappe)
+            tappaFacade.create(t);  //controllare che lo faccia a dovere
         for(Viaggio v: pacchetto.getViaggi())
-            viaggioFacade.create(v);
+            viaggioFacade.create(v);   //MA METTE ANCHE LE TAPPE E QUINDI GLI INDIRIZZI???
+                                       //PER ORA MANCA L'INDIRIZZO QUI
         pacchettoFacade.create(pacchetto);
+
 
     }
 }
