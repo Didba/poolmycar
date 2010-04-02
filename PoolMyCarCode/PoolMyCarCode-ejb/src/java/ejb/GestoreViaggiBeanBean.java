@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +40,7 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
-    public List<Tappa> geocoding(List<String> indirizzi){
+    /*public List<Tappa> geocoding(List<String> indirizzi){
         List<Tappa> tappe=new LinkedList<Tappa>();
         for(String s: indirizzi){
             s.replace(' ', '+');
@@ -64,6 +63,8 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
                         Tappa t=new Tappa();
                         t.setLatitudine(new Double(coordinate[2]));
                         t.setLongitudine(new Double(coordinate[3]));
+                        //carica l'indirizzo
+                        //t.setIndirizzo()   --> fare parsing
                         tappe.add(t);
                     }
                 }
@@ -74,6 +75,49 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
         }
         return tappe;
         
+    }*/
+
+    public Tappa geocoding(String indirizzo){
+        Tappa tappa=new Tappa();
+        double[] latlon=new double[2];
+        indirizzo.replace(' ', '+');
+        URL url=null;
+        try {
+            url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA");
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GestoreViaggiBeanBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        BufferedReader in;
+        try {
+            in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null){
+                String[] coordinate=inputLine.split(",");
+                if(coordinate.length==4){
+                    double result = new Double(coordinate[0]);
+                    int res=(int) result;
+                    if(res==200){
+                        latlon[0]=new Double(coordinate[2]);
+                        latlon[1]=new Double(coordinate[3]);
+                    }
+                    else latlon=null;
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GestoreViaggiBeanBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if(latlon==null)
+            return null;
+
+        tappa.setLatitudine(latlon[0]);
+        tappa.setLongitudine(latlon[1]);
+        //crea oggetto indirizzo parsificando la string e aggiungilo a tappa
+        return tappa;
+
     }
     
     
@@ -104,7 +148,7 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
 
         //a questo punto abbiamo il pacchetto bello e finito
         for(Tappa t: tappe)
-            tappaFacade.create(t);  //controllare che lo faccia a dovere
+            tappaFacade.create(t);  //TO-DO: controllare che lo faccia a dovere
         for(Viaggio v: pacchetto.getViaggi())
             viaggioFacade.create(v);   //MA METTE ANCHE LE TAPPE E QUINDI GLI INDIRIZZI???
                                        //PER ORA MANCA L'INDIRIZZO QUI
