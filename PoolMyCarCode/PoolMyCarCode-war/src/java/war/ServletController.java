@@ -8,11 +8,20 @@ package war;
 import ejb.GestoreViaggiBeanLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import utenti.Autista;
+import utenti.Viaggiatore;
+import viaggi.Tappa;
 
 /**
  *
@@ -36,8 +45,120 @@ public class ServletController extends HttpServlet {
         try {
             String action = request.getParameter("action");
 
-            if(action.equals("inserimentoTappe")){
+            if(action.equals("login")){
                 
+            }
+            
+            /////////////////////////////////solo cose da loggato////////////////////
+            HttpSession session = request.getSession();
+            
+            if(action.equals("inserisciViaggio")){
+                if(session==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    rd.forward(request, response);
+                }
+
+                Viaggiatore viaggiatore=null;
+                //TO-DO: carica oggetto Viaggiatore chiamando GestoreUtentiBean
+
+                Autista autista=null;
+                try{
+                    autista=(Autista) viaggiatore;
+                }
+                catch(ClassCastException e){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    rd.forward(request, response);
+                }
+                session.setAttribute("autista", autista);
+
+                ServletContext sc = getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher("./InserisciLuoghiViaggio.jsp");
+                rd.forward(request, response);
+            }
+            
+            if(action.equals("inserisciTappe")){
+                if(session==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    rd.forward(request, response);
+                }
+                if(session.getAttribute("autista")==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    rd.forward(request, response);
+                }
+
+                List<Tappa> tappe = new LinkedList<Tappa>();
+                String indirizzo=null;
+                //poniamo che le tappe si chiamino tappa0, tappa1...
+                int i=0;
+                while(request.getParameter(new String("tappa"+i))!=null){
+                    indirizzo=request.getParameter(new String("tappa"+i));
+                    Tappa tappa=gestoreViaggiBeanBean.geocoding(indirizzo);
+                    if(tappa==null){
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("./InserisciViaggio?errore=tappaerrata.jsp");
+                        rd.forward(request, response);
+                    }
+                    else{
+                        tappe.add(tappa);
+                    }
+
+                }
+
+                session.setAttribute("tappe", tappe);
+
+                ServletContext sc = getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher("./InserisciDateViaggio.jsp");
+                rd.forward(request, response);
+
+            }
+            if(action.equals("inserisciDate")){
+                if(session==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    rd.forward(request, response);
+                }
+                if(session.getAttribute("autista")==null || session.getAttribute("tappe")==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    rd.forward(request, response);
+                }
+
+                List<Date> date = new LinkedList<Date>();
+                //TO-DO: leggi date da calendario e trasformale in oggetti Date
+
+                session.setAttribute("date", date);
+
+                ServletContext sc = getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher("./ConfermaViaggio.jsp");
+                rd.forward(request, response);
+            }
+            if(action.equals("viaggioConfermato")){
+                if(session==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    rd.forward(request, response);
+                }
+                if(session.getAttribute("autista")==null || session.getAttribute("tappe")==null || session.getAttribute("date")==null){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    rd.forward(request, response);
+                }
+
+                String nota = request.getParameter("nota");
+                boolean richiestaContributo=false;  //TO-DO: controllare è null se non checckato
+                if(request.getParameter("richiestaContributo")!=null)
+                    richiestaContributo=true;
+
+                gestoreViaggiBeanBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Date>) session.getAttribute("date"), (Autista) session.getAttribute("autista"), nota, richiestaContributo, null);  //bacheca va istanziato
+
+                //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
+                ServletContext sc = getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher("./PaginaViaggio.jsp");
+                rd.forward(request, response);
             }
 
         } finally { 
