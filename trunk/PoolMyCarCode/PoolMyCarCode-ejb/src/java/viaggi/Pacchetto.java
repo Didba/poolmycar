@@ -6,6 +6,7 @@ package viaggi;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Temporal;
 import utenti.Autista;
 import utenti.CommentoAutista;
 import utenti.CommentoViaggiatore;
+import utenti.Viaggiatore;
 
 /**
  *
@@ -153,6 +155,25 @@ public class Pacchetto implements Serializable {
 
     public void setViaggi(List<Viaggio> viaggi) {
         this.viaggi = viaggi;
+    }
+
+    public void creaViaggi(List<Date> date) throws IllegalStateException
+    {
+        if(partenza==null || arrivo==null)
+            throw new IllegalStateException("Inserisci partenza e/o arrivo");
+
+        this.viaggi= new LinkedList();
+        for(Date d:date){
+            Viaggio viaggio=new Viaggio();
+            viaggio.setPartenza(partenza);
+            viaggio.setArrivo(arrivo);
+            viaggio.setPacchetto(this);
+            viaggio.setDataPartenza(d);
+            viaggio.setLunghezzaPercorso(-1); //da mettere a posto!
+            viaggio.setViaggiatori(new LinkedList<Viaggiatore>());
+            viaggio.setRichieste(new LinkedList<Richiesta>());
+            viaggio.setTappeIntermedie(tappeIntermedie);
+        }
     }
     
 
