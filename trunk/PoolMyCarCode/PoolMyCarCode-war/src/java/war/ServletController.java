@@ -5,8 +5,10 @@
 
 package war;
 
+import ejb.GestoreViaggiBeanLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author berto
  */
 public class ServletController extends HttpServlet {
+    @EJB
+    private GestoreViaggiBeanLocal gestoreViaggiBeanBean;
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,16 +34,12 @@ public class ServletController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
+            String action = request.getParameter("action");
+
+            if(action.equals("inserimentoTappe")){
+                
+            }
+
         } finally { 
             out.close();
         }
