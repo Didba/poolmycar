@@ -16,8 +16,11 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
+    //TO-DO:
     public boolean doLogin(String user, String pwd){
         return true;
     }
- 
+
+    //TO-DO: tira su oggetto Autista
+    
 }
