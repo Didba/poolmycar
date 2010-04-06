@@ -5,6 +5,7 @@
 
 package war;
 
+import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +30,8 @@ import viaggi.Tappa;
  */
 public class ServletController extends HttpServlet {
     @EJB
+    private GestoreUtentiLocal gestoreUtentiBean;
+    @EJB
     private GestoreViaggiBeanLocal gestoreViaggiBeanBean;
    
     /** 
@@ -43,10 +46,50 @@ public class ServletController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String action = request.getParameter("action");
+            String action = request.getParameter("operation");
 
             if(action.equals("login")){
+                String login=request.getParameter("login");
+                String password=request.getParameter("password");
+                HttpSession session = request.getSession();
+
+
                 
+
+                Viaggiatore viaggiatore=gestoreUtentiBean.doLogin(login, password);
+
+                out.println("<html><body>ciao</body></html>");
+
+                /*ServletContext sc = getServletContext();
+                RequestDispatcher rd = null;
+                    
+                if(viaggiatore!=null){
+                    session.setAttribute("utente",viaggiatore);
+                    rd=sc.getRequestDispatcher("./Profile.jsp");
+                }
+                else
+                    rd=sc.getRequestDispatcher("./index.jsp"); //<-- controllare
+
+                rd.forward(request, response);*/
+            }
+            if(action.equals("registrati")){
+                ServletContext sc = getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher("./Registrazione.jsp");
+                rd.forward(request, response);
+            }
+            if(action.equals("registrazione")){
+
+                String login=request.getParameter("login");
+                String password=request.getParameter("password");
+                boolean autista=(request.getParameter("autista"))!=null;
+
+                out.println("<html><body>ciao da Registrazione</body></html>");
+
+                /*gestoreUtentiBean.registraUtente(login, password, autista);
+
+                ServletContext sc = getServletContext();
+                RequestDispatcher rd = sc.getRequestDispatcher("./Profile.jsp");
+                rd.forward(request, response);*/
             }
             
             /////////////////////////////////solo cose da loggato////////////////////
@@ -59,8 +102,7 @@ public class ServletController extends HttpServlet {
                     rd.forward(request, response);
                 }
 
-                Viaggiatore viaggiatore=null;
-                //TO-DO: carica oggetto Viaggiatore chiamando GestoreUtentiBean
+                Viaggiatore viaggiatore=(Viaggiatore) session.getAttribute("utente");
 
                 Autista autista=null;
                 try{
@@ -71,7 +113,7 @@ public class ServletController extends HttpServlet {
                     RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
                     rd.forward(request, response);
                 }
-                session.setAttribute("autista", autista);
+                session.setAttribute("utente", autista);
 
                 ServletContext sc = getServletContext();
                 RequestDispatcher rd = sc.getRequestDispatcher("./InserisciLuoghiViaggio.jsp");
@@ -84,7 +126,7 @@ public class ServletController extends HttpServlet {
                     RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
                     rd.forward(request, response);
                 }
-                if(session.getAttribute("autista")==null){
+                if(session.getAttribute("utente")==null){
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
                     rd.forward(request, response);
@@ -121,7 +163,7 @@ public class ServletController extends HttpServlet {
                     RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
                     rd.forward(request, response);
                 }
-                if(session.getAttribute("autista")==null || session.getAttribute("tappe")==null){
+                if(session.getAttribute("utente")==null || session.getAttribute("tappe")==null){
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
                     rd.forward(request, response);
@@ -142,14 +184,14 @@ public class ServletController extends HttpServlet {
                     RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
                     rd.forward(request, response);
                 }
-                if(session.getAttribute("autista")==null || session.getAttribute("tappe")==null || session.getAttribute("date")==null){
+                if(session.getAttribute("utente")==null || session.getAttribute("tappe")==null || session.getAttribute("date")==null){
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
                     rd.forward(request, response);
                 }
 
                 String nota = request.getParameter("nota");
-                boolean richiestaContributo=false;  //TO-DO: controllare è null se non checckato
+                boolean richiestaContributo=false;
                 if(request.getParameter("richiestaContributo")!=null)
                     richiestaContributo=true;
 
