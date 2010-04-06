@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : InserisciLuoghiViaggio
     Created on : 6-apr-2010, 16.45.00
     Author     : berto
@@ -93,21 +93,21 @@
             gdir = new GDirections(map, document.getElementById("directions"));
             GEvent.addListener(gdir, "load", onGDirectionsLoad);
             GEvent.addListener(gdir, "error", handleErrors);
-            map.setCenter("new GLatLng(37.4419, -122.1419)", 13);
+            //map.setCenter("new GLatLng(37.4419, -122.1419)", 13);
 
             //setDirections("San Francisco", "Mountain View", "en_US");
-            
-            //gdir.load("from: Torino to: milano to: genova");
+
+            gdir.load("from: Torino to: milano to: genova");
           }
         }
 
         function setDirections() {
           //gdir.load("from: " + fromAddress + " to: " + toAddress,
           //          ,{ "locale": locale });
-          var percorso="from: "+document.getElementById("tappa0");
-          for(var j=1; j<num; j++){
-              percorso=percorso+" to: "+ document.getElementById("tappa"+j);
-          }
+          var percorso="from: "+modulo.tappa0.value+" to: "+modulo.tappa1.value;
+          /*for(var j=1; j<num; j++){
+              percorso=percorso+" to: "+modulo..value";
+          }*/
           gdir.load(percorso);
         }
 
@@ -161,9 +161,7 @@
         </tbody>
         </table>
         <input type="submit" name="operation" value="inserisciTappe"/>
-        </form>
-        <form action="#" onsubmit="setDirections();return false;">
-            <input type="SUBMIT" value="visualizza">
+        <input type="button" value="visualizza" onclick="setDirections();">
         </form>
 
 
