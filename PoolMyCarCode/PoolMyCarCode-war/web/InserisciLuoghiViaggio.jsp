@@ -12,6 +12,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA"
+      type="text/javascript"></script>
+        <style type="text/css">
+          body {
+            font-family: Verdana, Arial, sans serif;
+            font-size: 11px;
+            margin: 2px;
+          }
+          table.directions th {
+            background-color:#EEEEEE;
+          }
+
+          img {
+            color: #000000;
+          }
+        </style>
+
         <script language="JavaScript" type="text/javascript">
         <!--
         var num=2;
@@ -62,10 +79,75 @@
                         tb.removeChild(srg);
                 }
         }
+
+
+
+        var map;
+        var gdir;
+        var geocoder = null;
+        var addressMarker;
+
+        function initialize() {
+          if (GBrowserIsCompatible()) {
+            map = new GMap2(document.getElementById("map_canvas"));
+            gdir = new GDirections(map, document.getElementById("directions"));
+            GEvent.addListener(gdir, "load", onGDirectionsLoad);
+            GEvent.addListener(gdir, "error", handleErrors);
+            map.setCenter("new GLatLng(37.4419, -122.1419)", 13);
+
+            //setDirections("San Francisco", "Mountain View", "en_US");
+            
+            //gdir.load("from: Torino to: milano to: genova");
+          }
+        }
+
+        function setDirections() {
+          //gdir.load("from: " + fromAddress + " to: " + toAddress,
+          //          ,{ "locale": locale });
+          var percorso="from: "+document.getElementById("tappa0");
+          for(var j=1; j<num; j++){
+              percorso=percorso+" to: "+ document.getElementById("tappa"+j);
+          }
+          gdir.load(percorso);
+        }
+
+        function handleErrors(){
+               if (gdir.getStatus().code == G_GEO_UNKNOWN_ADDRESS)
+                 alert("No corresponding geographic location could be found for one of the specified addresses. This may be due to the fact that the address is relatively new, or it may be incorrect.\nError code: " + gdir.getStatus().code);
+               else if (gdir.getStatus().code == G_GEO_SERVER_ERROR)
+                 alert("A geocoding or directions request could not be successfully processed, yet the exact reason for the failure is not known.\n Error code: " + gdir.getStatus().code);
+
+               else if (gdir.getStatus().code == G_GEO_MISSING_QUERY)
+                 alert("The HTTP q parameter was either missing or had no value. For geocoder requests, this means that an empty address was specified as input. For directions requests, this means that no query was specified in the input.\n Error code: " + gdir.getStatus().code);
+
+            //   else if (gdir.getStatus().code == G_UNAVAILABLE_ADDRESS)  <--- Doc bug... this is either not defined, or Doc is wrong
+            //     alert("The geocode for the given address or the route for the given directions query cannot be returned due to legal or contractual reasons.\n Error code: " + gdir.getStatus().code);
+
+               else if (gdir.getStatus().code == G_GEO_BAD_KEY)
+                 alert("The given key is either invalid or does not match the domain for which it was given. \n Error code: " + gdir.getStatus().code);
+
+               else if (gdir.getStatus().code == G_GEO_BAD_REQUEST)
+                 alert("A directions request could not be successfully parsed.\n Error code: " + gdir.getStatus().code);
+
+               else alert("An unknown error occurred.");
+
+            }
+
+            function onGDirectionsLoad(){
+          // Use this function to access information about the latest load()
+          // results.
+
+          // e.g.
+          // document.getElementById("getStatus").innerHTML = gdir.getStatus().code;
+              // and yada yada yada...
+            }
+
+
+
         //-->
         </script>
     </head>
-    <body>
+    <body onload="initialize()" onunload="GUnload()">
         <form name="modulo" action="ServletController" method="POST">
         <input type="button" value="accoda" onclick="accoda()" />
         <table border="1" id="tabella">
@@ -80,5 +162,23 @@
         </table>
         <input type="submit" name="operation" value="inserisciTappe"/>
         </form>
+        <form action="#" onsubmit="setDirections();return false;">
+            <input type="SUBMIT" value="visualizza">
+        </form>
+
+
+        <table class="directions">
+        <tr><th>Formatted Directions</th><th>Map</th></tr>
+
+        <tr>
+        <td valign="top"><div id="directions" style="width: 275px"></div></td>
+        <td valign="top"><div id="map_canvas" style="width: 310px; height: 400px"></div></td>
+
+        </tr>
+        </table>
+
     </body>
+
+
+
 </html>
