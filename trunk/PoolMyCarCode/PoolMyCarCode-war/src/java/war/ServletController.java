@@ -138,17 +138,22 @@ public class ServletController extends HttpServlet {
                 List<Tappa> tappe = new LinkedList<Tappa>();
                 String indirizzo=null;
                 //poniamo che le tappe si chiamino tappa0, tappa1...
+                
+                /*String ind2=request.getParameter("tappa25");
+
+                String ind=request.getParameter("tappa2");
+                Tappa tappa=gestoreViaggiBeanBean.geocoding(ind);
+                out.println("<html><body>");
+                if(ind2==null)
+                    out.println("è null<br>");
+                else
+                    out.println("non è null<br>");
+                out.println("latitudine"+tappa.getLatitudine());
+                out.println("</body></html>");
+*/
 
 
                 int i=0;
-                out.println("<html><body>");
-                while(request.getParameter(new String("tappa"+i))!=null){
-                    out.println("tappa"+i);
-                }
-                out.println("</body></html>");
-
-
-                /*int i=0;
                 while(request.getParameter(new String("tappa"+i))!=null){
                     indirizzo=request.getParameter(new String("tappa"+i));
                     Tappa tappa=gestoreViaggiBeanBean.geocoding(indirizzo);
@@ -159,20 +164,16 @@ public class ServletController extends HttpServlet {
                     }
                     else{
                         tappe.add(tappa);
+                        i++;
                     }
 
                 }
-                out.println("<html><body>");
-                for(Tappa t: tappe){
-                    out.println("<br>"+t.getLatitudine());
-                }
-                out.println("</body></html>");*/
-
-                /*session.setAttribute("tappe", tappe);
+                
+                session.setAttribute("tappe", tappe);
 
                 ServletContext sc = getServletContext();
                 RequestDispatcher rd = sc.getRequestDispatcher("/InserisciDateViaggio.jsp");
-                rd.forward(request, response);*/
+                rd.forward(request, response);
 
             }
             if(action.equals("inserisciDate")){
