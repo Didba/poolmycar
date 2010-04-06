@@ -80,11 +80,15 @@ public class ServletController extends HttpServlet {
                 String password=request.getParameter("password");
                 boolean autista=(request.getParameter("autista"))!=null;
                 ///////////////////
-                autista=true;
+                //autista=true;
                 ///////////////////
                 out.println("<html><body>ciao da Registrazione</body></html>");
 
                 gestoreUtentiBean.registraUtente(login, password, autista);
+
+                Viaggiatore viaggiatore=gestoreUtentiBean.doLogin(login, password);
+                HttpSession session = request.getSession();
+                session.setAttribute("utente",viaggiatore);
 
                 ServletContext sc = getServletContext();
                 RequestDispatcher rd = sc.getRequestDispatcher("/Profile.jsp");
@@ -134,13 +138,23 @@ public class ServletController extends HttpServlet {
                 List<Tappa> tappe = new LinkedList<Tappa>();
                 String indirizzo=null;
                 //poniamo che le tappe si chiamino tappa0, tappa1...
+
+
                 int i=0;
+                out.println("<html><body>");
+                while(request.getParameter(new String("tappa"+i))!=null){
+                    out.println("tappa"+i);
+                }
+                out.println("</body></html>");
+
+
+                /*int i=0;
                 while(request.getParameter(new String("tappa"+i))!=null){
                     indirizzo=request.getParameter(new String("tappa"+i));
                     Tappa tappa=gestoreViaggiBeanBean.geocoding(indirizzo);
                     if(tappa==null){
                         ServletContext sc = getServletContext();
-                        RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio?errore=tappaerrata.jsp");
+                        RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio.jsp");
                         rd.forward(request, response);
                     }
                     else{
@@ -152,7 +166,7 @@ public class ServletController extends HttpServlet {
                 for(Tappa t: tappe){
                     out.println("<br>"+t.getLatitudine());
                 }
-                out.println("</body></html>");
+                out.println("</body></html>");*/
 
                 /*session.setAttribute("tappe", tappe);
 
