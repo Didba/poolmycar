@@ -139,20 +139,6 @@ public class ServletController extends HttpServlet {
                 String indirizzo=null;
                 //poniamo che le tappe si chiamino tappa0, tappa1...
                 
-                /*String ind2=request.getParameter("tappa25");
-
-                String ind=request.getParameter("tappa2");
-                Tappa tappa=gestoreViaggiBeanBean.geocoding(ind);
-                out.println("<html><body>");
-                if(ind2==null)
-                    out.println("è null<br>");
-                else
-                    out.println("non è null<br>");
-                out.println("latitudine"+tappa.getLatitudine());
-                out.println("</body></html>");
-*/
-
-
                 int i=0;
                 while(request.getParameter(new String("tappa"+i))!=null){
                     indirizzo=request.getParameter(new String("tappa"+i));
