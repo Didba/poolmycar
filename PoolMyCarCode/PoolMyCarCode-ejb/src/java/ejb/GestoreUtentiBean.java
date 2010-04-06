@@ -26,7 +26,6 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
     public Viaggiatore doLogin(String user, String pwd){
         //return viaggiatoreFacade.findLogin(user, pwd);
 
-
         List<Viaggiatore> viaggiatori=null;
 
         viaggiatori=viaggiatoreFacade.findAll();
@@ -34,7 +33,6 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
         for(Viaggiatore v: viaggiatori)
             if(v.getLogin().equals(user) && v.getPassword().equals(pwd))
                 return v;
-
 
         return null;
     }
