@@ -26,4 +26,6 @@ public interface ViaggiatoreFacadeLocal {
 
     List<Viaggiatore> findAll();
 
+    public Viaggiatore findLogin(String user, String pwd);
+
 }

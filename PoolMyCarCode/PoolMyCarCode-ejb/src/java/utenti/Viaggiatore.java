@@ -41,6 +41,45 @@ public class Viaggiatore implements Serializable {
     protected boolean fumatore;
     @OneToMany(mappedBy = "autore")
     private List<CommentoAutista> commentiRilasciati;
+    protected String login;
+
+    /**
+     * Get the value of login
+     *
+     * @return the value of login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * Set the value of login
+     *
+     * @param login new value of login
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    protected String password;
+
+    /**
+     * Get the value of password
+     *
+     * @return the value of password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @param password new value of password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     public List<CommentoAutista> getCommentiRilasciati() {
         return commentiRilasciati;
