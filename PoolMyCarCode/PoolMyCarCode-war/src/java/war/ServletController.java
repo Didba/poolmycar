@@ -53,28 +53,25 @@ public class ServletController extends HttpServlet {
                 String password=request.getParameter("password");
                 HttpSession session = request.getSession();
 
-
-                
-
                 Viaggiatore viaggiatore=gestoreUtentiBean.doLogin(login, password);
 
-                out.println("<html><body>ciao</body></html>");
-
-                /*ServletContext sc = getServletContext();
+                ServletContext sc = getServletContext();
                 RequestDispatcher rd = null;
                     
                 if(viaggiatore!=null){
                     session.setAttribute("utente",viaggiatore);
-                    rd=sc.getRequestDispatcher("./Profile.jsp");
+                    rd=sc.getRequestDispatcher("/Profile.jsp");
                 }
                 else
-                    rd=sc.getRequestDispatcher("./index.jsp"); //<-- controllare
+                    rd=sc.getRequestDispatcher("/index.jsp"); //<-- controllare
 
-                rd.forward(request, response);*/
+                rd.forward(request, response);
             }
             if(action.equals("registrati")){
+                /*out.println("<html><body>ciao da registrati</body></html>");*/
+
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("./Registrazione.jsp");
+                RequestDispatcher rd = sc.getRequestDispatcher("/Registrazione.jsp");
                 rd.forward(request, response);
             }
             if(action.equals("registrazione")){
@@ -82,14 +79,16 @@ public class ServletController extends HttpServlet {
                 String login=request.getParameter("login");
                 String password=request.getParameter("password");
                 boolean autista=(request.getParameter("autista"))!=null;
-
+                ///////////////////
+                autista=true;
+                ///////////////////
                 out.println("<html><body>ciao da Registrazione</body></html>");
 
-                /*gestoreUtentiBean.registraUtente(login, password, autista);
+                gestoreUtentiBean.registraUtente(login, password, autista);
 
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("./Profile.jsp");
-                rd.forward(request, response);*/
+                RequestDispatcher rd = sc.getRequestDispatcher("/Profile.jsp");
+                rd.forward(request, response);
             }
             
             /////////////////////////////////solo cose da loggato////////////////////
@@ -98,7 +97,7 @@ public class ServletController extends HttpServlet {
             if(action.equals("inserisciViaggio")){
                 if(session==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                     rd.forward(request, response);
                 }
 
@@ -110,25 +109,25 @@ public class ServletController extends HttpServlet {
                 }
                 catch(ClassCastException e){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
                     rd.forward(request, response);
                 }
                 session.setAttribute("utente", autista);
 
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("./InserisciLuoghiViaggio.jsp");
+                RequestDispatcher rd = sc.getRequestDispatcher("/InserisciLuoghiViaggio.jsp");
                 rd.forward(request, response);
             }
             
             if(action.equals("inserisciTappe")){
                 if(session==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                     rd.forward(request, response);
                 }
                 if(session.getAttribute("utente")==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
                     rd.forward(request, response);
                 }
 
@@ -141,7 +140,7 @@ public class ServletController extends HttpServlet {
                     Tappa tappa=gestoreViaggiBeanBean.geocoding(indirizzo);
                     if(tappa==null){
                         ServletContext sc = getServletContext();
-                        RequestDispatcher rd = sc.getRequestDispatcher("./InserisciViaggio?errore=tappaerrata.jsp");
+                        RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio?errore=tappaerrata.jsp");
                         rd.forward(request, response);
                     }
                     else{
@@ -149,23 +148,28 @@ public class ServletController extends HttpServlet {
                     }
 
                 }
+                out.println("<html><body>");
+                for(Tappa t: tappe){
+                    out.println("<br>"+t.getLatitudine());
+                }
+                out.println("</body></html>");
 
-                session.setAttribute("tappe", tappe);
+                /*session.setAttribute("tappe", tappe);
 
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("./InserisciDateViaggio.jsp");
-                rd.forward(request, response);
+                RequestDispatcher rd = sc.getRequestDispatcher("/InserisciDateViaggio.jsp");
+                rd.forward(request, response);*/
 
             }
             if(action.equals("inserisciDate")){
                 if(session==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                     rd.forward(request, response);
                 }
                 if(session.getAttribute("utente")==null || session.getAttribute("tappe")==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
                     rd.forward(request, response);
                 }
 
@@ -175,18 +179,18 @@ public class ServletController extends HttpServlet {
                 session.setAttribute("date", date);
 
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("./ConfermaViaggio.jsp");
+                RequestDispatcher rd = sc.getRequestDispatcher("/ConfermaViaggio.jsp");
                 rd.forward(request, response);
             }
             if(action.equals("viaggioConfermato")){
                 if(session==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./SessionNull.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                     rd.forward(request, response);
                 }
                 if(session.getAttribute("utente")==null || session.getAttribute("tappe")==null || session.getAttribute("date")==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("./NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
                     rd.forward(request, response);
                 }
 
@@ -199,7 +203,7 @@ public class ServletController extends HttpServlet {
 
                 //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("./PaginaViaggio.jsp");
+                RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                 rd.forward(request, response);
             }
 

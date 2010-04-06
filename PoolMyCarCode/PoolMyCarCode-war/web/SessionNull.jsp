@@ -1,6 +1,6 @@
 <%-- 
-    Document   : inserimentoViaggio
-    Created on : 26-gen-2010, 10.13.36
+    Document   : SessionNull
+    Created on : 6-apr-2010, 16.41.51
     Author     : berto
 --%>
 
@@ -14,6 +14,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>SessionNull: non sei loggato</h1>
     </body>
 </html>

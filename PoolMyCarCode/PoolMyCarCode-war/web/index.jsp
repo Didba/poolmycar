@@ -20,7 +20,11 @@
         <tr><td>UserName:</td><td> <input name="login" type="text" value="" size=10/> </td></tr>
         <tr><td>Password:</td><td> <input name="password" type="password" value="" size=10/> </td></tr>
         <tr><td align="center"><input type="submit" name="operation" value="login"/></td><td><input type="submit" name="operation" value="registrati"/></td></tr>
+
         </table>
         </form>
+        
     </body>
+    <br>
+    
 </html>

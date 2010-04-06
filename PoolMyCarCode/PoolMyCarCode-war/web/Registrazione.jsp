@@ -22,5 +22,6 @@
             <tr><td> </td><td align="center"><br> <input type="submit" name="operation" value="registrazione"/></td></tr>
         </table>
         </form>
+
     </body>
 </html>

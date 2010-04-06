@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Profile
-    Created on : 6-apr-2010, 16.02.04
+    Document   : NotPermitted
+    Created on : 6-apr-2010, 16.42.16
     Author     : berto
 --%>
 
@@ -14,10 +14,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Pagina di profilo</h1>
-        <form action="ServletController" method="POST">
-            <input type="SUBMIT" value="inserisciViaggio" name="operation">
-        </form>
-        <a href="ServletController?operation=inserisciViaggio">crea un viaggio</a>
+        <h1>NotPermitted: non hai i permessi</h1>
     </body>
 </html>
