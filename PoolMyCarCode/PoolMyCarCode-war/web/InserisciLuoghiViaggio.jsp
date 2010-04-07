@@ -8,6 +8,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
+
+
+<!-- TO-DO: GESTIONE DELLE ECCEZIONI -->
+
+
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,47 +43,72 @@
                         // crea elementi
                         var oTr=document.createElement("TR");
                         var oTd1=document.createElement("TD");
-                        //var oTd2=document.createElement("TD");
                         var oField=document.createElement("INPUT");
-                        //var oButt=document.createElement("INPUT");
 
                         // setta attributi
                         oField.setAttribute("type","text");
                         oField.setAttribute("name","tappa"+num);
-                        //oButt.setAttribute("type","button");
-                        //oButt.setAttribute("value","rimuovi");
-
-                        // setta gestore evento
-                        //if(oButt.attachEvent) oButt.attachEvent('onclick',function(e){rimuovi(e);})
-                        //else if(oButt.addEventListener) oButt.addEventListener('click',function(e){rimuovi(e);},false)
+                        oField.setAttribute("onchange","disattiva('tastosubmit')");
 
                         // appendi al relativo padre
                         oTd1.appendChild(oField);
-                        //oTd2.appendChild(oButt);
                         oTr.appendChild(oTd1);
-                        //oTr.appendChild(oTd2);
                         document.getElementById('tabella').getElementsByTagName('TBODY')[0].appendChild(oTr);
 
                         // incrementa variabile globale
                         num++
+
+                        disattiva('tastosubmit');
+                        attiva('tastorimuovi');
                 }
         }
 
 
-        function rimuovi(e){
-                if(document.removeChild && document.getElementById && document.getElementsByTagName) {
-                        if(!e) e=window.event;
-                        var srg=(e.target)?e.target:e.srcElement;
+        function rimuovi(){
+                //if(document.removeChild && document.getElementById && document.getElementsByTagName) {
+                if(num>2){
 
-                        // risali al tr del td che contiene l' elemento che ha scatenato l' evento
-                        while(srg.tagName!="TR"){srg=(srg.parentNode)?srg.parentNode:srg.parentElement}
+                // risali al tr
+                var tr=document.getElementById('tabella').getElementsByTagName('TR')[num-1];
 
-                        // riferimento al tbody
-                        var tb=document.getElementById('tabella').getElementsByTagName('TBODY')[0];
+                // riferimento al tbody
+                var tb=document.getElementById('tabella').getElementsByTagName('TBODY')[0];
 
-                        // rimuovi
-                        tb.removeChild(srg);
+                // rimuovi
+                tb.removeChild(tr);
+
+                num--;
                 }
+
+                //}
+
+                setDirections();
+
+                if(num<=2)
+                    disattiva('tastorimuovi');
+        }
+
+
+        function disattiva(valore)
+        {
+            for(i=0;i<document.forms[0].elements.length;i++)
+            {
+                    if(document.forms[0].elements[i].type=="submit" || document.forms[0].elements[i].type=="button")
+                    {
+                            document.getElementById(valore).disabled = true;
+                    }
+            }
+        }
+
+        function attiva(valore)
+        {
+            for(i=0;i<document.forms[0].elements.length;i++)
+            {
+                    if(document.forms[0].elements[i].type=="submit" || document.forms[0].elements[i].type=="button")
+                    {
+                            document.getElementById(valore).disabled = false;
+                    }
+            }
         }
 
 
@@ -93,22 +124,30 @@
             gdir = new GDirections(map, document.getElementById("directions"));
             GEvent.addListener(gdir, "load", onGDirectionsLoad);
             GEvent.addListener(gdir, "error", handleErrors);
-            //map.setCenter("new GLatLng(37.4419, -122.1419)", 13);
+
+            map.setCenter(new GLatLng(45.0904249, 7.660769), 15);
+            map.setUIToDefault();
+
+            disattiva('tastosubmit');
+            disattiva('tastorimuovi');
 
             //setDirections("San Francisco", "Mountain View", "en_US");
 
-            gdir.load("from: Torino to: milano to: genova");
+            //gdir.load("from: Torino to: milano to: genova");
           }
         }
 
         function setDirections() {
-          //gdir.load("from: " + fromAddress + " to: " + toAddress,
+         //gdir.load("from: " + fromAddress + " to: " + toAddress,
           //          ,{ "locale": locale });
-          var percorso="from: "+modulo.tappa0.value+" to: "+modulo.tappa1.value;
-          /*for(var j=1; j<num; j++){
-              percorso=percorso+" to: "+modulo..value";
-          }*/
+          //var percorso="from: "+modulo.tappa0.value+" to: "+modulo.tappa1.value;
+          var percorso="from: "+document.forms[0].elements[2].value+" to: "+document.forms[0].elements[3].value;
+          for(var j=2+2; j<num+2; j++){
+              percorso=percorso+" to: "+document.forms[0].elements[j].value;
+          }
           gdir.load(percorso);
+
+          attiva('tastosubmit');
         }
 
         function handleErrors(){
@@ -149,19 +188,20 @@
     </head>
     <body onload="initialize()" onunload="GUnload()">
         <form name="modulo" action="ServletController" method="POST">
-        <input type="button" value="accoda" onclick="accoda()" />
+        <input type="button" value="accoda" onclick="accoda()"/>
+        <input type="button" id="tastorimuovi" value="rimuovi" onclick="rimuovi()"/>
         <table border="1" id="tabella">
         <tbody>
         <tr>
-        <td><input type="text" name="tappa0" /></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
+        <td><input type="text" name="tappa0" onchange="disattiva('tastosubmit')"/></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
         </tr>
         <tr>
-        <td><input type="text" name="tappa1" /></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
+        <td><input type="text" name="tappa1" onchange="disattiva('tastosubmit')"/></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
         </tr>
         </tbody>
         </table>
-        <input type="submit" name="operation" value="inserisciTappe"/>
-        <input type="button" value="visualizza" onclick="setDirections();">
+        <input type="submit" id="tastosubmit" name="operation" value="inserisciTappe"/>
+        <input type="button" value="visualizza" onclick="setDirections();"/>
         </form>
 
 
