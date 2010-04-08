@@ -22,20 +22,18 @@
         <% if(viaggiatore!=null) {%>
             <h2>Cose che può fare il viaggiatore</h2>
             <%
-                boolean isAutista=true;
-                Autista autista=null;
-                try{
-                    autista=(Autista) viaggiatore;
-                }
-                catch(ClassCastException e){
-                   isAutista=false;
-                }
-                if(isAutista) {
-            %>
+            try{
+                Autista autista=(Autista) viaggiatore;
+                %>
+                <h2>Cose che può fare l'autista</h2>
                 <form action="ServletController" method="POST">
-                    <input type="SUBMIT" value="inserisciViaggio" name="operation">
+                <input type="SUBMIT" value="inserisciViaggio" name="operation">
                 </form>
                 <a href="ServletController?operation=inserisciViaggio">crea un viaggio</a>
-            <% } } %>
+                <%
+            }
+            catch(ClassCastException e){
+            }
+       } %>
     </body>
 </html>
