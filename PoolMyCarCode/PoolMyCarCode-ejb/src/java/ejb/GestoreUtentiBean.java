@@ -6,7 +6,6 @@
 package ejb;
 
 import facades.ViaggiatoreFacadeLocal;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import utenti.Autista;
@@ -24,9 +23,9 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
     public Viaggiatore doLogin(String user, String pwd){
-        //return viaggiatoreFacade.findLogin(user, pwd);
+        return viaggiatoreFacade.findLogin(user, pwd);
 
-        List<Viaggiatore> viaggiatori=null;
+        /*List<Viaggiatore> viaggiatori=null;
 
         viaggiatori=viaggiatoreFacade.findAll();
 
@@ -34,7 +33,7 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
             if(v.getLogin().equals(user) && v.getPassword().equals(pwd))
                 return v;
 
-        return null;
+        return null;*/
     }
 
     public void registraUtente(String login, String password, boolean isAutista) {
