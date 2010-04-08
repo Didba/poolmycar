@@ -156,4 +156,6 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
 
 
     }
+
+
 }
