@@ -1,6 +1,6 @@
 <%-- 
-    Document   : NotPermitted
-    Created on : 6-apr-2010, 16.42.16
+    Document   : PaginaViaggio
+    Created on : 12-apr-2010, 16.55.33
     Author     : berto
 --%>
 
@@ -14,6 +14,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>NotPermitted: non hai i permessi</h1>
+        <h1>Pagina viaggio</h1>
     </body>
 </html>

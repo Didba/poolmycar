@@ -9,7 +9,8 @@ import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -33,6 +34,7 @@ public class ServletController extends HttpServlet {
     private GestoreUtentiLocal gestoreUtentiBean;
     @EJB
     private GestoreViaggiBeanLocal gestoreViaggiBeanBean;
+    
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -46,8 +48,27 @@ public class ServletController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String action = request.getParameter("operation");
+            
+            /*gestoreUtentiBean.registraUtente("aaa", "bbb", true);
+            Autista a=(Autista) gestoreUtentiBean.doLogin("aaa","bbb");
 
+            Tappa t=gestoreViaggiBeanBean.geocoding("torino");
+            Tappa t2=gestoreViaggiBeanBean.geocoding("milano");
+            List<Tappa> l =new LinkedList<Tappa>();
+            l.add(t);
+            l.add(t2);
+            Calendar d=new Calendar();
+            List<Calendar> ld = new LinkedList<Calendar>();
+            ld.add(d);
+
+            gestoreViaggiBeanBean.inserisciPacchetto(l, ld, a, null, true);*/
+            
+
+            String action = request.getParameter("operation");
+            if(action==null){
+                out.println("<html><body>action=null</body></html>");
+            }
+            else{
             if(action.equals("login")){
                 String login=request.getParameter("login");
                 String password=request.getParameter("password");
@@ -60,7 +81,7 @@ public class ServletController extends HttpServlet {
                     
                 if(viaggiatore!=null){
                     session.setAttribute("utente",viaggiatore);
-                    rd=sc.getRequestDispatcher("/Profile.jsp");
+                    rd=sc.getRequestDispatcher("/Profilo.jsp");
                 }
                 else
                     rd=sc.getRequestDispatcher("/index.jsp"); //<-- controllare
@@ -68,8 +89,6 @@ public class ServletController extends HttpServlet {
                 rd.forward(request, response);
             }
             if(action.equals("registrati")){
-                /*out.println("<html><body>ciao da registrati</body></html>");*/
-
                 ServletContext sc = getServletContext();
                 RequestDispatcher rd = sc.getRequestDispatcher("/Registrazione.jsp");
                 rd.forward(request, response);
@@ -79,19 +98,25 @@ public class ServletController extends HttpServlet {
                 String login=request.getParameter("login");
                 String password=request.getParameter("password");
                 boolean autista=(request.getParameter("autista"))!=null;
-                ///////////////////
-                //autista=true;
-                ///////////////////
-                out.println("<html><body>ciao da Registrazione</body></html>");
-
+                
                 gestoreUtentiBean.registraUtente(login, password, autista);
 
                 Viaggiatore viaggiatore=gestoreUtentiBean.doLogin(login, password);
                 HttpSession session = request.getSession();
                 session.setAttribute("utente",viaggiatore);
 
+                try{
+
+                    Autista p = (Autista) viaggiatore;
+                }
+                catch(ClassCastException e){
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
+                    rd.forward(request, response);
+                }
+
                 ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("/Profile.jsp");
+                RequestDispatcher rd = sc.getRequestDispatcher("/Profilo.jsp");
                 rd.forward(request, response);
             }
             
@@ -113,7 +138,7 @@ public class ServletController extends HttpServlet {
                 }
                 catch(ClassCastException e){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                     rd.forward(request, response);
                 }
                 session.setAttribute("utente", autista);
@@ -131,7 +156,7 @@ public class ServletController extends HttpServlet {
                 }
                 if(session.getAttribute("utente")==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                     rd.forward(request, response);
                 }
 
@@ -143,9 +168,10 @@ public class ServletController extends HttpServlet {
                 while(request.getParameter(new String("tappa"+i))!=null){
                     indirizzo=request.getParameter(new String("tappa"+i));
                     Tappa tappa=gestoreViaggiBeanBean.geocoding(indirizzo);
-                    if(tappa==null){
+                    if(tappa==null){  //geocoding fallito
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio.jsp");
+                        //TO-DO: segnalare geocoding fallito
                         rd.forward(request, response);
                     }
                     else{
@@ -170,12 +196,23 @@ public class ServletController extends HttpServlet {
                 }
                 if(session.getAttribute("utente")==null || session.getAttribute("tappe")==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                     rd.forward(request, response);
                 }
 
-                List<Date> date = new LinkedList<Date>();
-                //TO-DO: leggi date da calendario e trasformale in oggetti Date
+                List<Calendar> date = new LinkedList<Calendar>();
+                String stringaDate = request.getParameter("date");
+                String[] arrayDate=stringaDate.split(";");
+                
+                String s;
+                for(int i=0; i<arrayDate.length; i++){
+                    s=arrayDate[i];
+                    String[] arrString=s.split(" ");
+                    Calendar c = new GregorianCalendar(new Integer(arrString[3]),getMese(arrString[1]),new Integer(arrString[1]));
+                    date.add(c);
+                    //TO-DO: leggi date da calendario e trasformale in oggetti Date
+
+                 }
 
                 session.setAttribute("date", date);
 
@@ -191,7 +228,7 @@ public class ServletController extends HttpServlet {
                 }
                 if(session.getAttribute("utente")==null || session.getAttribute("tappe")==null || session.getAttribute("date")==null){
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/NotPermitted.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                     rd.forward(request, response);
                 }
 
@@ -200,7 +237,7 @@ public class ServletController extends HttpServlet {
                 if(request.getParameter("richiestaContributo")!=null)
                     richiestaContributo=true;
 
-                gestoreViaggiBeanBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Date>) session.getAttribute("date"), (Autista) session.getAttribute("autista"), nota, richiestaContributo, null);  //bacheca va istanziato
+                gestoreViaggiBeanBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo);
 
                 //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
                 ServletContext sc = getServletContext();
@@ -208,10 +245,41 @@ public class ServletController extends HttpServlet {
                 rd.forward(request, response);
             }
 
+        }
+
         } finally { 
             out.close();
+
         }
-    } 
+    }
+
+    private int getMese(String s){
+       if(s.equals("January"))
+           return 1;
+       if(s.equals("February"))
+           return 2;
+       if(s.equals("March"))
+           return 3;
+       if(s.equals("April"))
+           return 4;
+       if(s.equals("May"))
+           return 5;
+       if(s.equals("June"))
+           return 6;
+       if(s.equals("July"))
+           return 7;
+       if(s.equals("August"))
+           return 8;
+       if(s.equals("September"))
+           return 9;
+       if(s.equals("October"))
+           return 10;
+       if(s.equals("November"))
+           return 11;
+       if(s.equals("December"))
+           return 12;
+       return 0;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
