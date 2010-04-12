@@ -1,5 +1,5 @@
 <%-- 
-    Document   : Profile
+    Document   : Profilo
     Created on : 6-apr-2010, 16.02.04
     Author     : berto
 --%>
@@ -17,13 +17,13 @@
         <title>PoolMyCar - Pagina di profilo</title>
     </head>
     <body>
-        <jsp:useBean id="viaggiatore" scope="session" class="utenti.Viaggiatore" />
+        <jsp:useBean id="utente" scope="session" class="utenti.Viaggiatore" />
         <h1>Pagina di profilo</h1>
-        <% if(viaggiatore!=null) {%>
+        <% if(utente!=null) {%>
             <h2>Cose che può fare il viaggiatore</h2>
             <%
             try{
-                Autista autista=(Autista) viaggiatore;
+                Autista autista=(Autista) utente;
                 %>
                 <h2>Cose che può fare l'autista</h2>
                 <form action="ServletController" method="POST">
@@ -33,6 +33,7 @@
                 <%
             }
             catch(ClassCastException e){
+                %><h1> non autista </h1><%
             }
        } %>
     </body>
