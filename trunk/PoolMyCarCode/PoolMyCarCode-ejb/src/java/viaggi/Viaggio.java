@@ -6,7 +6,7 @@
 package viaggi;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +28,7 @@ public class Viaggio implements Serializable {
     @ManyToOne
     private Pacchetto pacchetto;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataPartenza;
+    private Calendar dataPartenza;
     private float lunghezzaPercorso;
     @OneToMany
     private List<Tappa> tappeIntermedie;
@@ -111,11 +111,11 @@ public class Viaggio implements Serializable {
         return true;
     }
 
-    public Date getDataPartenza() {
+    public Calendar getDataPartenza() {
         return dataPartenza;
     }
 
-    public void setDataPartenza(Date dataPartenza) {
+    public void setDataPartenza(Calendar dataPartenza) {
         this.dataPartenza = dataPartenza;
     }
 

@@ -5,19 +5,18 @@
 
 package ejb;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import utenti.Autista;
-import viaggi.Bacheca;
 import viaggi.Tappa;
 
 /**
  *
  * @author berto
  */
-interface GestoreViaggiBeanLocal {
+public interface GestoreViaggiBeanLocal {
     public Tappa geocoding(String indirizzo);
-    public void inserisciPacchetto(List<Tappa> tappe, List<Date> date, Autista autista, String nota, boolean richiestaContributi, Bacheca bacheca) throws IllegalStateException;
+    public void inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Autista autista, String nota, boolean richiestaContributi) throws IllegalStateException;
 
 
 }

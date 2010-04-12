@@ -6,7 +6,7 @@
 package viaggi;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +29,7 @@ public class Post implements Serializable {
     private Viaggiatore autore;
     private String testo;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataCreazione;
+    private Calendar dataCreazione;
 
     public Long getId() {
         return id;
@@ -54,11 +54,11 @@ public class Post implements Serializable {
         this.autore = autore;
     }
 
-    public Date getDataCreazione() {
+    public Calendar getDataCreazione() {
         return dataCreazione;
     }
 
-    public void setDataCreazione(Date dataCreazione) {
+    public void setDataCreazione(Calendar dataCreazione) {
         this.dataCreazione = dataCreazione;
     }
 
