@@ -5,7 +5,7 @@
 package viaggi;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -44,9 +44,9 @@ public class Pacchetto implements Serializable {
     @ManyToOne
     private Autista autista;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fine;
+    private Calendar fine;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date inizio;
+    private Calendar inizio;
     private String nota;
     private boolean richiestaContributi;
     private static final long serialVersionUID = 1L;
@@ -109,19 +109,19 @@ public class Pacchetto implements Serializable {
         this.commentiViaggiatori = commentiViaggiatori;
     }
 
-    public Date getFine() {
+    public Calendar getFine() {
         return fine;
     }
 
-    public void setFine(Date fine) {
+    public void setFine(Calendar fine) {
         this.fine = fine;
     }
 
-    public Date getInizio() {
+    public Calendar getInizio() {
         return inizio;
     }
 
-    public void setInizio(Date inizio) {
+    public void setInizio(Calendar inizio) {
         this.inizio = inizio;
     }
 
@@ -157,13 +157,13 @@ public class Pacchetto implements Serializable {
         this.viaggi = viaggi;
     }
 
-    public void creaViaggi(List<Date> date) throws IllegalStateException
+    public void creaViaggi(List<Calendar> date) throws IllegalStateException
     {
         if(partenza==null || arrivo==null)
             throw new IllegalStateException("Inserisci partenza e/o arrivo");
 
         this.viaggi= new LinkedList();
-        for(Date d:date){
+        for(Calendar d:date){
             Viaggio viaggio=new Viaggio();
             viaggio.setPartenza(partenza);
             viaggio.setArrivo(arrivo);

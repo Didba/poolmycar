@@ -6,7 +6,7 @@
 package utenti;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +37,7 @@ public class CommentoAutista implements Serializable {
     @ManyToOne
     private Pacchetto pacchetto;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dataCreazione;
+    private Calendar dataCreazione;
 
     public Viaggiatore getAutore() {
         return autore;
@@ -47,11 +47,11 @@ public class CommentoAutista implements Serializable {
         this.autore = autore;
     }
 
-    public Date getDataCreazione() {
+    public Calendar getDataCreazione() {
         return dataCreazione;
     }
 
-    public void setDataCreazione(Date dataCreazione) {
+    public void setDataCreazione(Calendar dataCreazione) {
         this.dataCreazione = dataCreazione;
     }
 
