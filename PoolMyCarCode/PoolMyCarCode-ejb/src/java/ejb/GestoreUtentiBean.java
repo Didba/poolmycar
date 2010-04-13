@@ -24,17 +24,19 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
     public Viaggiatore doLogin(String user, String pwd){
-        //return viaggiatoreFacade.findLogin(user, pwd);
+        Viaggiatore v =viaggiatoreFacade.findLogin(user);
 
-        List<Viaggiatore> viaggiatori=null;
+        /*List<Viaggiatore> viaggiatori=null;
 
         viaggiatori=viaggiatoreFacade.findAll();
 
         for(Viaggiatore v: viaggiatori)
             if(v.getLogin().equals(user) && v.getPassword().equals(pwd))
-                return v;
-
-        return null;
+                return v;*/
+        if(v.getPassword().equals(pwd))
+            return v;
+        else
+           return null;
     }
 
     public void registraUtente(String login, String password, boolean isAutista) {
