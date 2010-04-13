@@ -6,6 +6,7 @@
 package facades;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,10 +18,13 @@ import viaggi.Tappa;
  */
 @Stateless
 public class TappaFacade implements TappaFacadeLocal {
+    @EJB
+    private IndirizzoFacadeLocal indirizzoFacade;
     @PersistenceContext
     private EntityManager em;
 
     public void create(Tappa tappa) {
+        indirizzoFacade.create(tappa.getIndirizzo());
         em.persist(tappa);
     }
 

@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import viaggi.Bacheca;
 import viaggi.Pacchetto;
 import viaggi.Viaggio;
 
@@ -28,9 +27,7 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
     private EntityManager em;
 
     public void create(Pacchetto pacchetto) {
-        Bacheca b=new Bacheca();
-        bachecaFacade.create(b);
-        pacchetto.setBacheca(b);
+        bachecaFacade.create(pacchetto.getBacheca());
         for(Viaggio v:pacchetto.getViaggi()){
             viaggioFacade.create(v);
         }
