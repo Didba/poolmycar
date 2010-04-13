@@ -6,9 +6,11 @@
 package facades;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import viaggi.Tappa;
 import viaggi.Viaggio;
 
 /**
@@ -17,10 +19,16 @@ import viaggi.Viaggio;
  */
 @Stateless
 public class ViaggioFacade implements ViaggioFacadeLocal {
+    @EJB
+    private TappaFacadeLocal tappaFacade;
     @PersistenceContext
     private EntityManager em;
 
     public void create(Viaggio viaggio) {
+        tappaFacade.create(viaggio.getPartenza());
+        tappaFacade.create(viaggio.getArrivo());
+        for(Tappa t:viaggio.getTappeIntermedie())
+            tappaFacade.create(t);
         em.persist(viaggio);
     }
 
