@@ -169,7 +169,7 @@ public class Pacchetto implements Serializable {
             viaggio.setArrivo(arrivo);
             viaggio.setPacchetto(this);
             viaggio.setDataPartenza(d);
-            viaggio.setLunghezzaPercorso(-1); //da mettere a posto!
+            viaggio.setLunghezzaPercorso(-1); //TO-DO: da mettere a posto!
             viaggio.setViaggiatori(new LinkedList<Viaggiatore>());
             viaggio.setRichieste(new LinkedList<Richiesta>());
             viaggio.setTappeIntermedie(tappeIntermedie);

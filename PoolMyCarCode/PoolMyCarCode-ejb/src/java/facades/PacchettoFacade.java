@@ -6,10 +6,13 @@
 package facades;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import viaggi.Bacheca;
 import viaggi.Pacchetto;
+import viaggi.Viaggio;
 
 /**
  *
@@ -17,10 +20,20 @@ import viaggi.Pacchetto;
  */
 @Stateless
 public class PacchettoFacade implements PacchettoFacadeLocal {
+    @EJB
+    private BachecaFacadeLocal bachecaFacade;
+    @EJB
+    private ViaggioFacadeLocal viaggioFacade;
     @PersistenceContext
     private EntityManager em;
 
     public void create(Pacchetto pacchetto) {
+        Bacheca b=new Bacheca();
+        bachecaFacade.create(b);
+        pacchetto.setBacheca(b);
+        for(Viaggio v:pacchetto.getViaggi()){
+            viaggioFacade.create(v);
+        }
         em.persist(pacchetto);
     }
 

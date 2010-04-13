@@ -44,7 +44,7 @@ public class Viaggio implements Serializable {
     @OneToOne
     private Tappa partenza;
     @OneToOne
-     private Tappa arrivo;
+    private Tappa arrivo;
 
     /**
      * Get the value of partenza
