@@ -173,6 +173,7 @@ public class Pacchetto implements Serializable {
             viaggio.setViaggiatori(new LinkedList<Viaggiatore>());
             viaggio.setRichieste(new LinkedList<Richiesta>());
             viaggio.setTappeIntermedie(tappeIntermedie);
+            viaggi.add(viaggio);
         }
     }
     

@@ -20,9 +20,10 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import utenti.Autista;
+import utenti.Indirizzo;
+import viaggi.Bacheca;
 import viaggi.Pacchetto;
 import viaggi.Tappa;
-import viaggi.Viaggio;
 
 /**
  *
@@ -78,7 +79,10 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
 
         tappa.setLatitudine(latlon[0]);
         tappa.setLongitudine(latlon[1]);
-        //crea oggetto indirizzo parsificando la string e aggiungilo a tappa
+        Indirizzo indi = new Indirizzo();
+        indi.setVia(indirizzo);
+        tappa.setIndirizzo(indi);
+        //TO-DO:crea oggetto indirizzo parsificando la string e aggiungilo a tappa
         return tappa;
 
     }
@@ -107,15 +111,15 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
         pacchetto.setAutista(autista);
         pacchetto.setNota(nota);
         pacchetto.setRichiestaContributi(richiestaContributi);
+        pacchetto.setBacheca(new Bacheca());
+        //va fatta per ultima
         pacchetto.creaViaggi(date);
         /*
-        //a questo punto abbiamo il pacchetto bello e finito
         for(Tappa t: tappe)
             tappaFacade.create(t);  //TO-DO: controllare che lo faccia a dovere
         for(Viaggio v: pacchetto.getViaggi())
-            viaggioFacade.create(v);   //MA METTE ANCHE LE TAPPE E QUINDI GLI INDIRIZZI???
-                                       //PER ORA MANCA L'INDIRIZZO QUI
-         * */
+            viaggioFacade.create(v);
+        */
         pacchettoFacade.create(pacchetto);
 
 
