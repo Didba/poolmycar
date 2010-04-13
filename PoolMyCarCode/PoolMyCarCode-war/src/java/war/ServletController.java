@@ -247,7 +247,14 @@ public class ServletController extends HttpServlet {
 
         }
 
-        } finally { 
+        }
+        catch(Exception e){
+            out.println("<html><body>");
+            e.printStackTrace(out) ;
+            out.println("</body></html>");
+
+        }
+        finally {
             out.close();
 
         }
