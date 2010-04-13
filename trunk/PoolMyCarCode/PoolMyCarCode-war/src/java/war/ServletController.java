@@ -56,7 +56,7 @@ public class ServletController extends HttpServlet {
             List<Tappa> l =new LinkedList<Tappa>();
             l.add(t);
             l.add(t2);
-            Calendar d=new Calendar();
+            Calendar d=new GregorianCalendar();
             List<Calendar> ld = new LinkedList<Calendar>();
             ld.add(d);
 
