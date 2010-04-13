@@ -39,7 +39,9 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
            return null;
     }
 
-    public void registraUtente(String login, String password, boolean isAutista) {
+    public boolean registraUtente(String login, String password, boolean isAutista) {
+
+        
         Viaggiatore viaggiatore=null;
         
         if(isAutista)
@@ -50,8 +52,13 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
 
         viaggiatore.setLogin(login);
         viaggiatore.setPassword(password);
-
+        Viaggiatore v = viaggiatoreFacade.findLogin(login);
+        if(v!=null)
+            return false;
+        else{
         viaggiatoreFacade.create(viaggiatore);
+        return true;
+        }
     }
     
 }
