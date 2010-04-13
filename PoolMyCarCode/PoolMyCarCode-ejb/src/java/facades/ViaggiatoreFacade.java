@@ -47,9 +47,11 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
                 
         viaggiatori=em.createQuery("SELECT object(o) FROM Viaggiatore o WHERE o.login = '"+usr+"'").getResultList();
 
-        System.out.println("----------------------- " + viaggiatori.get(0).getLogin());
-        if(viaggiatori.size()>=1)
+        
+        if(viaggiatori.size()>=1){
             viaggiatore=viaggiatori.get(0);
+            System.out.println("----------------------- " + viaggiatori.get(0).getLogin());
+        }
 
         return viaggiatore;
     }

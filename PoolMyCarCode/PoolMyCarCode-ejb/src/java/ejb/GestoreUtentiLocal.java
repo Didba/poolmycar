@@ -17,5 +17,5 @@ public interface GestoreUtentiLocal {
 
     public Viaggiatore doLogin(String login, String password);
 
-    public void registraUtente(String login, String password, boolean autista);
+    public boolean registraUtente(String login, String password, boolean autista);
 }
