@@ -25,6 +25,7 @@
         </form>
         
     </body>
+    <a href="RicercaViaggio.jsp">Ricerca</a>
     <br>
     
 </html>

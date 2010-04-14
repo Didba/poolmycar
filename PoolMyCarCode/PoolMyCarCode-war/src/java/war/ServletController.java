@@ -8,7 +8,10 @@ import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,9 +34,9 @@ import viaggi.Tappa;
 public class ServletController extends HttpServlet {
 
     @EJB
-    private GestoreUtentiLocal gestoreUtentiBean;
+    private GestoreViaggiBeanLocal gestoreViaggiBean;
     @EJB
-    private GestoreViaggiBeanLocal gestoreViaggiBeanBean;
+    private GestoreUtentiLocal gestoreUtentiBean;
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -123,6 +126,8 @@ public class ServletController extends HttpServlet {
                     }
                 }
 
+
+
                 /////////////////////////////////solo cose da loggato////////////////////
                 HttpSession session = request.getSession();
 
@@ -169,7 +174,7 @@ public class ServletController extends HttpServlet {
                     int i = 0;
                     while (request.getParameter(new String("tappa" + i)) != null) {
                         indirizzo = request.getParameter(new String("tappa" + i));
-                        Tappa tappa = gestoreViaggiBeanBean.geocoding(indirizzo);
+                        Tappa tappa = gestoreViaggiBean.geocoding(indirizzo);
                         if (tappa == null) {  //geocoding fallito
                             ServletContext sc = getServletContext();
                             RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio.jsp");
@@ -239,12 +244,53 @@ public class ServletController extends HttpServlet {
                         richiestaContributo = true;
                     }
 
-                    gestoreViaggiBeanBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo);
+                    gestoreViaggiBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo);
 
                     //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                     rd.forward(request, response);
+                } ///RICERCA----------------------------------
+                if (action.equals("cerca")) {
+                    
+                    // salva i parametri di ricerca
+                    String partenza = request.getParameter("partenza");
+                    
+                    
+                    session.setAttribute("partenza", partenza);
+                    String arrivo =  request.getParameter("arrivo");
+                    session.setAttribute("arrivo", arrivo);
+                    boolean intervallo = request.getParameter("opIntervalloDate").equals("Date");
+                    session.setAttribute("intervallo", intervallo);
+                    Date data1=null;
+                    Date data2=null;
+                    if(intervallo)
+                    {
+                    //Formato per la data
+                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/YYYY");
+                    df.setLenient(true);
+
+                    data1 = df.parse(request.getParameter("data1"));
+                    session.setAttribute("data1", data1);
+
+                    System.out.println("------------------------ DATA:  " + data1);
+                    data2 = DateFormat.getInstance().parse(request.getParameter("data2"));
+                    session.setAttribute("data2", data2);
+                    }
+                    else
+                    {
+                    String dataPartenza = request.getParameter("dataPartenza");
+                    session.setAttribute("dataPartenza", dataPartenza);
+                    String ora = request.getParameter("ora");
+                    session.setAttribute("ora", ora);
+
+                    }
+
+                    // richiede la creazione del bean con i risultati e lo salva in sessione
+                    // RisultatiRicercaViaggi ris = gestoreViaggiBean.ricercaViaggi(action, action, intervallo, null, null, null)
+                    //forward alla pagina di visualizzazione
+                      out.println("<html><body> ciaooooooooooooo</body></html>");
+                     
                 }
 
             }
