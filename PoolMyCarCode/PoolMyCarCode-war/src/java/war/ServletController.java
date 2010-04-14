@@ -121,7 +121,7 @@ public class ServletController extends HttpServlet {
                     } else {
                         // login esistente, ripresentare la pagina chiedendo un nuovo login
                         ServletContext sc = getServletContext();
-                        RequestDispatcher rd = sc.getRequestDispatcher("/Registrazione.jsp");
+                        RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
                 }
@@ -214,7 +214,7 @@ public class ServletController extends HttpServlet {
                     for (int i = 0; i < arrayDate.length; i++) {
                         s = arrayDate[i];
                         String[] arrString = s.split(" ");
-                        Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[1]), new Integer(arrString[1]));
+                        Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]));
                         date.add(c);
                         //TO-DO: leggi date da calendario e trasformale in oggetti Date
 
@@ -308,40 +308,40 @@ public class ServletController extends HttpServlet {
 
     private int getMese(String s) {
         if (s.equals("January")) {
-            return 1;
+            return Calendar.JANUARY;
         }
         if (s.equals("February")) {
-            return 2;
+            return Calendar.FEBRUARY;
         }
         if (s.equals("March")) {
-            return 3;
+            return Calendar.MARCH;
         }
         if (s.equals("April")) {
-            return 4;
+            return Calendar.APRIL;
         }
         if (s.equals("May")) {
-            return 5;
+            return Calendar.MAY;
         }
         if (s.equals("June")) {
-            return 6;
+            return Calendar.JUNE;
         }
         if (s.equals("July")) {
-            return 7;
+            return Calendar.JULY;
         }
         if (s.equals("August")) {
-            return 8;
+            return Calendar.AUGUST;
         }
         if (s.equals("September")) {
-            return 9;
+            return Calendar.SEPTEMBER;
         }
         if (s.equals("October")) {
-            return 10;
+            return Calendar.OCTOBER;
         }
         if (s.equals("November")) {
-            return 11;
+            return Calendar.NOVEMBER;
         }
         if (s.equals("December")) {
-            return 12;
+            return Calendar.DECEMBER;
         }
         return 0;
     }
