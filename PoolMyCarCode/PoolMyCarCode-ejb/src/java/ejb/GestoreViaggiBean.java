@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ import viaggi.Tappa;
  * @author berto
  */
 @Stateless
-public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
+public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     @EJB
     private TappaFacadeLocal tappaFacade;
     @EJB
@@ -50,7 +51,7 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
             url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA");
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(GestoreViaggiBeanBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         BufferedReader in;
         try {
@@ -71,7 +72,7 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(GestoreViaggiBeanBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if(latlon==null)
@@ -123,6 +124,10 @@ public class GestoreViaggiBeanBean implements GestoreViaggiBeanLocal {
         pacchettoFacade.create(pacchetto);
 
 
+    }
+
+    public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Date data1, Date data2, Date dataOraPartenza) {
+        return null;
     }
 
 
