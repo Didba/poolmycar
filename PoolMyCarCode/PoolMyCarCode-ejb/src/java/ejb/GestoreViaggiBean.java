@@ -198,6 +198,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     }
 
     public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Date data1, Date data2, Date dataOraPartenza) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 }
