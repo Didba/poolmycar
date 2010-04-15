@@ -32,6 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import viaggi.Viaggio;
 /**
  *
  * @author berto
@@ -198,6 +199,22 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     }
 
     public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Date data1, Date data2, Date dataOraPartenza) {
+        
+        List<Pacchetto> pacchetti = null;
+        if(intervallo)
+            pacchetti = pacchettoFacade.findDate(data1,data2);
+        else
+            pacchetti = pacchettoFacade.findDataSingola(dataOraPartenza);
+
+        for(Pacchetto p:pacchetti){
+            
+        }
+        
+        
+        
         return null;
+
     }
+
+
 }
