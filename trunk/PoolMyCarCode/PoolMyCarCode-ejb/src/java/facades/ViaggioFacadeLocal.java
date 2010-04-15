@@ -26,4 +26,5 @@ public interface ViaggioFacadeLocal {
 
     List<Viaggio> findAll();
 
+    
 }

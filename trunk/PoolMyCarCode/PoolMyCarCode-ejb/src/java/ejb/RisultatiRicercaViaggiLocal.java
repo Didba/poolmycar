@@ -5,9 +5,7 @@
 
 package ejb;
 
-import java.util.List;
 import javax.ejb.Local;
-import viaggi.Viaggio;
 
 /**
  *
@@ -15,7 +13,10 @@ import viaggi.Viaggio;
  */
 @Local
 public interface RisultatiRicercaViaggiLocal {
-     public List<Viaggio> getViaggi() ;
-     public void setViaggi(List<Viaggio> viaggi);
+
+    public void setPacchetti(java.util.List<viaggi.Pacchetto> pacchetti);
+
+    public java.util.List<viaggi.Pacchetto> getPacchetti();
+    
     
 }

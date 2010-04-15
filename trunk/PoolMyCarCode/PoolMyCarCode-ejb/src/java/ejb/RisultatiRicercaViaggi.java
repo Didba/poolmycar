@@ -7,7 +7,7 @@ package ejb;
 
 import java.util.List;
 import javax.ejb.Stateful;
-import viaggi.Viaggio;
+import viaggi.Pacchetto;
 
 /**
  *
@@ -18,25 +18,25 @@ public class RisultatiRicercaViaggi implements RisultatiRicercaViaggiLocal {
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
-    private List<Viaggio> viaggi = null;
+    private List<Pacchetto> pacchetti = null;
 
     /**
-     * Get the value of viaggi
+     * Get the value of pacchetti
      *
-     * @return the value of viaggi
+     * @return the value of pacchetti
      */
-    public List<Viaggio> getViaggi() {
-        return viaggi;
+    public List<Pacchetto> getPacchetti() {
+        return pacchetti;
     }
 
     /**
-     * Set the value of viaggi
+     * Set the value of pacchetti
      *
-     * @param viaggi new value of viaggi
+     * @param pacchetti new value of pacchetti
      */
-    public void setViaggi(List<Viaggio> viaggi) {
-        this.viaggi = viaggi;
+    public void setPacchetti(List<Pacchetto> pacchetti) {
+        this.pacchetti = pacchetti;
     }
 
+   
 }

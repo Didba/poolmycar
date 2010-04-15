@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package facades;
 
 import java.util.List;
@@ -19,6 +18,7 @@ import viaggi.Viaggio;
  */
 @Stateless
 public class ViaggioFacade implements ViaggioFacadeLocal {
+
     @EJB
     private TappaFacadeLocal tappaFacade;
     @PersistenceContext
@@ -27,8 +27,9 @@ public class ViaggioFacade implements ViaggioFacadeLocal {
     public void create(Viaggio viaggio) {
         tappaFacade.create(viaggio.getPartenza());
         tappaFacade.create(viaggio.getArrivo());
-        for(Tappa t:viaggio.getTappeIntermedie())
+        for (Tappa t : viaggio.getTappeIntermedie()) {
             tappaFacade.create(t);
+        }
         em.persist(viaggio);
     }
 

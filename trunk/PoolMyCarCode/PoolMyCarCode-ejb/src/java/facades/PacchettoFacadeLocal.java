@@ -26,4 +26,8 @@ public interface PacchettoFacadeLocal {
 
     List<Pacchetto> findAll();
 
+    public java.util.List<viaggi.Pacchetto> findDate(java.util.Date data1, java.util.Date data2);
+
+    public java.util.List<viaggi.Pacchetto> findDataSingola(java.util.Date dataOra);
+
 }
