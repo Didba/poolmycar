@@ -9,7 +9,8 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <script language="JavaScript" type="text/javascript">
+    <head>
+        <script language="JavaScript" type="text/javascript">
         function abilitaIntervallo(n){
             var divInt = document.getElementById("intervalloDate");
             var divData = document.getElementById("dataSingola");
@@ -23,7 +24,6 @@
             }
         }
     </script>
-    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ricerca Viaggio</title>
     </head>

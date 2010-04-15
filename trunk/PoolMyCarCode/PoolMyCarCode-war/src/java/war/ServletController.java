@@ -6,9 +6,9 @@ package war;
 
 import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
+import ejb.RisultatiRicercaViaggi;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -264,32 +264,36 @@ public class ServletController extends HttpServlet {
                     session.setAttribute("intervallo", intervallo);
                     Date data1=null;
                     Date data2=null;
+                    Date dataOraPartenza = null;
                     if(intervallo)
                     {
                     //Formato per la data
-                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/YYYY");
-                    df.setLenient(true);
-
-                    data1 = df.parse(request.getParameter("data1"));
+                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+                    data1 = df.parse(request.getParameter("data1").trim());
                     session.setAttribute("data1", data1);
-
-                    System.out.println("------------------------ DATA:  " + data1);
-                    data2 = DateFormat.getInstance().parse(request.getParameter("data2"));
+                  
+                    data2 = df.parse(request.getParameter("data2"));
                     session.setAttribute("data2", data2);
                     }
                     else
                     {
-                    String dataPartenza = request.getParameter("dataPartenza");
-                    session.setAttribute("dataPartenza", dataPartenza);
+                    String d = request.getParameter("dataPartenza");
                     String ora = request.getParameter("ora");
-                    session.setAttribute("ora", ora);
+
+                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy H.mm");
+                    dataOraPartenza = df.parse(d.trim() +" "+ ora.trim());
+                    session.setAttribute("dataOraPartenza", dataOraPartenza);
+                    
 
                     }
 
                     // richiede la creazione del bean con i risultati e lo salva in sessione
-                    // RisultatiRicercaViaggi ris = gestoreViaggiBean.ricercaViaggi(action, action, intervallo, null, null, null)
+                    RisultatiRicercaViaggi ris = gestoreViaggiBean.ricercaViaggi(partenza, arrivo, intervallo, data1, data2, dataOraPartenza);
+                    session.setAttribute("risulatatoRicerca", ris);
                     //forward alla pagina di visualizzazione
-                      out.println("<html><body> ciaooooooooooooo</body></html>");
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/RisultatiRicerca.jsp");
+                    rd.forward(request, response);
                      
                 }
 
