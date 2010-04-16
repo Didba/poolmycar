@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,11 +54,11 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     public Tappa geocoding(String indirizzo) {
         Tappa tappa = new Tappa();
         double[] latlon = new double[2];
-        indirizzo=indirizzo.replace(' ', '+');
+        indirizzo = indirizzo.replace(' ', '+');
         URL url = null;
         try {
             url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA");
-            System.out.println("indirizzo="+indirizzo);
+            System.out.println("indirizzo=" + indirizzo);
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,13 +160,13 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             while ((inputLine = in.readLine()) != null) {
                 buffer = buffer + inputLine;
             }
-            System.out.println("buffer="+buffer);
+            System.out.println("buffer=" + buffer);
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new ByteArrayInputStream(buffer.getBytes()));
-            String value="";
-            String type="";
+            String value = "";
+            String type = "";
 
             doc.getDocumentElement().normalize();
 
@@ -177,46 +178,47 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                 Node fstNode = nodeLst.item(s);
 
                 if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-                    
-                    
+
+
                     Element fstElmnt = (Element) fstNode;
                     NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("long_name");
                     Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
                     NodeList fstNm = fstNmElmnt.getChildNodes();
-                    value=((Node) fstNm.item(0)).getNodeValue();
-                    
+                    value = ((Node) fstNm.item(0)).getNodeValue();
+
                     fstElmnt = (Element) fstNode;
                     fstNmElmntLst = fstElmnt.getElementsByTagName("type");
                     fstNmElmnt = (Element) fstNmElmntLst.item(0);
                     fstNm = fstNmElmnt.getChildNodes();
-                    type=((Node) fstNm.item(0)).getNodeValue();
-                    
-                    if(type.equals("street_number")){
-                        if(!value.contains("-"))
+                    type = ((Node) fstNm.item(0)).getNodeValue();
+
+                    if (type.equals("street_number")) {
+                        if (!value.contains("-")) {
                             ris.setNumerocivico(value);
-                    }
-                    else if(type.equals("route"))
+                        }
+                    } else if (type.equals("route")) {
                         ris.setVia(value);
-                    else if(type.equals("locality"))
+                    } else if (type.equals("locality")) {
                         ris.setCitta(value);
-                    else if(type.equals("country"))
+                    } else if (type.equals("country")) {
                         ris.setStato(value);
-                    else if(type.equals("postal_code"))
+                    } else if (type.equals("postal_code")) {
                         ris.setCap(value);
-                    
-                        
-/*
- * FARE IL PARSING DELL'XML
-                  Element fstElmnt = (Element) fstNode;
-                  NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("firstname");
-                  Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                  NodeList fstNm = fstNmElmnt.getChildNodes();
-                  System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
-                  NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("lastname");
-                  Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
-                  NodeList lstNm = lstNmElmnt.getChildNodes();
-                  System.out.println("Last Name : " + ((Node) lstNm.item(0)).getNodeValue());
- */
+                    }
+
+
+                    /*
+                     * FARE IL PARSING DELL'XML
+                    Element fstElmnt = (Element) fstNode;
+                    NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("firstname");
+                    Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                    NodeList fstNm = fstNmElmnt.getChildNodes();
+                    System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
+                    NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("lastname");
+                    Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
+                    NodeList lstNm = lstNmElmnt.getChildNodes();
+                    System.out.println("Last Name : " + ((Node) lstNm.item(0)).getNodeValue());
+                     */
 
                 }
 
@@ -225,13 +227,12 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         System.out.println("indirizzo:");
-        System.out.println("via "+ ris.getVia()+" numero "+ris.getNumerocivico()+"\n"+ris.getCap()+" - "+ris.getCitta()+"\n"+ris.getStato()+"\n--------\n");
+        System.out.println("via " + ris.getVia() + " numero " + ris.getNumerocivico() + "\n" + ris.getCap() + " - " + ris.getCitta() + "\n" + ris.getStato() + "\n--------\n");
 
         return ris;
     }
@@ -246,26 +247,53 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         }
 
 
+
         //filtro la lista di pacchetti e tengo solo quelli per cui la partenza e l'arrivo sono in un intorno
         // se indicata controllo partenza
         if (partenza != null) {
             Tappa start = geocoding(partenza);
-            for (Pacchetto p : pacchetti) {
+            Iterator it = pacchetti.iterator();
+            while (it.hasNext()) {
+                Pacchetto p = (Pacchetto) it.next();
                 float lPercorso = p.getLunghezzaPercorso();
-                float distanza = (lPercorso * 0.5f) / 100;
-
+                double distMax = ((lPercorso * 0.5f) / 100) / 1000;
+                if (calcolaDistanze(start, p.getPartenza()) > distMax) {
+                    it.remove();
+                }
             }
+
         }
 
+        System.out.println("-------- pacchetti trovati " + pacchetti);
 
 
         return null;
 
     }
 
-    private float calcolaDistanze(Tappa t1, Tappa t2) {
-        
-        return 0;
+    private double calcolaDistanze(Tappa t1, Tappa t2) {
+        double R = 6371;
+        double lat_alfa, lat_beta;
+        double lon_alfa, lon_beta;
+        double fi;
+        double p, d;
+        double latA = t1.getLatitudine();
+        double latB = t2.getLatitudine();
+        double lonA = t1.getLongitudine();
+        double lonB = t2.getLongitudine();
+        /* Converte i gradi in radianti */
+        lat_alfa = Math.PI * latA / 180;
+        lat_beta = Math.PI * latB / 180;
+        lon_alfa = Math.PI * lonA / 180;
+        lon_beta = Math.PI * lonB / 180;
+        /* Calcola l'angolo compreso fi */
+        fi = Math.abs(lon_alfa - lon_beta);
+        /* Calcola il terzo lato del triangolo sferico */
+        p = Math.acos(Math.sin(lat_beta) * Math.sin(lat_alfa)+ Math.cos(lat_beta) * Math.cos(lat_alfa) * Math.cos(fi));
+        /* Calcola la distanza sulla superficie
+        terrestre R = ~6371 km */
+        d = p * R;
+        return (d);
     }
 
     public Pacchetto aggiornaPacchetto(Pacchetto pacchetto) {
