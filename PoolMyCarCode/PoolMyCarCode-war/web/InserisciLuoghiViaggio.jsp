@@ -189,7 +189,7 @@
     <body onload="initialize()" onunload="GUnload()">
         <form name="modulo" action="ServletController" method="POST">
         <input type="button" value="accoda" onclick="accoda()"/>
-        <input type="button" id="tastorimuovi" value="rimuovi" onclick="rimuovi()"/>
+        <input type="button" id="tastorimuovi" disabled value="rimuovi" onclick="rimuovi()"/>
         <table border="1" id="tabella">
         <tbody>
         <tr>
@@ -200,7 +200,9 @@
         </tr>
         </tbody>
         </table>
-        <input type="submit" id="tastosubmit" name="operation" value="inserisciTappe"/>
+        <input type="hidden" value="" id="distanza" name="distanza"/>
+        <input type="submit" id="tastosubmit" disabled name="operation" value="inserisciTappe" onclick="document.getElementById('distanza').value = gdir.getDistance().meters;
+"/>
         <input type="button" value="visualizza" onclick="setDirections();"/>
         </form>
 

@@ -166,7 +166,7 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-
+                    session.setAttribute("distanza", request.getParameter("distanza"));
                     List<Tappa> tappe = new LinkedList<Tappa>();
                     String indirizzo = null;
                     //poniamo che le tappe si chiamino tappa0, tappa1...
@@ -244,7 +244,7 @@ public class ServletController extends HttpServlet {
                         richiestaContributo = true;
                     }
 
-                    gestoreViaggiBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo);
+                    gestoreViaggiBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo,(String)session.getAttribute("distanza"));
 
                     //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
                     ServletContext sc = getServletContext();
