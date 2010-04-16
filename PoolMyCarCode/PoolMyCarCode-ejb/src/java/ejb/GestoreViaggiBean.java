@@ -30,9 +30,10 @@ import viaggi.Tappa;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import viaggi.Viaggio;
+
 /**
  *
  * @author berto
@@ -152,15 +153,17 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             while ((inputLine = in.readLine()) != null){
                 buffer=buffer+inputLine;
             }
-
+            System.out.println("buffer="+buffer);
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(buffer);;
+            Document doc = db.parse(buffer);
+            String value="";
+            String type="";
 
             doc.getDocumentElement().normalize();
 
-            NodeList nodeLst = doc.getElementsByTagName("result");
+            NodeList nodeLst = doc.getElementsByTagName("address_component");
 
 
             for (int s = 0; s < nodeLst.getLength(); s++) {
@@ -168,6 +171,32 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                 Node fstNode = nodeLst.item(s);
 
                 if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                    
+                    
+                    Element fstElmnt = (Element) fstNode;
+                    NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("long_name");
+                    Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                    NodeList fstNm = fstNmElmnt.getChildNodes();
+                    value=((Node) fstNm.item(0)).getNodeValue();
+                    
+                    fstElmnt = (Element) fstNode;
+                    fstNmElmntLst = fstElmnt.getElementsByTagName("type");
+                    fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                    fstNm = fstNmElmnt.getChildNodes();
+                    type=((Node) fstNm.item(0)).getNodeValue();
+                    
+                    if(type.equals("street_number"))
+                        ris.setVia(value);
+                    else if(type.equals("route"))
+                        ris.setNumerocivico(value);
+                    else if(type.equals("locality"))
+                        ris.setCitta(value);
+                    else if(type.equals("country"))
+                        ris.setStato(value);
+                    else if(type.equals("postal_code"))
+                        ris.setCap(value);
+                    
+                        
 /*
  * FARE IL PARSING DELL'XML
                   Element fstElmnt = (Element) fstNode;
@@ -184,8 +213,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                 }
 
             }
-        } catch (IOException ex) {
-            Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (ParserConfigurationException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,7 +220,9 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         catch (SAXException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        catch (IOException ex) {
+            Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return ris;
     }
