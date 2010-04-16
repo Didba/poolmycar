@@ -5,6 +5,7 @@
 
 package facades;
 
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Local;
 import viaggi.Pacchetto;
@@ -26,8 +27,8 @@ public interface PacchettoFacadeLocal {
 
     List<Pacchetto> findAll();
 
-    public java.util.List<viaggi.Pacchetto> findDate(java.util.Date data1, java.util.Date data2);
+    public java.util.List<viaggi.Pacchetto> findDate(Calendar data1,  Calendar data2);
 
-    public java.util.List<viaggi.Pacchetto> findDataSingola(java.util.Date dataOra);
+    public java.util.List<viaggi.Pacchetto> findDataSingola(Calendar dataOra);
 
 }

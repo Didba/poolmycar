@@ -5,8 +5,6 @@
 package ejb;
 
 import facades.PacchettoFacadeLocal;
-import facades.TappaFacadeLocal;
-import facades.ViaggioFacadeLocal;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,6 +33,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import viaggi.Viaggio;
 
 /**
  *
@@ -43,11 +43,8 @@ import org.w3c.dom.NodeList;
 public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     @EJB
-    private TappaFacadeLocal tappaFacade;
-    @EJB
-    private ViaggioFacadeLocal viaggioFacade;
-    @EJB
     private PacchettoFacadeLocal pacchettoFacade;
+    private float percentuale = 0.5f;
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
@@ -238,12 +235,18 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     }
 
     public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Date data1, Date data2, Date dataOraPartenza) {
-
+        Calendar cdata1= new GregorianCalendar();
+        Calendar cdata2= new GregorianCalendar();
+        Calendar cdataOraPartenza= new GregorianCalendar();
         List<Pacchetto> pacchetti = null;
         if (intervallo) {
-            pacchetti = pacchettoFacade.findDate(data1, data2);
+            cdata1.setTime(data1);
+            cdata2.setTime(data2);
+            pacchetti = pacchettoFacade.findDate(cdata1, cdata2);
+
         } else {
-            pacchetti = pacchettoFacade.findDataSingola(dataOraPartenza);
+            cdataOraPartenza.setTime(dataOraPartenza);
+            pacchetti = pacchettoFacade.findDataSingola(cdataOraPartenza);
         }
 
 
@@ -256,18 +259,45 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             while (it.hasNext()) {
                 Pacchetto p = (Pacchetto) it.next();
                 float lPercorso = p.getLunghezzaPercorso();
-                double distMax = ((lPercorso * 0.5f) / 100) / 1000;
+                double distMax = ((lPercorso * percentuale) / 100) / 1000;
                 if (calcolaDistanze(start, p.getPartenza()) > distMax) {
                     it.remove();
                 }
             }
-
+        }
+        // se indicato controllo l'arrivo
+        if (arrivo != null) {
+            Tappa start = geocoding(arrivo);
+            Iterator it = pacchetti.iterator();
+            while (it.hasNext()) {
+                Pacchetto p = (Pacchetto) it.next();
+                float lPercorso = p.getLunghezzaPercorso();
+                double distMax = ((lPercorso * percentuale) / 100) / 1000;
+                if (calcolaDistanze(start, p.getArrivo()) > distMax) {
+                    it.remove();
+                }
+            }
+        }
+        // individuati i pacchetti per ognuno di essi lascio solo i viaggi di interesse
+        for(Pacchetto p : pacchetti){
+            Iterator it = p.getViaggi().iterator();
+            while(it.hasNext()){
+                Viaggio v = (Viaggio) it.next();
+                if(intervallo){
+                    if((v.getDataPartenza().compareTo(cdata1)<0) || (v.getDataPartenza().compareTo(cdata2)>0))
+                        it.remove();
+                }
+                else{
+                    if((v.getDataPartenza().compareTo(cdataOraPartenza)!=0))
+                        it.remove();
+                }
+            }
         }
 
         System.out.println("-------- pacchetti trovati " + pacchetti);
-
-
-        return null;
+        RisultatiRicercaViaggi bean = new RisultatiRicercaViaggi();
+        bean.setPacchetti(pacchetti);
+        return bean;
 
     }
 
@@ -289,7 +319,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         /* Calcola l'angolo compreso fi */
         fi = Math.abs(lon_alfa - lon_beta);
         /* Calcola il terzo lato del triangolo sferico */
-        p = Math.acos(Math.sin(lat_beta) * Math.sin(lat_alfa)+ Math.cos(lat_beta) * Math.cos(lat_alfa) * Math.cos(fi));
+        p = Math.acos(Math.sin(lat_beta) * Math.sin(lat_alfa) + Math.cos(lat_beta) * Math.cos(lat_alfa) * Math.cos(fi));
         /* Calcola la distanza sulla superficie
         terrestre R = ~6371 km */
         d = p * R;
