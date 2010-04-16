@@ -8,6 +8,7 @@ import facades.PacchettoFacadeLocal;
 import facades.TappaFacadeLocal;
 import facades.ViaggioFacadeLocal;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -52,11 +53,11 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     public Tappa geocoding(String indirizzo) {
         Tappa tappa = new Tappa();
         double[] latlon = new double[2];
-        indirizzo.replace(' ', '+');
+        indirizzo=indirizzo.replace(' ', '+');
         URL url = null;
         try {
             url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA");
-
+            System.out.println("indirizzo="+indirizzo);
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,7 +97,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     }
 
-    public void inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Autista autista, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
+    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Autista autista, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
 
         //controllo dei parametri
         if (tappe.size() < 2) {
@@ -133,6 +134,8 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
          */
         pacchettoFacade.create(pacchetto);
 
+        return pacchettoFacade.findAll().get(0);
+
 
     }
 
@@ -160,7 +163,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(buffer);
+            Document doc = db.parse(new ByteArrayInputStream(buffer.getBytes()));
             String value="";
             String type="";
 
@@ -188,10 +191,12 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                     fstNm = fstNmElmnt.getChildNodes();
                     type=((Node) fstNm.item(0)).getNodeValue();
                     
-                    if(type.equals("street_number"))
-                        ris.setVia(value);
+                    if(type.equals("street_number")){
+                        if(!value.contains("-"))
+                            ris.setNumerocivico(value);
+                    }
                     else if(type.equals("route"))
-                        ris.setNumerocivico(value);
+                        ris.setVia(value);
                     else if(type.equals("locality"))
                         ris.setCitta(value);
                     else if(type.equals("country"))
@@ -224,6 +229,9 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         catch (IOException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        System.out.println("indirizzo:");
+        System.out.println("via "+ ris.getVia()+" numero "+ris.getNumerocivico()+"\n"+ris.getCap()+" - "+ris.getCitta()+"\n"+ris.getStato()+"\n--------\n");
 
         return ris;
     }
@@ -258,5 +266,10 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     private float calcolaDistanze(Tappa t1, Tappa t2) {
         
         return 0;
+    }
+
+    public Pacchetto aggiornaPacchetto(Pacchetto pacchetto) {
+        pacchettoFacade.edit(pacchetto);
+        return pacchettoFacade.findAll().get(0);
     }
 }

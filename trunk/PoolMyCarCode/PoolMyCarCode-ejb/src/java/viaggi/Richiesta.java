@@ -7,6 +7,7 @@ package viaggi;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Richiesta implements Serializable {
     @ManyToOne
     private Viaggiatore autore;
     private boolean accettata;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Post> messaggi;
     @OneToOne
     private Tappa incontro;

@@ -7,6 +7,7 @@ package utenti;
 
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Autista extends Viaggiatore{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String numeroPatente;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<TipoMezzo> tipoMezzo;
     @OneToOne
     private FeedbackAutista feedback;

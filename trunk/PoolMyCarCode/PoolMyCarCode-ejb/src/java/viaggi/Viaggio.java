@@ -22,7 +22,7 @@ import utenti.Viaggiatore;
 
 /**
  *
- * @author Erica
+ * @author Fra ahahahah
  */
 @Entity
 public class Viaggio implements Serializable {
@@ -33,14 +33,14 @@ public class Viaggio implements Serializable {
     private float lunghezzaPercorso;
     @OneToMany(cascade=CascadeType.ALL)
     private List<Tappa> tappeIntermedie;
-    @ManyToMany
+    @ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH})
     private List<Viaggiatore> viaggiatori;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     private List<Richiesta> richieste;
     @OneToOne
     private Tappa partenza;
