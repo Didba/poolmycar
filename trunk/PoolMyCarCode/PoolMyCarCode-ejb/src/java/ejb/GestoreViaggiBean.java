@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb;
 
 import facades.PacchettoFacadeLocal;
@@ -40,7 +39,8 @@ import org.w3c.dom.NodeList;
  */
 @Stateless
 public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
-   @EJB
+
+    @EJB
     private TappaFacadeLocal tappaFacade;
     @EJB
     private ViaggioFacadeLocal viaggioFacade;
@@ -49,12 +49,11 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
-
-    public Tappa geocoding(String indirizzo){
-        Tappa tappa=new Tappa();
-        double[] latlon=new double[2];
+    public Tappa geocoding(String indirizzo) {
+        Tappa tappa = new Tappa();
+        double[] latlon = new double[2];
         indirizzo.replace(' ', '+');
-        URL url=null;
+        URL url = null;
         try {
             url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA");
 
@@ -67,67 +66,71 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
             String inputLine;
 
-            while ((inputLine = in.readLine()) != null){
-                String[] coordinate=inputLine.split(",");
-                if(coordinate.length==4){
+            while ((inputLine = in.readLine()) != null) {
+                String[] coordinate = inputLine.split(",");
+                if (coordinate.length == 4) {
                     double result = new Double(coordinate[0]);
-                    int res=(int) result;
-                    if(res==200){
-                        latlon[0]=new Double(coordinate[2]);
-                        latlon[1]=new Double(coordinate[3]);
+                    int res = (int) result;
+                    if (res == 200) {
+                        latlon[0] = new Double(coordinate[2]);
+                        latlon[1] = new Double(coordinate[3]);
+                    } else {
+                        latlon = null;
                     }
-                    else latlon=null;
                 }
             }
         } catch (IOException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if(latlon==null)
+        if (latlon == null) {
             return null;
+        }
 
         tappa.setLatitudine(latlon[0]);
         tappa.setLongitudine(latlon[1]);
-        Indirizzo indi = reverseGeocoding(latlon[0],latlon[1]);
+        Indirizzo indi = reverseGeocoding(latlon[0], latlon[1]);
         tappa.setIndirizzo(indi);
         //TO-DO:crea oggetto indirizzo parsificando la string e aggiungilo a tappa
         return tappa;
 
     }
 
-
-    public void inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Autista autista, String nota, boolean richiestaContributi) throws IllegalStateException
-    {
+    public void inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Autista autista, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
 
         //controllo dei parametri
-        if(tappe.size()<2)
+        if (tappe.size() < 2) {
             throw new IllegalArgumentException("manca partenza o arrivo");
-        if(date.size()<1)
+        }
+        if (date.size() < 1) {
             throw new IllegalArgumentException("inserisci almeno una data");
-        if(autista==null)
+        }
+        if (autista == null) {
             throw new IllegalArgumentException("manca autista");
+        }
 
 
         //TO-DO: facade della bacheca
 
-        Pacchetto pacchetto=new Pacchetto();
+        Pacchetto pacchetto = new Pacchetto();
         pacchetto.setPartenza(tappe.get(0));
-        pacchetto.setArrivo(tappe.get(tappe.size()-1)); //da ottimizzare
-        pacchetto.setTappeIntermedie(tappe.subList(1, tappe.size()-1));
+        pacchetto.setArrivo(tappe.get(tappe.size() - 1)); //da ottimizzare
+        pacchetto.setTappeIntermedie(tappe.subList(1, tappe.size() - 1));
         pacchetto.setInizio(date.get(0));
-        pacchetto.setFine(date.get(date.size()-1));
+        pacchetto.setFine(date.get(date.size() - 1));
         pacchetto.setAutista(autista);
         pacchetto.setNota(nota);
         pacchetto.setRichiestaContributi(richiestaContributi);
         pacchetto.setBacheca(new Bacheca());
+        pacchetto.setLunghezzaPercorso(Float.parseFloat(distanza));//TO-DO
         //va fatta per ultima
         pacchetto.creaViaggi(date);
         /*
         for(Tappa t: tappe)
-            tappaFacade.create(t);  //TO-DO: controllare che lo faccia a dovere
+        tappaFacade.create(t);  //TO-DO: controllare che lo faccia a dovere
         for(Viaggio v: pacchetto.getViaggi())
-            viaggioFacade.create(v);
-        */
+        viaggioFacade.create(v);
+         */
         pacchettoFacade.create(pacchetto);
 
 
@@ -137,10 +140,10 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     private Indirizzo reverseGeocoding(double lat, double lon) {
         //http://www.java-tips.org/java-se-tips/javax.xml.parsers/how-to-read-xml-file-in-java.html
         //http://code.google.com/intl/it-IT/apis/maps/documentation/geocoding/index.html#XML
-        Indirizzo ris=new Indirizzo();
-        URL url=null;
+        Indirizzo ris = new Indirizzo();
+        URL url = null;
         try {
-            url = new URL("http://maps.google.com/maps/api/geocode/xml?latlng="+lat+","+lon+"&sensor=false");
+            url = new URL("http://maps.google.com/maps/api/geocode/xml?latlng=" + lat + "," + lon + "&sensor=false");
 
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,9 +152,9 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         try {
             in = new BufferedReader(new InputStreamReader(url.openStream()));
             String inputLine;
-            String buffer="";
-            while ((inputLine = in.readLine()) != null){
-                buffer=buffer+inputLine;
+            String buffer = "";
+            while ((inputLine = in.readLine()) != null) {
+                buffer = buffer + inputLine;
             }
             System.out.println("buffer="+buffer);
 
@@ -213,11 +216,9 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                 }
 
             }
-        }
-        catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (SAXException ex) {
+        } catch (SAXException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (IOException ex) {
@@ -228,22 +229,34 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     }
 
     public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Date data1, Date data2, Date dataOraPartenza) {
-        
-        List<Pacchetto> pacchetti = null;
-        if(intervallo)
-            pacchetti = pacchettoFacade.findDate(data1,data2);
-        else
-            pacchetti = pacchettoFacade.findDataSingola(dataOraPartenza);
 
-        for(Pacchetto p:pacchetti){
-            
+        List<Pacchetto> pacchetti = null;
+        if (intervallo) {
+            pacchetti = pacchettoFacade.findDate(data1, data2);
+        } else {
+            pacchetti = pacchettoFacade.findDataSingola(dataOraPartenza);
         }
-        
-        
-        
+
+
+        //filtro la lista di pacchetti e tengo solo quelli per cui la partenza e l'arrivo sono in un intorno
+        // se indicata controllo partenza
+        if (partenza != null) {
+            Tappa start = geocoding(partenza);
+            for (Pacchetto p : pacchetti) {
+                float lPercorso = p.getLunghezzaPercorso();
+                float distanza = (lPercorso * 0.5f) / 100;
+
+            }
+        }
+
+
+
         return null;
 
     }
 
-
+    private float calcolaDistanze(Tappa t1, Tappa t2) {
+        
+        return 0;
+    }
 }

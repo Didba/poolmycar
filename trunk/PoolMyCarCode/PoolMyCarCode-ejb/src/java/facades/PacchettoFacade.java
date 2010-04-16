@@ -55,18 +55,28 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
     }
 
     public List<Pacchetto> findDate(Date data1, Date data2) {
-
-        //return em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN "++"") AND()").getResultList();
-        return null;
+        Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2)");
+        Calendar c1 = new GregorianCalendar();
+        c1.setTime(data1);
+        Calendar c2 = new GregorianCalendar();
+        c2.setTime(data2);
+        q.setParameter("d1", c1);
+        q.setParameter("d2", c2);
+        List<Pacchetto> l = q.getResultList();
+        System.out.println("----------- viaggi trovati:" + l);
+        return l;
     }
 
     public List<Pacchetto> findDataSingola(Date dataOra) {
         Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2)");
         Calendar c1 = new GregorianCalendar();
         c1.setTime(dataOra);
-        Calendar c2 = new GregorianCalendar();
-        // da finire
+        Calendar c2 = (Calendar) c1.clone();
+        c2.set(Calendar.MINUTE, 59);
         q.setParameter("d1", c1);
-        return q.getResultList();
+        q.setParameter("d2", c2);
+        List<Pacchetto> l = q.getResultList();
+        System.out.println("----------- viaggi trovati:" + l);
+        return l;
     }
 }

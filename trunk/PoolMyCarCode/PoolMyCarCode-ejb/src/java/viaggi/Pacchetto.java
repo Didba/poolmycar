@@ -49,11 +49,28 @@ public class Pacchetto implements Serializable {
     private Calendar inizio;
     private String nota;
     private boolean richiestaContributi;
+    protected float lunghezzaPercorso;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    /**
+     * Get the value of lunghezzaPercorso
+     *
+     * @return the value of lunghezzaPercorso
+     */
+    public float getLunghezzaPercorso() {
+        return lunghezzaPercorso;
+    }
 
+    /**
+     * Set the value of lunghezzaPercorso
+     *
+     * @param lunghezzaPercorso new value of lunghezzaPercorso
+     */
+    public void setLunghezzaPercorso(float lunghezzaPercorso) {
+        this.lunghezzaPercorso = lunghezzaPercorso;
+    }
     public Long getId() {
         return id;
     }
@@ -169,7 +186,7 @@ public class Pacchetto implements Serializable {
             viaggio.setArrivo(arrivo);
             viaggio.setPacchetto(this);
             viaggio.setDataPartenza(d);
-            viaggio.setLunghezzaPercorso(-1); //TO-DO: da mettere a posto!
+            viaggio.setLunghezzaPercorso(lunghezzaPercorso); 
             viaggio.setViaggiatori(new LinkedList<Viaggiatore>());
             viaggio.setRichieste(new LinkedList<Richiesta>());
             viaggio.setTappeIntermedie(tappeIntermedie);
