@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import utenti.Autista;
 import utenti.Viaggiatore;
+import viaggi.Pacchetto;
 import viaggi.Tappa;
 
 /**
@@ -244,7 +245,8 @@ public class ServletController extends HttpServlet {
                         richiestaContributo = true;
                     }
 
-                    gestoreViaggiBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo,(String)session.getAttribute("distanza"));
+                    Pacchetto p=gestoreViaggiBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo,(String)session.getAttribute("distanza"));
+                    session.setAttribute("pacchetto",p);
 
                     //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
                     ServletContext sc = getServletContext();
@@ -296,8 +298,22 @@ public class ServletController extends HttpServlet {
                     rd.forward(request, response);
                      
                 }
+                //-------------------------------
+                if (action.equals("modificaViaggio")) {
+                    Pacchetto p=gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
+                    session.setAttribute("pacchetto",p);
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
+                    rd.forward(request, response);
+                }
 
+                //--------------------------
             }
+            
+            
+            
+            
+            
 
         } catch (Exception e) {
             out.println("<html><body>");
