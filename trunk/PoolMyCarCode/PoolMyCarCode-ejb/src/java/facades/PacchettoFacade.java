@@ -54,26 +54,20 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
         return em.createQuery("select object(o) from Pacchetto as o").getResultList();
     }
 
-    public List<Pacchetto> findDate(Date data1, Date data2) {
+    public List<Pacchetto> findDate(Calendar data1, Calendar data2) {
         Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2)");
-        Calendar c1 = new GregorianCalendar();
-        c1.setTime(data1);
-        Calendar c2 = new GregorianCalendar();
-        c2.setTime(data2);
-        q.setParameter("d1", c1);
-        q.setParameter("d2", c2);
+        q.setParameter("d1", data1);
+        q.setParameter("d2", data2);
         List<Pacchetto> l = q.getResultList();
         System.out.println("----------- viaggi trovati:" + l);
         return l;
     }
 
-    public List<Pacchetto> findDataSingola(Date dataOra) {
+    public List<Pacchetto> findDataSingola(Calendar dataOra) {
         Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2)");
-        Calendar c1 = new GregorianCalendar();
-        c1.setTime(dataOra);
-        Calendar c2 = (Calendar) c1.clone();
+        Calendar c2 = (Calendar) dataOra.clone();
         c2.set(Calendar.MINUTE, 59);
-        q.setParameter("d1", c1);
+        q.setParameter("d1", dataOra);
         q.setParameter("d2", c2);
         List<Pacchetto> l = q.getResultList();
         System.out.println("----------- viaggi trovati:" + l);
