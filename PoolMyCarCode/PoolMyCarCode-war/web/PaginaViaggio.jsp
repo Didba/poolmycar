@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="viaggi.Pacchetto" %>
+<%@page import="viaggi.Tappa" %>
+<%@page import="utenti.Indirizzo" %>
+<%@page import="java.util.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -14,6 +18,31 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:useBean id="pacchetto" scope="session" class="viaggi.Pacchetto" />
         <h1>Pagina viaggio</h1>
+        <%  String partenza=pacchetto.getPartenza().getIndirizzo().getCitta();
+            String arrivo=pacchetto.getArrivo().getIndirizzo().getCitta();
+            List<String> tappe= new LinkedList<String>();
+            for(Tappa t:pacchetto.getTappeIntermedie())
+                tappe.add(t.getIndirizzo().getCitta());
+        %>
+        partenza:<%=partenza%>
+        arrivo:<%=arrivo%>
+        <%
+        int i=0;
+        for(i=0; i<tappe.size(); i++) { %>
+            tappa=<%=tappe.get(i)%>
+        <% } %>
+        ____________________________________________________
+
+        <br>
+        <%
+            Tappa t=new Tappa();
+            Indirizzo indi=new Indirizzo();
+            indi.setCitta("Zuzzurellone");
+            t.setIndirizzo(indi);
+            pacchetto.setPartenza(t);
+        %>
+        <a href="ServletController?operation=modificaViaggio">clicca</a>
     </body>
 </html>
