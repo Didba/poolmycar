@@ -90,7 +90,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         tappa.setLongitudine(latlon[1]);
         Indirizzo indi = reverseGeocoding(latlon[0], latlon[1]);
         tappa.setIndirizzo(indi);
-        //TO-DO:crea oggetto indirizzo parsificando la string e aggiungilo a tappa
         return tappa;
 
     }
@@ -109,8 +108,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         }
 
 
-        //TO-DO: facade della bacheca
-
         Pacchetto pacchetto = new Pacchetto();
         pacchetto.setPartenza(tappe.get(0));
         pacchetto.setArrivo(tappe.get(tappe.size() - 1)); //da ottimizzare
@@ -124,12 +121,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         pacchetto.setLunghezzaPercorso(Float.parseFloat(distanza));//TO-DO
         //va fatta per ultima
         pacchetto.creaViaggi(date);
-        /*
-        for(Tappa t: tappe)
-        tappaFacade.create(t);  //TO-DO: controllare che lo faccia a dovere
-        for(Viaggio v: pacchetto.getViaggi())
-        viaggioFacade.create(v);
-         */
+        
         pacchettoFacade.create(pacchetto);
 
         return pacchettoFacade.findAll().get(0);
