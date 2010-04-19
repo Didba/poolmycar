@@ -10,18 +10,6 @@
 
 
 
-    protected String cognome;
-    protected String nome;
-    protected String cf;
-    @OneToOne
-    protected Indirizzo indirizzo;
-    protected String telefono;
-    protected String note;
-    protected boolean fumatore;
-
-    protected String login;
-
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,7 +29,7 @@
             <tr><td>Numero</td><td> <input name="numero" type="text" value="" size=10/> </td></tr>
             <tr><td>Città</td><td> <input name="citta" type="text" value="" size=10/> </td></tr>
             <tr><td>CAP</td><td> <input name="cap" type="text" value="" size=10/> </td></tr>
-            <tr><td>Stato</td><td> <input name="stato" type="text" value="" size=10 default="Italia"/> </td></tr>
+            <tr><td>Stato</td><td> <input name="stato" type="text" value="Italia" size=10 /> </td></tr>
             <tr><td>fumatore?</td><td><input name="fumatore" type="checkbox"></td></tr>
             <tr><td>Note?</td><td> <input name="nota" type="text" value="" size=10/> </td></tr>
             <tr><td> </td><td align="center"><br> <input type="submit" name="operation" value="registrazione"/></td></tr>

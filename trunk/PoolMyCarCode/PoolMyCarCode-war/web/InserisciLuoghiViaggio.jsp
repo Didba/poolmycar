@@ -9,11 +9,6 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 
 
-
-<!-- TO-DO: GESTIONE DELLE ECCEZIONI -->
-
-
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,6 +33,7 @@
         <script language="JavaScript" type="text/javascript">
         <!--
         var num=2;
+        var percorso="";
         function accoda(){
                 if(document.createElement && document.getElementById && document.getElementsByTagName) {
                         // crea elementi
@@ -141,18 +137,39 @@
          //gdir.load("from: " + fromAddress + " to: " + toAddress,
           //          ,{ "locale": locale });
           //var percorso="from: "+modulo.tappa0.value+" to: "+modulo.tappa1.value;
-          var percorso="from: "+document.forms[0].elements[2].value+" to: "+document.forms[0].elements[3].value;
+          
+          
+          /*var percorso="from: "+document.forms[0].elements[2].value+" to: "+document.forms[0].elements[3].value;
+
           for(var j=2+2; j<num+2; j++){
               percorso=percorso+" to: "+document.forms[0].elements[j].value;
+          }*/
+          percorso="";
+          var inseriti=0;
+
+          for(var j=2; j<num+2; j++){
+            if(document.forms[0].elements[j].value!="")
+                if(inseriti==0){
+                    percorso=percorso+"from: "+document.forms[0].elements[j].value;
+                    inseriti++;
+                }
+                else{
+                    percorso=percorso+" to: "+document.forms[0].elements[j].value;
+                    inseriti++;
+                }
           }
-          gdir.load(percorso);
+          if(inseriti>=2)
+            gdir.load(percorso);
+          else
+              alert("Devi inserire almeno una partenza ed una destinazione");
 
           attiva('tastosubmit');
         }
 
         function handleErrors(){
                if (gdir.getStatus().code == G_GEO_UNKNOWN_ADDRESS)
-                 alert("No corresponding geographic location could be found for one of the specified addresses. This may be due to the fact that the address is relatively new, or it may be incorrect.\nError code: " + gdir.getStatus().code);
+                   alert("Una o più destinazioni errate");
+                 //alert("No corresponding geographic location could be found for one of the specified addresses. This may be due to the fact that the address is relatively new, or it may be incorrect.\nError code: " + gdir.getStatus().code);
                else if (gdir.getStatus().code == G_GEO_SERVER_ERROR)
                  alert("A geocoding or directions request could not be successfully processed, yet the exact reason for the failure is not known.\n Error code: " + gdir.getStatus().code);
 
@@ -166,7 +183,7 @@
                  alert("The given key is either invalid or does not match the domain for which it was given. \n Error code: " + gdir.getStatus().code);
 
                else if (gdir.getStatus().code == G_GEO_BAD_REQUEST)
-                 alert("A directions request could not be successfully parsed.\n Error code: " + gdir.getStatus().code);
+                 alert("percoso= "+percorso+ " A directions request could not be successfully parsed.\n Error code: " + gdir.getStatus().code);
 
                else alert("An unknown error occurred.");
 
@@ -182,28 +199,39 @@
             }
 
 
+        /*function keypressed(){
+            if(event.keyCode=='13'){ setDirections(); }
+        }*/
+        function checkReturn(evt) {
+            var evt = (evt) ? evt : ((event) ? event : null);
+            var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+            if ((evt.keyCode == 13) && (node.type=="text")) { return false;}
+        }
+
+
+        document.onkeypress = checkReturn;
 
         //-->
         </script>
     </head>
-    <body onload="initialize()" onunload="GUnload()">
+    <body onload="initialize();" onkeyup="keypressed()" onunload="GUnload()">
         <form name="modulo" action="ServletController" method="POST">
         <input type="button" value="accoda" onclick="accoda()"/>
         <input type="button" id="tastorimuovi" disabled value="rimuovi" onclick="rimuovi()"/>
         <table border="1" id="tabella">
         <tbody>
         <tr>
-        <td><input type="text" name="tappa0" onchange="disattiva('tastosubmit')"/></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
+            <td><input type="text" name="tappa0" onchange="disattiva('tastosubmit');" /></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
         </tr>
         <tr>
-        <td><input type="text" name="tappa1" onchange="disattiva('tastosubmit')"/></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
+        <td><input type="text" name="tappa1" onchange="disattiva('tastosubmit');" /></td><!--<td><input type="button" disabled="disabled" value="rimuovi" /></td>-->
         </tr>
         </tbody>
         </table>
         <input type="hidden" value="" id="distanza" name="distanza"/>
         <input type="submit" id="tastosubmit" disabled name="operation" value="inserisciTappe" onclick="document.getElementById('distanza').value = gdir.getDistance().meters;
 "/>
-        <input type="button" value="visualizza" onclick="setDirections();"/>
+        <input type="button" id="tastovisualizza" value="visualizza" onclick="setDirections();"/>
         </form>
 
 

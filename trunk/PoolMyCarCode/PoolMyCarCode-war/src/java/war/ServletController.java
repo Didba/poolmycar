@@ -4,7 +4,6 @@
  */
 package war;
 
-import ejb.CarrelloInserimentoViaggioBean;
 import ejb.CarrelloInserimentoViaggioLocal;
 import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
@@ -193,7 +192,6 @@ public class ServletController extends HttpServlet {
                         if (tappa == null) {  //geocoding fallito
                             ServletContext sc = getServletContext();
                             RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio.jsp");
-                            //TO-DO: segnalare geocoding fallito
                             rd.forward(request, response);
                         } else {
                             tappe.add(tappa);
@@ -301,7 +299,6 @@ public class ServletController extends HttpServlet {
                     Pacchetto p=gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(),(String)session.getAttribute("distanza"));
                     session.setAttribute("pacchetto",p);
 
-                    //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                     rd.forward(request, response);
