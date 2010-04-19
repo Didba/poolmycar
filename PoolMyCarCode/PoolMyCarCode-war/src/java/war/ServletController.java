@@ -4,12 +4,15 @@
  */
 package war;
 
+import ejb.CarrelloInserimentoViaggioBean;
+import ejb.CarrelloInserimentoViaggioLocal;
 import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
 import ejb.RisultatiRicercaViaggi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,7 +36,8 @@ import viaggi.Tappa;
  * @author berto
  */
 public class ServletController extends HttpServlet {
-
+    @EJB
+    private CarrelloInserimentoViaggioLocal creazioneViaggiBean;
     @EJB
     private GestoreViaggiBeanLocal gestoreViaggiBean;
     @EJB
@@ -167,6 +171,16 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
+                    try{
+                        Autista autista=(Autista) session.getAttribute("utente");
+                    }
+                    catch(ClassCastException e){
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
+                        rd.forward(request, response);
+                    }
+
+
                     session.setAttribute("distanza", request.getParameter("distanza"));
                     List<Tappa> tappe = new LinkedList<Tappa>();
                     String indirizzo = null;
@@ -188,7 +202,12 @@ public class ServletController extends HttpServlet {
 
                     }
 
-                    session.setAttribute("tappe", tappe);
+                    
+                    //-------istanziazione del session bean------------
+                    /*CarrelloInserimentoViaggioLocal viaggio = new CarrelloInserimentoViaggioBean();
+                    viaggio.setTappe(tappe);*/
+                    creazioneViaggiBean.setTappe(tappe);
+                    session.setAttribute("creazioneViaggiBean", creazioneViaggiBean);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/InserisciDateViaggio.jsp");
@@ -196,12 +215,21 @@ public class ServletController extends HttpServlet {
 
                 }
                 if (action.equals("inserisciDate")) {
+                    creazioneViaggiBean = (CarrelloInserimentoViaggioLocal) session.getAttribute("creazioneViaggiBean");
                     if (session == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
-                    if (session.getAttribute("utente") == null || session.getAttribute("tappe") == null) {
+                    if (session.getAttribute("utente") == null || creazioneViaggiBean==null || creazioneViaggiBean.getTappe() == null) {
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
+                        rd.forward(request, response);
+                    }
+                    try{
+                        Autista autista=(Autista) session.getAttribute("utente");
+                    }
+                    catch(ClassCastException e){
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -217,23 +245,45 @@ public class ServletController extends HttpServlet {
                         String[] arrString = s.split(" ");
                         Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]));
                         date.add(c);
-                        //TO-DO: leggi date da calendario e trasformale in oggetti Date
-
                     }
 
-                    session.setAttribute("date", date);
+                    
+                    //ordina le date nella lista
+                    int i=0;
+                    CalendarSortable[] dateArray=new CalendarSortable[date.size()];
+                    for(Calendar c: date){
+                        dateArray[i]=new CalendarSortable(c);
+                        i++;
+                    }
+                    Arrays.sort(dateArray);
+                    date = new LinkedList<Calendar>();
+                    for(int j=0; j<dateArray.length; j++)
+                        date.add(dateArray[j].getCalendar());
+                    ////////////////////////////////
+
+                    creazioneViaggiBean.setDate(date);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/ConfermaViaggio.jsp");
                     rd.forward(request, response);
                 }
                 if (action.equals("viaggioConfermato")) {
+                    creazioneViaggiBean = (CarrelloInserimentoViaggioLocal) session.getAttribute("creazioneViaggiBean");
                     if (session == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
-                    if (session.getAttribute("utente") == null || session.getAttribute("tappe") == null || session.getAttribute("date") == null) {
+                    if (session.getAttribute("utente") == null || creazioneViaggiBean==null || creazioneViaggiBean.getTappe() == null || creazioneViaggiBean.getDate() == null) {
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
+                        rd.forward(request, response);
+                    }
+                    Autista autista=null;
+                    try{
+                        autista=(Autista) session.getAttribute("utente");
+                    }
+                    catch(ClassCastException e){
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -245,7 +295,10 @@ public class ServletController extends HttpServlet {
                         richiestaContributo = true;
                     }
 
-                    Pacchetto p=gestoreViaggiBean.inserisciPacchetto((List<Tappa>) session.getAttribute("tappe"), (List<Calendar>) session.getAttribute("date"), (Autista) session.getAttribute("utente"), nota, richiestaContributo,(String)session.getAttribute("distanza"));
+                    creazioneViaggiBean.setNota(nota);
+                    creazioneViaggiBean.setRichiestaContributi(richiestaContributo);
+
+                    Pacchetto p=gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(),(String)session.getAttribute("distanza"));
                     session.setAttribute("pacchetto",p);
 
                     //TO-DO: caricare indice del viaggio per forward "paginaviaggio.jsp"
@@ -401,4 +454,36 @@ public class ServletController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    //classe privata per il sorting delle date
+    private class CalendarSortable implements Comparable{
+        private Calendar calendar;
+        private long currenTime;
+
+        public CalendarSortable(Calendar c){
+            calendar=c;
+            currenTime=c.getTimeInMillis();
+        }
+
+        public int compareTo(Object o) {
+            CalendarSortable c=(CalendarSortable) o;
+            if(currenTime<c.getTime())
+                return -1;
+            else if(currenTime==c.getTime())
+                return 0;
+            else
+                return 1;
+        }
+
+        public long getTime() {
+            return currenTime;
+        }
+
+        public Calendar getCalendar(){
+            return calendar;
+        }
+
+
+
+    }
 }
