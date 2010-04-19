@@ -190,7 +190,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                     type = ((Node) fstNm.item(0)).getNodeValue();
 
                     if (type.equals("street_number")) {
-                        if (!value.contains("-")) {
+                        if (value!=null && !value.contains("-")) {
                             ris.setNumerocivico(value);
                         }
                     } else if (type.equals("route")) {
