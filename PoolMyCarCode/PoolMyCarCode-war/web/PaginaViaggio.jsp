@@ -43,10 +43,22 @@
             t.setIndirizzo(indi);
             pacchetto.setPartenza(t);
 
-            List<Tappa> listaTmp=pacchetto.getTappeIntermedie();
-            LinkedList<Tappa> intermedie = (LinkedList<Tappa>) listaTmp;  //<-- classcastexceptio: fare l'iteratore
-            Tappa tappaTmp=(Tappa) intermedie.remove(1);
-            intermedie.add(2, tappaTmp);
+            List<Tappa> intermedie=pacchetto.getTappeIntermedie();
+            Iterator<Tappa> it =intermedie.iterator();
+            int j=0;
+            Tappa tappaTmp=null;
+
+            while(it.hasNext()){
+                if(j==2){
+                    tappaTmp=it.next();
+                    it.remove();
+                }
+                else
+                    it.next();
+                j++;
+            }
+            
+            intermedie.add(tappaTmp);
             pacchetto.setTappeIntermedie(intermedie);
         %>
         <a href="ServletController?operation=modificaViaggio">clicca</a>
