@@ -42,6 +42,12 @@
             indi.setCitta("Zuzzurellone");
             t.setIndirizzo(indi);
             pacchetto.setPartenza(t);
+
+            List<Tappa> listaTmp=pacchetto.getTappeIntermedie();
+            LinkedList<Tappa> intermedie = (LinkedList<Tappa>) listaTmp;  //<-- classcastexceptio: fare l'iteratore
+            Tappa tappaTmp=(Tappa) intermedie.remove(1);
+            intermedie.add(2, tappaTmp);
+            pacchetto.setTappeIntermedie(intermedie);
         %>
         <a href="ServletController?operation=modificaViaggio">clicca</a>
     </body>
