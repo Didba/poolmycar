@@ -6,9 +6,12 @@
 package facades;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import utenti.Autista;
+import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
 /**
@@ -17,6 +20,8 @@ import utenti.Viaggiatore;
  */
 @Stateless
 public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
+    @EJB
+    private TipoMezzoFacadeLocal tipoMezzoFacade;
     @PersistenceContext
     private EntityManager em;
 
@@ -25,7 +30,16 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
     }
 
     public void edit(Viaggiatore viaggiatore) {
-        em.merge(viaggiatore);
+        //può essere una modifica o una promozione ad autista
+        try{
+            Autista autista=(Autista)viaggiatore;
+            for(TipoMezzo tp: autista.getTipoMezzo())
+                tipoMezzoFacade.create(tp);
+            em.merge(autista);
+        }
+        catch(ClassCastException e){
+            em.merge(viaggiatore);
+        }
     }
 
     public void remove(Viaggiatore viaggiatore) {
