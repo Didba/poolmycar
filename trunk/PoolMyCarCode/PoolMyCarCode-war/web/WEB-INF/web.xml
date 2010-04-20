@@ -4,9 +4,27 @@
         <servlet-name>ServletController</servlet-name>
         <servlet-class>war.ServletController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FacebookSocialNetworkingServiceLogin</servlet-name>
+        <servlet-class>org.netbeans.saas.facebook.FacebookSocialNetworkingServiceLogin</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        </servlet>
+    <servlet>
+        <servlet-name>FacebookSocialNetworkingServiceCallback</servlet-name>
+        <servlet-class>org.netbeans.saas.facebook.FacebookSocialNetworkingServiceCallback</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        </servlet>
     <servlet-mapping>
         <servlet-name>ServletController</servlet-name>
         <url-pattern>/ServletController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacebookSocialNetworkingServiceLogin</servlet-name>
+        <url-pattern>/FacebookSocialNetworkingServiceLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacebookSocialNetworkingServiceCallback</servlet-name>
+        <url-pattern>/FacebookSocialNetworkingServiceCallback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

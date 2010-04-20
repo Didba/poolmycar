@@ -101,23 +101,13 @@ public class ServletController extends HttpServlet {
 
                     String login = request.getParameter("login");
                     String password = request.getParameter("password");
-                    boolean autista = (request.getParameter("autista")) != null;
+                    //boolean autista = (request.getParameter("autista")) != null;
 
-                    if (gestoreUtentiBean.registraUtente(login, password, autista)) {
+                    if (gestoreUtentiBean.registraUtente(login, password)) {
 
                         Viaggiatore viaggiatore = gestoreUtentiBean.doLogin(login, password);
                         HttpSession session = request.getSession();
                         session.setAttribute("utente", viaggiatore);
-
-
-                        try {
-
-                            Autista p = (Autista) viaggiatore;
-                        } catch (ClassCastException e) {
-                            ServletContext sc = getServletContext();
-                            RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
-                            rd.forward(request, response);
-                        }
 
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/Profilo.jsp");
@@ -134,6 +124,42 @@ public class ServletController extends HttpServlet {
 
                 /////////////////////////////////solo cose da loggato////////////////////
                 HttpSession session = request.getSession();
+
+                 if (action.equals("diventaAutista")) {
+                    if (session == null) {
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
+                        rd.forward(request, response);
+                    }
+
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/RegistrazioneAutista.jsp");
+                    rd.forward(request, response);
+                }
+
+                if (action.equals("registrazioneAutista")) {
+                    if (session == null) {
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
+                        rd.forward(request, response);
+                    }
+                    Viaggiatore viaggiatore = (Viaggiatore) session.getAttribute("utente");
+                    //Se è già un autista lo rimando a notpermitted
+                    try {
+                        Autista autista= (Autista) viaggiatore;
+                        ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
+                        rd.forward(request, response);
+                    } catch (ClassCastException e) {} //eccezione catturata:va tutto bene
+                    String tipoMezzo=request.getParameter("tipoMezzo");
+                    String patente=request.getParameter("patente");
+                    gestoreUtentiBean.diventaAutista(viaggiatore, patente, tipoMezzo);
+
+                    session.setAttribute("utente",viaggiatore);
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/Profilo.jsp");
+                    rd.forward(request, response);
+                }
 
                 if (action.equals("inserisciViaggio")) {
                     if (session == null) {
@@ -187,16 +213,19 @@ public class ServletController extends HttpServlet {
 
                     int i = 0;
                     while (request.getParameter(new String("tappa" + i)) != null) {
-                        indirizzo = request.getParameter(new String("tappa" + i));
-                        Tappa tappa = gestoreViaggiBean.geocoding(indirizzo);
-                        if (tappa == null) {  //geocoding fallito
-                            ServletContext sc = getServletContext();
-                            RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio.jsp");
-                            rd.forward(request, response);
-                        } else {
-                            tappe.add(tappa);
-                            i++;
-                        }
+                        indirizzo=request.getParameter(new String("tappa" + i));
+                        System.out.println("indirizzo="+indirizzo);
+                        if(!indirizzo.equals("")){
+                            Tappa tappa = gestoreViaggiBean.geocoding(indirizzo);
+                            if (tappa == null) {  //geocoding fallito
+                                ServletContext sc = getServletContext();
+                                RequestDispatcher rd = sc.getRequestDispatcher("/InserisciViaggio.jsp");
+                                rd.forward(request, response);
+                            } else {
+                                tappe.add(tappa);
+                            }
+                       }
+                       i++;
 
                     }
 
