@@ -18,7 +18,7 @@
     <body>
         <form name="dati" action="ServletController" method="POST">
         <table border=0>
-            <tr><td>autista?</td><td><input name="autista" type="checkbox"></td></tr>
+            <%-- <tr><td>autista?</td><td><input name="autista" type="checkbox"></td></tr> --%>
             <tr><td>UserName:</td><td> <input name="login" type="text" value="" size=10/> </td></tr>
             <tr><td>Password:</td><td> <input name="password" type="password" value="" size=10/> </td></tr>
             <tr><td>Nome</td><td> <input name="nome" type="text" value="" size=10/> </td></tr>

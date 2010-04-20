@@ -25,7 +25,7 @@
             try{
                 Autista autista=(Autista) utente;
                 %>
-                <h2>Cose che può fare l'autista</h2>
+                <h2>Sei un autista</h2>
                 <form action="ServletController" method="POST">
                 <input type="SUBMIT" value="inserisciViaggio" name="operation">
                 </form>
@@ -33,7 +33,11 @@
                 <%
             }
             catch(ClassCastException e){
-                %><h1> non autista </h1><%
+                %><h2> Vuoi diventare un autista? </h2>
+                <form action="ServletController" method="POST">
+                <input type="SUBMIT" value="diventaAutista" name="operation">
+                </form>
+                <%
             }
        } %>
     </body>
