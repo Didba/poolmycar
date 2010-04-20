@@ -5,11 +5,15 @@
 
 package ejb;
 
+import facades.AutistaFacadeLocal;
 import facades.ViaggiatoreFacadeLocal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import utenti.Autista;
+import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
 /**
@@ -18,6 +22,8 @@ import utenti.Viaggiatore;
  */
 @Stateless
 public class GestoreUtentiBean implements GestoreUtentiLocal {
+    @EJB
+    private AutistaFacadeLocal autistaFacade;
     @EJB
     private ViaggiatoreFacadeLocal viaggiatoreFacade;
     
@@ -39,17 +45,9 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
            return null;
     }
 
-    public boolean registraUtente(String login, String password, boolean isAutista) {
-
-        
-        Viaggiatore viaggiatore=null;
-        
-        if(isAutista)
-            viaggiatore=new Autista();
-            
-        else
-            viaggiatore=new Viaggiatore();
-
+    public boolean registraUtente(String login, String password) {
+      
+        Viaggiatore viaggiatore=new Viaggiatore();
         viaggiatore.setLogin(login);
         viaggiatore.setPassword(password);
         Viaggiatore v = viaggiatoreFacade.findLogin(login);
@@ -60,5 +58,34 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
         return true;
         }
     }
-    
+
+    public boolean diventaAutista(Viaggiatore viaggiatore, String patente, String tipoMezzo) {
+
+        Autista autista=new Autista();
+
+        TipoMezzo tp=new TipoMezzo();
+        tp.setNome(tipoMezzo);
+        Set<TipoMezzo> tipiMezzo=new HashSet<TipoMezzo>();
+        tipiMezzo.add(tp);
+        autista.setTipoMezzo(tipiMezzo);
+        autista.setNumeroPatente(patente);
+
+        autista.setId(viaggiatore.getId());
+        autista.setNome(viaggiatore.getNome());
+        autista.setCognome(viaggiatore.getCognome());
+        autista.setCf(viaggiatore.getCf());
+        autista.setIndirizzo(viaggiatore.getIndirizzo());
+        autista.setTelefono(viaggiatore.getTelefono());
+        autista.setNote(viaggiatore.getNote());
+        autista.setFumatore(viaggiatore.isFumatore());
+        autista.setLogin(viaggiatore.getLogin());
+        autista.setPassword(viaggiatore.getPassword());
+
+
+        //viaggiatoreFacade.remove(viaggiatore);
+        //viaggiatore=autista;
+        //autistaFacade.create(autista);
+        
+        return true;
+    }
 }
