@@ -31,14 +31,6 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
     public Viaggiatore doLogin(String user, String pwd){
         Viaggiatore v =viaggiatoreFacade.findLogin(user);
-
-        /*List<Viaggiatore> viaggiatori=null;
-
-        viaggiatori=viaggiatoreFacade.findAll();
-
-        for(Viaggiatore v: viaggiatori)
-            if(v.getLogin().equals(user) && v.getPassword().equals(pwd))
-                return v;*/
         if(v.getPassword().equals(pwd))
             return v;
         else
@@ -80,7 +72,7 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
         autista.setFumatore(viaggiatore.isFumatore());
         autista.setLogin(viaggiatore.getLogin());
         autista.setPassword(viaggiatore.getPassword());
-
+        
 
         //viaggiatoreFacade.remove(viaggiatore);
         //viaggiatore=autista;
