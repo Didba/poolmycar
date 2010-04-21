@@ -28,6 +28,7 @@
         <title>Ricerca Viaggio</title>
     </head>
     <body>
+        
         <form action="ServletController" method="POST">
             PERCORSO
             <div>

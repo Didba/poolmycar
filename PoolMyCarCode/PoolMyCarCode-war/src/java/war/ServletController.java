@@ -7,6 +7,7 @@ package war;
 import ejb.CarrelloInserimentoViaggioLocal;
 import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
+import ejb.RiempiDBLocal;
 import ejb.RisultatiRicercaViaggi;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,6 +36,8 @@ import viaggi.Tappa;
  * @author berto
  */
 public class ServletController extends HttpServlet {
+    @EJB
+    private RiempiDBLocal riempiDB;
     @EJB
     private CarrelloInserimentoViaggioLocal creazioneViaggiBean;
     @EJB
@@ -333,7 +336,7 @@ public class ServletController extends HttpServlet {
                     rd.forward(request, response);
                 } ///RICERCA----------------------------------
                 if (action.equals("cerca")) {
-                    
+                    riempiDB.riempi();
                     // salva i parametri di ricerca
                     String partenza = request.getParameter("partenza");
                     
