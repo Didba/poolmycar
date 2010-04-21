@@ -109,7 +109,7 @@ public class RiempiDB implements RiempiDBLocal {
         d.add("14/04/2010");
         d.add("16/04/2010");
         d.add("19/04/2010");
-        p = creap("Torino", "Bra", autista, d);
+        p = creap("Torino", "Cuneo", autista, d);
         pacchettoFacade.create(p);
 
 
