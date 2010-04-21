@@ -92,7 +92,9 @@
                         pacchetti = ris.getNextPacchetti(3);
                         if(pacchetti==null){%>
                            Nulla
-                    <%  }else{%>
+                           <%
+                        }else{
+                        %>
                     <table border=1>
                     <tr>
                         <td>Partenza</td>
@@ -140,9 +142,10 @@
                     <%} // chiusura for
                     %>
                     </table>
-                    <a href="RisultatiRicerca.jsp">next</a>
+                    
 
-                    <a href="RisultatiRicerca.jsp" onclick="">precedente</a>
+                    <a href="RisultatiRicerca.jsp" onclick=""> << Precedente  </a>
+                    <a href="RisultatiRicerca.jsp">  Successiva >> </a>
                     <%} //chiusura else%>
                 
             </form>
