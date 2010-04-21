@@ -5,7 +5,9 @@
 
 package ejb;
 
+import java.util.List;
 import javax.ejb.Local;
+import viaggi.Pacchetto;
 
 /**
  *
@@ -17,6 +19,12 @@ public interface RisultatiRicercaViaggiLocal {
     public void setPacchetti(java.util.List<viaggi.Pacchetto> pacchetti);
 
     public java.util.List<viaggi.Pacchetto> getPacchetti();
+
+    public List<Pacchetto> getNextPacchetti(int n);
+
+    public void setPacchettiVisti(int pacchettiVisti);
+
+    public int getPacchettiVisti();
     
     
 }
