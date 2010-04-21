@@ -54,7 +54,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         indirizzo = indirizzo.replace(' ', '+');
         URL url = null;
         try {
-            url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA");
+            url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA&language=it");
             System.out.println("indirizzo=" + indirizzo);
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,7 +136,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         Indirizzo ris = new Indirizzo();
         URL url = null;
         try {
-            url = new URL("http://maps.google.com/maps/api/geocode/xml?latlng=" + lat + "," + lon + "&sensor=false");
+            url = new URL("http://maps.google.com/maps/api/geocode/xml?latlng=" + lat + "," + lon + "&sensor=false&language=it");
 
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
