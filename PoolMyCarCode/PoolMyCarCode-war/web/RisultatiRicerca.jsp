@@ -11,8 +11,8 @@
 <%@page import="viaggi.*" %>
 <%@page import="viaggi.*" %>
 <%@page import="java.util.*" %>
-<jsp:useBean scope="session" id="ris" class="ejb.RisultatiRicercaViaggi"/>
-<%!    
+<%!
+    RisultatiRicercaViaggi ris;
     List<Pacchetto> pacchetti;
     
 %>
@@ -30,7 +30,9 @@
                 <h1>Ecco i tuoi viaggi</h1>
 
 
-                    <% pacchetti = ris.getNextPacchetti(3);
+                    <%
+                        ris = (RisultatiRicercaViaggi) session.getAttribute("risulatatoRicerca");
+                        pacchetti = ris.getNextPacchetti(3);
                         if(pacchetti==null){%>
                            Nulla
                     <%  }else{%>
@@ -50,19 +52,19 @@
                     %>
                     <tr>
                         <td>
-                            <input type="text" id="partenza" value="<%= p.getPartenza().getIndirizzo().getCitta()%>">
+                            <%= p.getPartenza().getIndirizzo().getCitta()%>
                         </td>
                         <td>
-                            <input type="text" id="arrivo">
+                            <%= p.getArrivo().getIndirizzo().getCitta()%>
                         </td>
                         <td>
-                            <input type="text" id="autista">
+                            <%= p.getAutista().getCognome()%>
                         </td>
                         <td>
-                            <input type="text" id="datePartenza">
+                            <%= p.getInizio()%>
                         </td>
                         <td>
-                            <input type="text" id="mappa">
+                            mappa
                         </td>
                         <td>
                             <input type="button" id="prenota" value="Prenota">
@@ -71,7 +73,9 @@
                     <%} // chiusura for
                     %>
                     </table>
-                    mettere pulsante next o prec
+                    <a href="/RisultatiRicerca.jsp">next</a>
+
+                    <a href="/RisultatiRicerca.jsp" onclick="">precedente</a>
                     <%} //chiusura else%>
                 
             </form>
