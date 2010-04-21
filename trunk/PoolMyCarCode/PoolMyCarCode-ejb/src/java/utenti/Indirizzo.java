@@ -59,10 +59,10 @@ public class Indirizzo implements Serializable {
         return true;
     }
 
-    @Override
+  /*  @Override
     public String toString() {
         return "utenti.Indirizzo[id=" + id + "]";
-    }
+    }*/
 
     /**
      * @return the via
@@ -132,6 +132,18 @@ public class Indirizzo implements Serializable {
      */
     public void setStato(String stato) {
         this.stato = stato;
+    }
+
+    public String toString(){
+        String s = "";
+        if(via!=null && !via.equals(""))
+            s +=(via+ " ");
+        if(numerocivico!=null && !numerocivico.equals(""))
+            s +=(numerocivico+ " ");
+        if(citta!=null && !citta.equals(""))
+            s +=(citta+ " ");
+
+        return s;
     }
 
 }

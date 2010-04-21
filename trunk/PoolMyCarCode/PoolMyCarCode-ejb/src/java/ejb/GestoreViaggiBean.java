@@ -245,7 +245,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
         //filtro la lista di pacchetti e tengo solo quelli per cui la partenza e l'arrivo sono in un intorno
         // se indicata controllo partenza
-        if (partenza != null) {
+        if (partenza != null && !partenza.equals("")) {
             Tappa start = geocoding(partenza);
             Iterator it = pacchetti.iterator();
             while (it.hasNext()) {
@@ -258,7 +258,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             }
         }
         // se indicato controllo l'arrivo
-        if (arrivo != null) {
+        if (arrivo!=null && !arrivo.equals("")) {
             Tappa start = geocoding(arrivo);
             Iterator it = pacchetti.iterator();
             while (it.hasNext()) {
