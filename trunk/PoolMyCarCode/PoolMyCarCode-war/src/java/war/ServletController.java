@@ -50,13 +50,13 @@ public class ServletController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        super.init();
         try {
             riempiDB.riempi();
         } catch (ParseException ex) {
             Logger.getLogger(ServletController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+                super.init();
+
 
     }
 
