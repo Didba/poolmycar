@@ -7,6 +7,7 @@ package utenti;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class Viaggiatore implements Serializable {
     protected String cognome;
     protected String nome;
     protected String cf;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     protected Indirizzo indirizzo;
     protected String telefono;
     protected String note;
