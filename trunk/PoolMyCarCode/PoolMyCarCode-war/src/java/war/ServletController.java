@@ -11,6 +11,7 @@ import ejb.RiempiDBLocal;
 import ejb.RisultatiRicercaViaggi;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -18,6 +19,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -44,6 +47,18 @@ public class ServletController extends HttpServlet {
     private GestoreViaggiBeanLocal gestoreViaggiBean;
     @EJB
     private GestoreUtentiLocal gestoreUtentiBean;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        try {
+            riempiDB.riempi();
+        } catch (ParseException ex) {
+            Logger.getLogger(ServletController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -336,7 +351,6 @@ public class ServletController extends HttpServlet {
                     rd.forward(request, response);
                 } ///RICERCA----------------------------------
                 if (action.equals("cerca")) {
-                    riempiDB.riempi();
                     // salva i parametri di ricerca
                     String partenza = request.getParameter("partenza");
                     
