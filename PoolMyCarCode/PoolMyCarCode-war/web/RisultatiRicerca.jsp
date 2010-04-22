@@ -149,12 +149,13 @@
                     <input type="hidden" value="avanti" id="idDirezione" name="direzione"/>
                         
                     <%
-                       if(ris.avanti()){
-                    %>
-                        <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
+                        if(ris.indietro()){%>
+                            <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
+                       
                    <%}
-                    if(ris.indietro()){%>
-                    <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
+                        if(ris.avanti()){
+                    %>
+                            <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
                    <%}%>
                     <%} //chiusura due else%>
                 
