@@ -7,6 +7,7 @@ package utenti;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import viaggi.Pacchetto;
 import viaggi.Richiesta;
 import viaggi.Viaggio;
 
@@ -28,6 +30,8 @@ public class Viaggiatore implements Serializable {
     private List<Viaggio> viaggi;
     @OneToMany(mappedBy = "autore")
     private List<Richiesta> richieste;
+    @OneToOne(cascade=CascadeType.ALL)
+    private FeedbackViaggiatore feedbackViaggiatore;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +46,109 @@ public class Viaggiatore implements Serializable {
     protected boolean fumatore;
     @OneToMany(mappedBy = "autore")
     private List<CommentoAutista> commentiRilasciati;
-    protected String login;
+    @OneToMany(cascade=CascadeType.ALL)
+    private Set<TipoMezzo> mezzi;
+    private String login;
+    private String numeroPatente;
+    @OneToOne(cascade=CascadeType.ALL)
+    private FeedbackAutista feedBackAutista;
+    @OneToMany(mappedBy = "autista")
+    private List<Pacchetto> pacchettiDaAutista;
+
+    /**
+     * Get the value of pacchettiDaAutista
+     *
+     * @return the value of pacchettiDaAutista
+     */
+    public List<Pacchetto> getPacchettiDaAutista() {
+        return pacchettiDaAutista;
+    }
+
+    /**
+     * Set the value of pacchettiDaAutista
+     *
+     * @param pacchettiDaAutista new value of pacchettiDaAutista
+     */
+    public void setPacchettiDaAutista(List<Pacchetto> pacchettiDaAutista) {
+        this.pacchettiDaAutista = pacchettiDaAutista;
+    }
+
+
+    /**
+     * Get the value of feedBackAutista
+     *
+     * @return the value of feedBackAutista
+     */
+    public FeedbackAutista getFeedBackAutista() {
+        return feedBackAutista;
+    }
+
+    /**
+     * Set the value of feedBackAutista
+     *
+     * @param feedBackAutista new value of feedBackAutista
+     */
+    public void setFeedbackAutista(FeedbackAutista feedBackAutista) {
+        this.feedBackAutista = feedBackAutista;
+    }
+
+    /**
+     * Get the value of mezzi
+     *
+     * @return the value of mezzi
+     */
+    public Set<TipoMezzo> getMezzi() {
+        return mezzi;
+    }
+
+    /**
+     * Set the value of mezzi
+     *
+     * @param mezzi new value of mezzi
+     */
+    public void setMezzi(Set<TipoMezzo> mezzi) {
+        this.mezzi = mezzi;
+    }
+
+    /**
+     * Get the value of numeroPatente
+     *
+     * @return the value of numeroPatente
+     */
+    public String getNumeroPatente() {
+        return numeroPatente;
+    }
+
+    /**
+     * Set the value of numeroPatente
+     *
+     * @param numeroPatente new value of numeroPatente
+     */
+    public void setNumeroPatente(String numeroPatente) {
+        this.numeroPatente = numeroPatente;
+    }
+
+    private boolean isAutista = false;
+
+
+    /**
+     * Get the value of isAutista
+     *
+     * @return the value of isAutista
+     */
+    public boolean isAutista() {
+        return isAutista;
+    }
+
+    /**
+     * Set the value of isAutista
+     *
+     * @param isAutista new value of isAutista
+     */
+    public void setAutista(boolean isAutista) {
+        this.isAutista = isAutista;
+    }
+
 
     /**
      * Get the value of login
@@ -146,7 +252,23 @@ public class Viaggiatore implements Serializable {
         this.telefono = telefono;
     }
 
+    /**
+     * Get the value of feedbackViaggiatore
+     *
+     * @return the value of feedbackViaggiatore
+     */
+    public FeedbackViaggiatore getFeedbackViaggiatore() {
+        return feedbackViaggiatore;
+    }
 
+    /**
+     * Set the value of feedbackViaggiatore
+     *
+     * @param feedbackViaggiatore new value of feedbackViaggiatore
+     */
+    public void setFeedbackViaggiatore(FeedbackViaggiatore feedbackViaggiatore) {
+        this.feedbackViaggiatore = feedbackViaggiatore;
+    }
 
     /**
      * Get the value of cognome

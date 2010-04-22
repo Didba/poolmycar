@@ -23,8 +23,7 @@ import utenti.Viaggiatore;
 public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
     @EJB
     private TipoMezzoFacadeLocal tipoMezzoFacade;
-    @EJB
-    private AutistaFacadeLocal autistaFacade;
+
     @PersistenceContext
     private EntityManager em;
 
