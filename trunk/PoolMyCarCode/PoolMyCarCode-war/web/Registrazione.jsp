@@ -29,6 +29,7 @@
             <tr><td>Numero</td><td> <input name="numero" type="text" value="" size=10/> </td></tr>
             <tr><td>Città</td><td> <input name="citta" type="text" value="" size=10/> </td></tr>
             <tr><td>CAP</td><td> <input name="cap" type="text" value="" size=10/> </td></tr>
+            <tr><td>Provincia</td><td> <input name="provincia" type="text" value="" size=2/> </td></tr>
             <tr><td>Stato</td><td> <input name="stato" type="text" value="Italia" size=10 /> </td></tr>
             <tr><td>fumatore?</td><td><input name="fumatore" type="checkbox"></td></tr>
             <tr><td>Note?</td><td> <input name="nota" type="text" value="" size=10/> </td></tr>

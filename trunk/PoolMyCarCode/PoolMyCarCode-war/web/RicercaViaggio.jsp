@@ -10,6 +10,7 @@
 
 <html>
     <head>
+        <script type="text/javascript" src="ajaxjs.js"></script>
         <script language="JavaScript" type="text/javascript">
         function abilitaIntervallo(n){
             var divInt = document.getElementById("intervalloDate");
@@ -23,18 +24,31 @@
                 divInt.style.visibility = "hidden";
             }
         }
+        function checkDate(){
+            if(document.getElementById("ora").value<=23 && document.getElementById("ora").value>=0 && document.getElementById("min").value<=59 && document.getElementById("min").value>=0){
+                return true;
+            }
+            else{
+                alert("inserisci un'ora realistica");
+                document.getElementById("ora").value="";
+                document.getElementById("min").value="";
+                return false;
+            }
+
+        }
     </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ricerca Viaggio</title>
     </head>
     <body>
         
-        <form action="ServletController" method="POST">
+        <form action="ServletController" method="POST" onSubmit="return(checkDate());">
             PERCORSO
             <div>
-                PARTENZA <input name="partenza" type="text" />
-                ARRIVO <input name="arrivo" type="text" />
+                PARTENZA <input name="partenza" type="text" onkeyup="if(this.value!=''){loadContent(this.value);}else{document.getElementById('prtCnt').innerHTML=''}"/>
+                ARRIVO <input name="arrivo" type="text" onkeyup="if(this.value!=''){loadContent(this.value);}else{document.getElementById('prtCnt').innerHTML=''}"/>
             </div>
+            <div id="prtCnt"></div>
             <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('Date');" value="Date"/> vuoi intervallo date <br>
             <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('DataSingola');" value="DataSingola"/> vuoi data singola <br>
 
@@ -48,7 +62,7 @@
             <div id="dataSingola" style="visibility: hidden;">
                 DATA SINGOLA <br>
                 Data <input name="dataPartenza" type="text" />
-                ora <input name="ora" type="text" />
+                ora <input id="ora" name="ora" type="text" />:<input id="min" name="min" type="text" />
             </div>
             <input type="submit" name="operation" value="cerca"/>
         </form>
