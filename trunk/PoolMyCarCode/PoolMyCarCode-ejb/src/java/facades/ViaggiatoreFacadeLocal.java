@@ -6,7 +6,9 @@
 package facades;
 
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
+import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
 /**
@@ -27,5 +29,7 @@ public interface ViaggiatoreFacadeLocal {
     List<Viaggiatore> findAll();
 
     public Viaggiatore findLogin(String user);
+
+    void diventaAutista(Viaggiatore viaggiatore, String patente, Set<TipoMezzo> tipoMezzi);
 
 }

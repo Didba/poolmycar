@@ -8,6 +8,8 @@ package facades;
 import java.util.List;
 import javax.ejb.Local;
 import utenti.Autista;
+import utenti.TipoMezzo;
+import utenti.Viaggiatore;
 
 /**
  *

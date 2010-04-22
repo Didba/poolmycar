@@ -6,11 +6,12 @@
 package facades;
 
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import utenti.Autista;
+import javax.persistence.Query;
 import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
@@ -22,6 +23,8 @@ import utenti.Viaggiatore;
 public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
     @EJB
     private TipoMezzoFacadeLocal tipoMezzoFacade;
+    @EJB
+    private AutistaFacadeLocal autistaFacade;
     @PersistenceContext
     private EntityManager em;
 
@@ -30,16 +33,7 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
     }
 
     public void edit(Viaggiatore viaggiatore) {
-        //può essere una modifica o una promozione ad autista
-        try{
-            Autista autista=(Autista)viaggiatore;
-            for(TipoMezzo tp: autista.getTipoMezzo())
-                tipoMezzoFacade.create(tp);
-            em.merge(autista);
-        }
-        catch(ClassCastException e){
-            em.merge(viaggiatore);
-        }
+        em.merge(viaggiatore);
     }
 
     public void remove(Viaggiatore viaggiatore) {
@@ -60,7 +54,6 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
         List<Viaggiatore> viaggiatori=null;
                 
         viaggiatori=em.createQuery("SELECT object(o) FROM Viaggiatore o WHERE o.login = '"+usr+"'").getResultList();
-
         
         if(viaggiatori.size()>=1){
             viaggiatore=viaggiatori.get(0);
@@ -68,6 +61,21 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
         }
 
         return viaggiatore;
+    }
+
+    public void diventaAutista(Viaggiatore viaggiatore, String patente, Set<TipoMezzo> tipoMezzi) {
+        //em.createQuery("UPDATE Viaggiatore v SET v.DTYPE='Autista' WHERE c.ID='"+viaggiatore.getId()+"'").executeUpdate();
+
+        Query q=em.createQuery("UPDATE Viaggiatore v SET v.DTYPE = 'Autista' WHERE v.login = 'pino'");
+        //q.setParameter("nome", "pino");
+        q.executeUpdate();
+        /*Autista autista=(Autista)findLogin(viaggiatore.getLogin());
+        autista.setNumeroPatente(patente);
+        autista.setTipoMezzo(tipoMezzi);
+        for(TipoMezzo t:autista.getTipoMezzo())
+            tipoMezzoFacade.create(t);
+        autistaFacade.edit(autista);*/
+
     }
 
 }

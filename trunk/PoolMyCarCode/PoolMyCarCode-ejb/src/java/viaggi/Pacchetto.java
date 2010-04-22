@@ -180,7 +180,7 @@ public class Pacchetto implements Serializable {
         if(partenza==null || arrivo==null)
             throw new IllegalStateException("Inserisci partenza e/o arrivo");
 
-        this.viaggi= new LinkedList();
+        this.viaggi= new LinkedList<Viaggio>();
         for(Calendar d:date){
             Viaggio viaggio=new Viaggio();
             viaggio.setPartenza(partenza);

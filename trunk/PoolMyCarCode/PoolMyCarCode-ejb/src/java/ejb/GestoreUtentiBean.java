@@ -46,8 +46,8 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
         if(v!=null)
             return false;
         else{
-        viaggiatoreFacade.create(viaggiatore);
-        return true;
+            viaggiatoreFacade.create(viaggiatore);
+            return true;
         }
     }
 
