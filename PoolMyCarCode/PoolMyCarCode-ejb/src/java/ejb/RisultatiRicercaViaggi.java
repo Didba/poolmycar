@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb;
 
 import java.util.LinkedList;
@@ -16,13 +15,13 @@ import viaggi.Pacchetto;
  */
 @Stateful
 public class RisultatiRicercaViaggi implements RisultatiRicercaViaggiLocal {
-    
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     private List<Pacchetto> pacchetti = null;
-    protected int pacchettiVisti=0;
+    private int inizioFinestra = 0;// indice del primo pacchetto della finestra di visualizzazione corrente
+    private int fineFinestra = 0; // indice del pacchetto successivo alla finestra di visualizzazione corrente
     protected int numGruppoPacchetti;
-    private int numUltimoGruppo=0;
 
     /**
      * Get the value of numGruppoPacchetti
@@ -43,25 +42,6 @@ public class RisultatiRicercaViaggi implements RisultatiRicercaViaggiLocal {
     }
 
     /**
-     * Get the value of pacchettiVisti
-     *
-     * @return the value of pacchettiVisti
-     */
-    public int getPacchettiVisti() {
-        return pacchettiVisti;
-    }
-
-    /**
-     * Set the value of pacchettiVisti
-     *
-     * @param pacchettiVisti new value of pacchettiVisti
-     */
-    public void setPacchettiVisti(int pacchettiVisti) {
-        this.pacchettiVisti = pacchettiVisti;
-    }
-
-
-    /**
      * Get the value of pacchetti
      *
      * @return the value of pacchetti
@@ -79,47 +59,53 @@ public class RisultatiRicercaViaggi implements RisultatiRicercaViaggiLocal {
         this.pacchetti = pacchetti;
     }
 //motodo per restituire i successivi numGruppoPacchetti (al massimo numGruppoPacchetti) pacchetti
-    public List<Pacchetto> getNextPacchetti(){
 
-        if((pacchetti == null)||(pacchetti.size()<=pacchettiVisti))
+    public List<Pacchetto> getNextPacchetti() {
+
+        if ((pacchetti == null) || (pacchetti.size() <= fineFinestra)) {
             return null;
-        else{
-            List<Pacchetto> l= new LinkedList<Pacchetto>();
+        } else {
+            List<Pacchetto> l = new LinkedList<Pacchetto>();
             int n = numGruppoPacchetti;
-            if(pacchettiVisti+numGruppoPacchetti>= pacchetti.size())
-                n = pacchetti.size()-pacchettiVisti-1;
 
-            for(int i = 0 ; i<n;i++)
-                l.add(pacchetti.get(pacchettiVisti+i));
-            
-            pacchettiVisti+=n;
-            numUltimoGruppo=n;
+            if (fineFinestra + numGruppoPacchetti > pacchetti.size()) {
+                n = pacchetti.size() - fineFinestra ;
+            }
+            inizioFinestra=fineFinestra;
+            fineFinestra+=n;
+
+            for (int i = inizioFinestra; i < fineFinestra; i++) {
+                l.add(pacchetti.get(i));
+            }
+
             return l;
         }
     }
 //motodo per restituire i precedenti numGruppoPacchetti  pacchetti
-    public List<Pacchetto> getPredPacchetti(){
-        
-        if((pacchetti == null)||(pacchettiVisti-numGruppoPacchetti<=0))
+
+    public List<Pacchetto> getPredPacchetti() {
+
+        if ((pacchetti == null) || (inizioFinestra - numGruppoPacchetti < 0)) {
             return null;
-        else{
-            List<Pacchetto> l= new LinkedList<Pacchetto>();
+        } else {
+            List<Pacchetto> l = new LinkedList<Pacchetto>();
             int n = numGruppoPacchetti;
-           for(int i = 0;i<n;i++){
-                l.add(pacchetti.get(pacchettiVisti-numUltimoGruppo-1-i));
-           }
-            pacchettiVisti-=numUltimoGruppo;
-            numUltimoGruppo=numGruppoPacchetti;
+            fineFinestra=inizioFinestra;
+            inizioFinestra-=n;
+
+           for (int i = inizioFinestra; i < fineFinestra; i++) {
+                l.add(pacchetti.get(i));
+            }
+
             return l;
         }
     }
 
-    public boolean avanti(){
-        return pacchettiVisti<pacchetti.size();
-    }
-    public boolean indietro(){
-        return pacchettiVisti>numGruppoPacchetti;
+    public boolean avanti() {
+        return fineFinestra < pacchetti.size();
     }
 
-   
+    public boolean indietro() {
+        return inizioFinestra >= numGruppoPacchetti;
+    }
 }
