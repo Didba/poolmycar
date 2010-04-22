@@ -56,7 +56,7 @@ public class ServletController extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(ServletController.class.getName()).log(Level.SEVERE, null, ex);
         }
-                super.init();
+        super.init();
 
 
     }
@@ -306,6 +306,7 @@ public class ServletController extends HttpServlet {
 
                     int ora = new Integer(request.getParameter("ora"));
                     int minuti = new Integer(request.getParameter("min"));
+                    System.out.println("ora "+ora+":"+minuti);
 
                     List<Calendar> date = new LinkedList<Calendar>();
                     String stringaDate = request.getParameter("date");
@@ -316,6 +317,7 @@ public class ServletController extends HttpServlet {
                         s = arrayDate[i];
                         String[] arrString = s.split(" ");
                         Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]),ora, minuti);
+                        //Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]));
                         date.add(c);
                     }
 
@@ -372,6 +374,9 @@ public class ServletController extends HttpServlet {
                     creazioneViaggiBean.setRichiestaContributi(richiestaContributo);
 
                     Pacchetto p=gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(),(String)session.getAttribute("distanza"));
+
+                    System.out.println("partenza: "+p.getPartenza().getIndirizzo().getCitta()+"    arrivo: "+p.getArrivo().getIndirizzo().getCitta());
+
                     session.setAttribute("pacchetto",p);
 
                     ServletContext sc = getServletContext();
