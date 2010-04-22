@@ -39,7 +39,8 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
 
     public boolean registraUtente(String login, String password) {
       
-        Viaggiatore viaggiatore=new Viaggiatore();
+        /*Viaggiatore viaggiatore=new Viaggiatore();*/
+        Viaggiatore viaggiatore=new Autista();
         viaggiatore.setLogin(login);
         viaggiatore.setPassword(password);
         Viaggiatore v = viaggiatoreFacade.findLogin(login);

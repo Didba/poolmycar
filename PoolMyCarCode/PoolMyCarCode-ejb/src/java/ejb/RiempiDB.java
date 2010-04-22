@@ -65,50 +65,50 @@ public class RiempiDB implements RiempiDBLocal {
         List<String> d;
 
         d = new LinkedList<String>();
-        d.add("12/04/2010");
-        d.add("14/04/2010");
-        d.add("16/04/2010");
-        d.add("19/04/2010");
+        d.add("12/04/2010 15:00");
+        d.add("14/04/2010 15:00");
+        d.add("16/04/2010 15:00");
+        d.add("19/04/2010 15:00");
         p = creap("Torino", "Milano", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010");
-        d.add("14/04/2010");
-        d.add("16/04/2010");
-        d.add("19/04/2010");
+        d.add("12/04/2010 15:00");
+        d.add("14/04/2010 15:00");
+        d.add("16/04/2010 15:00");
+        d.add("19/04/2010 15:00");
         p = creap("Torino", "Bari", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010");
-        d.add("14/04/2010");
-        d.add("16/04/2010");
-        d.add("19/04/2010");
+        d.add("12/04/2010 15:00");
+        d.add("14/04/2010 15:00");
+        d.add("16/04/2010 15:00");
+        d.add("19/04/2010 15:00");
         p = creap("Torino", "Manduria", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010");
-        d.add("14/04/2010");
-        d.add("16/04/2010");
-        d.add("19/04/2010");
+        d.add("12/04/2010 15:00");
+        d.add("14/04/2010 15:00");
+        d.add("16/04/2010 15:00");
+        d.add("19/04/2010 15:00");
         p = creap("Torino", "Ancona", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010");
-        d.add("14/04/2010");
-        d.add("16/04/2010");
-        d.add("19/04/2010");
+        d.add("12/04/2010 15:00");
+        d.add("14/04/2010 15:00");
+        d.add("16/04/2010 15:00");
+        d.add("19/04/2010 15:00");
         p = creap("Torino", "Lecce", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010");
-        d.add("14/04/2010");
-        d.add("16/04/2010");
-        d.add("19/04/2010");
+        d.add("12/04/2010 15:00");
+        d.add("14/04/2010 15:00");
+        d.add("16/04/2010 15:00");
+        d.add("19/04/2010 15:00");
         p = creap("Torino", "Cuneo", autista, d);
         pacchettoFacade.create(p);
 
@@ -128,7 +128,7 @@ public class RiempiDB implements RiempiDBLocal {
         pacchetto.setArrivo(arr); //da ottimizzare
         List<Calendar> date = new LinkedList<Calendar>();
         for (String s : d) {
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             Date data1 = df.parse(s.trim());
             Calendar c = new GregorianCalendar();
             c.setTime(data1);

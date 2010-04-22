@@ -55,7 +55,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         URL url = null;
         try {
             url = new URL("http://maps.google.com/maps/geo?q=" + indirizzo + "&output=csv&sensor=false&key=ABQIAAAAuAzM4aqr6vo3bsSj_YOfIBRi_j0U6kJrkFvY4-OX2XYmEAa76BRFIJ78nqu_sSWAWUJTZFaxBpaeTA&language=it");
-            System.out.println("indirizzo=" + indirizzo);
         } catch (MalformedURLException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -149,7 +148,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             while ((inputLine = in.readLine()) != null) {
                 buffer = buffer + inputLine;
             }
-            System.out.println("buffer=" + buffer);
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -194,21 +192,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                     } else if (type.equals("postal_code")) {
                         ris.setCap(value);
                     }
-
-
-                    /*
-                     * FARE IL PARSING DELL'XML
-                    Element fstElmnt = (Element) fstNode;
-                    NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("firstname");
-                    Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                    NodeList fstNm = fstNmElmnt.getChildNodes();
-                    System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
-                    NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("lastname");
-                    Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
-                    NodeList lstNm = lstNmElmnt.getChildNodes();
-                    System.out.println("Last Name : " + ((Node) lstNm.item(0)).getNodeValue());
-                     */
-
                 }
 
             }
@@ -219,9 +202,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         } catch (IOException ex) {
             Logger.getLogger(GestoreViaggiBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        System.out.println("indirizzo:");
-        System.out.println("via " + ris.getVia() + " numero " + ris.getNumerocivico() + "\n" + ris.getCap() + " - " + ris.getCitta() + "\n" + ris.getStato() + "\n--------\n");
 
         return ris;
     }

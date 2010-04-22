@@ -182,6 +182,7 @@ public class Pacchetto implements Serializable {
 
         this.viaggi= new LinkedList<Viaggio>();
         for(Calendar d:date){
+            System.out.println("inserisco viaggio del "+d);
             Viaggio viaggio=new Viaggio();
             viaggio.setPartenza(partenza);
             viaggio.setArrivo(arrivo);
@@ -193,6 +194,7 @@ public class Pacchetto implements Serializable {
             viaggio.setTappeIntermedie(tappeIntermedie);
             viaggi.add(viaggio);
         }
+        System.out.println("viaggi.size()="+viaggi.size());
     }
     
 
