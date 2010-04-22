@@ -47,9 +47,7 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
         }
     }
 
-    public boolean diventaAutista(Viaggiatore viaggiatore, String patente, String tipoMezzo) {
-
-        Viaggiatore autista=new Viaggiatore();
+    public boolean diventaAutista(Viaggiatore autista, String patente, String tipoMezzo) {
 
         autista.setAutista(true);
         TipoMezzo tp=new TipoMezzo();
@@ -59,22 +57,6 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
         autista.setMezzi(tipiMezzo);
         autista.setNumeroPatente(patente);
 
-        autista.setId(viaggiatore.getId());
-        autista.setNome(viaggiatore.getNome());
-        autista.setCognome(viaggiatore.getCognome());
-        autista.setCf(viaggiatore.getCf());
-        autista.setIndirizzo(viaggiatore.getIndirizzo());
-        autista.setTelefono(viaggiatore.getTelefono());
-        autista.setNote(viaggiatore.getNote());
-        autista.setFumatore(viaggiatore.isFumatore());
-        autista.setLogin(viaggiatore.getLogin());
-        autista.setPassword(viaggiatore.getPassword());
-        
-
-        //viaggiatoreFacade.remove(viaggiatore);
-        //viaggiatore=autista;
-        //autistaFacade.create(autista);
-        
         return true;
     }
 }
