@@ -20,11 +20,17 @@ public interface RisultatiRicercaViaggiLocal {
 
     public java.util.List<viaggi.Pacchetto> getPacchetti();
 
-    public List<Pacchetto> getNextPacchetti(int n);
+    public List<Pacchetto> getNextPacchetti();
 
     public void setPacchettiVisti(int pacchettiVisti);
 
     public int getPacchettiVisti();
+
+    public java.util.List<viaggi.Pacchetto> getPredPacchetti();
+
+    public boolean avanti();
+
+    public boolean indietro();
     
     
 }

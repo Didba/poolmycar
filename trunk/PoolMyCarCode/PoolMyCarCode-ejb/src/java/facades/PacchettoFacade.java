@@ -53,7 +53,7 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
     }
 
     public List<Pacchetto> findDate(Calendar data1, Calendar data2) {
-        Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2)");
+        Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2) ORDER BY o.inizio,o.fine");
         q.setParameter("d1", data1);
         q.setParameter("d2", data2);
         List<Pacchetto> l = q.getResultList();
@@ -62,12 +62,10 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
     }
 
     public List<Pacchetto> findDataSingola(Calendar dataOra) {
-        Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2)");
-        Calendar c2 = (Calendar) dataOra.clone();
-        c2.set(Calendar.MINUTE, 59);
+        Query q = em.createQuery("select object(o) from Pacchetto as o where (:d1 BETWEEN o.inizio AND o.fine) ORDER BY o.inizio,o.fine");
         q.setParameter("d1", dataOra);
-        q.setParameter("d2", c2);
         List<Pacchetto> l = q.getResultList();
+        System.out.println("----------- d1:" + dataOra.getTime());
         System.out.println("----------- viaggi trovati:" + l);
         return l;
     }

@@ -260,11 +260,22 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                         it.remove();
                 }
                 else{
-                    if((v.getDataPartenza().compareTo(cdataOraPartenza)!=0))
+                    Calendar c2 = (Calendar)cdataOraPartenza.clone();
+                    c2.set(Calendar.HOUR_OF_DAY, 23);
+                    c2.set(Calendar.MINUTE, 59);
+                    if((v.getDataPartenza().compareTo(cdataOraPartenza)<0) || (v.getDataPartenza().compareTo(c2)>0))
                         it.remove();
                 }
             }
         }
+
+        //elimino i pacchetti senza viaggi
+        Iterator it = pacchetti.iterator();
+            while(it.hasNext()){
+                Pacchetto v = (Pacchetto) it.next();
+                if(v.getViaggi().size()==0)
+                    it.remove();
+            }
 
         System.out.println("-------- pacchetti trovati " + pacchetti);
         RisultatiRicercaViaggi bean = new RisultatiRicercaViaggi();

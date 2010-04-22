@@ -44,9 +44,9 @@ public class Pacchetto implements Serializable {
     @OneToMany(cascade=CascadeType.ALL)
     private List<Tappa> tappeIntermedie;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar fine;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar inizio;
     private String nota;
     private boolean richiestaContributi;
@@ -127,6 +127,8 @@ public class Pacchetto implements Serializable {
 
     public void setFine(Calendar fine) {
         this.fine = fine;
+        this.fine.set(Calendar.HOUR_OF_DAY, 23);
+        this.fine.set(Calendar.MINUTE, 59);
     }
 
     public Calendar getInizio() {
@@ -176,6 +178,8 @@ public class Pacchetto implements Serializable {
 
         this.viaggi= new LinkedList<Viaggio>();
         for(Calendar d:date){
+            d.set(Calendar.MINUTE, this.inizio.get(Calendar.MINUTE));
+            d.set(Calendar.HOUR_OF_DAY, this.inizio.get(Calendar.HOUR_OF_DAY));
             System.out.println("inserisco viaggio del "+d);
             Viaggio viaggio=new Viaggio();
             viaggio.setPartenza(partenza);

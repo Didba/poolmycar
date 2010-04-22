@@ -28,7 +28,7 @@ import utenti.Viaggiatore;
 public class Viaggio implements Serializable {
     @ManyToOne
     private Pacchetto pacchetto;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar dataPartenza;
     private float lunghezzaPercorso;
     @OneToMany(cascade=CascadeType.ALL)

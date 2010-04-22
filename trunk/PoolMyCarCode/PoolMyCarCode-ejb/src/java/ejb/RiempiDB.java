@@ -75,31 +75,31 @@ public class RiempiDB implements RiempiDBLocal {
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010 15:00");
-        d.add("14/04/2010 15:00");
-        d.add("16/04/2010 15:00");
         d.add("19/04/2010 15:00");
+        d.add("20/04/2010 15:00");
+        d.add("21/04/2010 15:00");
+        d.add("22/04/2010 15:00");
         p = creap("Torino", "Bari", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010 15:00");
-        d.add("14/04/2010 15:00");
-        d.add("16/04/2010 15:00");
-        d.add("19/04/2010 15:00");
+        d.add("12/04/2010 9:00");
+        d.add("14/04/2010 9:00");
+        d.add("16/04/2010 9:00");
+        d.add("19/04/2010 9:00");
         p = creap("Torino", "Manduria", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010 15:00");
-        d.add("14/04/2010 15:00");
-        d.add("16/04/2010 15:00");
-        d.add("19/04/2010 15:00");
+        d.add("12/04/2010 21:00");
+        d.add("14/04/2010 21:00");
+        d.add("16/04/2010 21:00");
+        d.add("19/04/2010 21:00");
         p = creap("Torino", "Ancona", autista, d);
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010 15:00");
+        d.add("10/04/2010 15:00");
         d.add("14/04/2010 15:00");
         d.add("16/04/2010 15:00");
         d.add("19/04/2010 15:00");
@@ -107,10 +107,8 @@ public class RiempiDB implements RiempiDBLocal {
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010 15:00");
-        d.add("14/04/2010 15:00");
-        d.add("16/04/2010 15:00");
-        d.add("19/04/2010 15:00");
+        d.add("12/05/2010 15:00");
+        d.add("14/05/2010 15:00");
         p = creap("Torino", "Cuneo", autista, d);
         pacchettoFacade.create(p);
 
