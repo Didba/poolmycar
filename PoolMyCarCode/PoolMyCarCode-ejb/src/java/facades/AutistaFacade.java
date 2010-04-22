@@ -40,4 +40,7 @@ public class AutistaFacade implements AutistaFacadeLocal {
         return em.createQuery("select object(o) from Autista as o").getResultList();
     }
 
+
+
+
 }

@@ -23,8 +23,9 @@ import viaggi.Pacchetto;
 @Entity
 public class Autista extends Viaggiatore{
     private static final long serialVersionUID = 1L;
-    @Id
+    
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     private Long id;
     private String numeroPatente;
     @OneToMany(cascade=CascadeType.ALL)
