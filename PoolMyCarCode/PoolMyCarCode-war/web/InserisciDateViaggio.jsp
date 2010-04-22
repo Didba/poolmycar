@@ -26,11 +26,13 @@
 </head>
 
 <body>
+
   <h1>Inserisci le date</h1>
   <a id="trigger" href="#">[open calendar...]</a>
 
   <div id="output"></div>
   <form name="dati" id="formDate" action="ServletController" method="POST">
+  ora: <input name="ora" type="text" size="2"/>:<input name="min" type="text" size="2"/>
   <input type="hidden" name="date" id="campoDate" value=""/>
   <input type="submit" name="operation" value="inserisciDate" onClick="scriviDate();"/>
   </form>

@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import utenti.Autista;
+import utenti.Indirizzo;
 import utenti.Viaggiatore;
 import viaggi.Pacchetto;
 import viaggi.Tappa;
@@ -119,11 +120,34 @@ public class ServletController extends HttpServlet {
 
                     String login = request.getParameter("login");
                     String password = request.getParameter("password");
-                    //boolean autista = (request.getParameter("autista")) != null;
+                    String nome = request.getParameter("nome");
+                    String cf = request.getParameter("cf");
+                    String telefono = request.getParameter("telefono");
+                    String via = request.getParameter("via");
+                    String numero_civico = request.getParameter("numero");
+                    String citta = request.getParameter("citta");
+                    String cap = request.getParameter("cap");
+                    String stato = request.getParameter("stato");
+                    String nota = request.getParameter("nota");
+                    boolean fumatore = (request.getParameter("fumatore")) != null;
 
                     if (gestoreUtentiBean.registraUtente(login, password)) {
 
                         Viaggiatore viaggiatore = gestoreUtentiBean.doLogin(login, password);
+                        viaggiatore.setCf(cf);
+                        viaggiatore.setNome(nome);
+                        viaggiatore.setTelefono(telefono);
+                        viaggiatore.setNote(nota);
+                        viaggiatore.setFumatore(fumatore);
+                        Indirizzo ind=new Indirizzo();
+                        ind.setCitta(citta);
+                        ind.setVia(via);
+                        ind.setNumerocivico(numero_civico);
+                        ind.setStato(stato);
+                        ind.setCap(cap);
+                        viaggiatore.setIndirizzo(ind);
+
+
                         HttpSession session = request.getSession();
                         session.setAttribute("utente", viaggiatore);
 
@@ -280,6 +304,9 @@ public class ServletController extends HttpServlet {
                         rd.forward(request, response);
                     }
 
+                    int ora = new Integer(request.getParameter("ora"));
+                    int minuti = new Integer(request.getParameter("min"));
+
                     List<Calendar> date = new LinkedList<Calendar>();
                     String stringaDate = request.getParameter("date");
                     String[] arrayDate = stringaDate.split(";");
@@ -288,7 +315,7 @@ public class ServletController extends HttpServlet {
                     for (int i = 0; i < arrayDate.length; i++) {
                         s = arrayDate[i];
                         String[] arrString = s.split(" ");
-                        Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]));
+                        Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]),ora, minuti);
                         date.add(c);
                     }
 
@@ -339,6 +366,7 @@ public class ServletController extends HttpServlet {
                     if (request.getParameter("richiestaContributo") != null) {
                         richiestaContributo = true;
                     }
+
 
                     creazioneViaggiBean.setNota(nota);
                     creazioneViaggiBean.setRichiestaContributi(richiestaContributo);

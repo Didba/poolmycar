@@ -18,6 +18,7 @@
         <form action="ServletController" method="POST">
             contributi?<input name="contributi" type="checkbox"/>
             nota:<input name="nota" type="text"/>
+            
             <input type='hidden' name='operation' value='viaggioConfermato'/>
             <input type='submit' value='Conferma viaggio'/>
         </form>
