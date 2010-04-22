@@ -33,6 +33,11 @@
         var geocoder = null;
         var addressMarker;
 
+        function deseleziona(k) {
+            var i;
+            for( i= 0;i<k;i++)
+                document.getElementById("id" + i).style.backgroundColor = 'white';
+        }
         function mappa(percorso,idMap,idDir) {
           if (GBrowserIsCompatible()) {
             map = new GMap2(document.getElementById(idMap));
@@ -81,42 +86,49 @@
 
     </head>
     
-    <body onload="initialize();" onkeyup="keypressed()" onunload="GUnload()">
+    <body  onunload="GUnload()">
         <center>
-            <form action="" method="GET">
+            <form action="RisultatiRicerca.jsp" method="POST">
                 <h1>Ecco i tuoi viaggi</h1>
 
 
                     <%
                         ris = (RisultatiRicercaViaggi) session.getAttribute("risulatatoRicerca");
-                        pacchetti = ris.getNextPacchetti(3);
-                        if(pacchetti==null){%>
+                        String d = request.getParameter("direzione");
+                        ris.setNumGruppoPacchetti(3);
+                        if(d==null || d.equals("avanti"))
+                            pacchetti = ris.getNextPacchetti();
+                        else
+                            pacchetti = ris.getPredPacchetti();
+                        if(pacchetti==null || pacchetti.size()==0){%>
                            Nulla
                            <%
                         }else{
                         %>
+                    <div  id="map" style="width: 310px; height: 400px"></div>
                     <table border=1>
                     <tr>
                         <td>Partenza</td>
                         <td>Arrivo</td>
                         <td>Autista</td>
                         <td>Date Partenza</td>
-                        <td>Visualizza Mappa</td>
-                        <td></td>
                     </tr>
 
                     <%    for(int i = 0; i<pacchetti.size();i++){
                           Pacchetto p = pacchetti.get(i);
                           String percorso="";
                           percorso += ("from: " + p.getPartenza().getIndirizzo().toString());
-                          //tappe intermedie
+                          if(p.getTappeIntermedie()!=null){
+                              for(Tappa t: p.getTappeIntermedie())
+                                  percorso += (" to: " + t.getIndirizzo().toString());
+                          }
+
                           percorso += ("to: " + p.getArrivo().getIndirizzo().toString());
-                          String idMap = "map"+i;
-                          String idDir = "dir"+i;
-                          String idPren = "pre"+i;
-                          String chiamata = "mappa('"+ percorso +"','"+idMap+"','" + idDir + "')";
+                          String id = "id"+i;
+                          int k = pacchetti.size();
+                          String chiamata = "mappa('"+ percorso +"','map','dir'); deseleziona('"+k+"'); document.getElementById('" + id+ "').style.backgroundColor = 'red'";
                     %>
-                    <tr>
+                    <tr id ="<%=id%>" onclick="<%=chiamata%>">
                         <td>
                             <%= p.getPartenza().getIndirizzo().toString()%>
                         </td>
@@ -129,24 +141,22 @@
                         <td>
                             <%= p.getInizio().getTime().toString()%>
                         </td>
-                        <td valign="top">
-
-                          <div  id="<%=idMap%>" style="width: 310px; height: 400px"></div>
-                        <!-- <div id="<%=idDir%>" style="width: 275px"></div>-->
-
-                        </td>
-                        <td>
-                            <input type="button" id="<%=idPren%>" value="Vis Mappa"  onclick="<%=chiamata%>">
-                        </td>
+                        
                     </tr>
                     <%} // chiusura for
                     %>
                     </table>
-                    
-
-                    <a href="RisultatiRicerca.jsp" onclick=""> << Precedente  </a>
-                    <a href="RisultatiRicerca.jsp">  Successiva >> </a>
-                    <%} //chiusura else%>
+                    <input type="hidden" value="avanti" id="idDirezione" name="direzione"/>
+                        
+                    <%
+                       if(ris.avanti()){
+                    %>
+                        <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
+                   <%}
+                    if(ris.indietro()){%>
+                    <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
+                   <%}%>
+                    <%} //chiusura due else%>
                 
             </form>
         </center>
