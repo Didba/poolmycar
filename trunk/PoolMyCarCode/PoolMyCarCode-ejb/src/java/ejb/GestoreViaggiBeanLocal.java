@@ -25,5 +25,6 @@ public interface GestoreViaggiBeanLocal {
 
     public Pacchetto aggiornaPacchetto(Pacchetto pacchetto);
 
+    public List<String> getCitta(String subCitta);
 
 }

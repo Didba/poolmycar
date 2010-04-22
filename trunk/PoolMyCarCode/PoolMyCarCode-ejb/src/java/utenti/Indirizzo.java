@@ -26,6 +26,26 @@ public class Indirizzo implements Serializable {
     private String citta;
     private String cap;
     private String stato;
+    private String provincia;
+
+    /**
+     * Get the value of provincia
+     *
+     * @return the value of provincia
+     */
+    public String getProvincia() {
+        return provincia;
+    }
+
+    /**
+     * Set the value of provincia
+     *
+     * @param provincia new value of provincia
+     */
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
