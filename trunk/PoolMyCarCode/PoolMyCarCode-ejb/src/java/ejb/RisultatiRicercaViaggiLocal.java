@@ -22,9 +22,7 @@ public interface RisultatiRicercaViaggiLocal {
 
     public List<Pacchetto> getNextPacchetti();
 
-    public void setPacchettiVisti(int pacchettiVisti);
 
-    public int getPacchettiVisti();
 
     public java.util.List<viaggi.Pacchetto> getPredPacchetti();
 
