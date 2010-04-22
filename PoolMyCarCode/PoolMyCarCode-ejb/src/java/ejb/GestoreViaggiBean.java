@@ -22,7 +22,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import utenti.Autista;
 import utenti.Indirizzo;
 import viaggi.Bacheca;
 import viaggi.Pacchetto;
@@ -33,6 +32,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import utenti.Viaggiatore;
 import viaggi.Viaggio;
 
 /**
@@ -93,7 +93,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     }
 
-    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Autista autista, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
+    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
 
         //controllo dei parametri
         if (tappe.size() < 2) {

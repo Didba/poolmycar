@@ -4,8 +4,8 @@
  */
 package ejb;
 
-import facades.AutistaFacadeLocal;
 import facades.PacchettoFacadeLocal;
+import facades.ViaggiatoreFacadeLocal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import utenti.Autista;
 import utenti.Indirizzo;
 import utenti.TipoMezzo;
+import utenti.Viaggiatore;
 import viaggi.Bacheca;
 import viaggi.Pacchetto;
 import viaggi.Tappa;
@@ -30,25 +30,27 @@ import viaggi.Tappa;
  */
 @Stateless
 public class RiempiDB implements RiempiDBLocal {
-
+    @EJB
+    private ViaggiatoreFacadeLocal viaggiatoreFacade;
     @EJB
     private GestoreViaggiBeanLocal gestoreViaggiBean;
     @EJB
     private PacchettoFacadeLocal pacchettoFacade;
-    @EJB
-    private AutistaFacadeLocal autistaFacade;
+
 
     public void riempi() throws ParseException {
-        Autista autista = new Autista();
+        Viaggiatore autista = new Viaggiatore();
         TipoMezzo tp = new TipoMezzo();
         tp.setNome("auto");
         Set<TipoMezzo> tipiMezzo = new HashSet<TipoMezzo>();
         tipiMezzo.add(tp);
-        autista.setTipoMezzo(tipiMezzo);
+        autista.setMezzi(tipiMezzo);
+        autista.setAutista(true);
         autista.setNumeroPatente("isukhflsh");
         autista.setNome("Ciccio");
         autista.setCognome("Pinco");
         autista.setCf("hcdisuahf");
+        autista.setAutista(true);
         Indirizzo ind = new Indirizzo();
         ind.setCap("109");
         ind.setCitta("collegno");
@@ -59,7 +61,7 @@ public class RiempiDB implements RiempiDBLocal {
         autista.setLogin("eri");
         autista.setPassword("eri");
 
-        autistaFacade.create(autista);
+        viaggiatoreFacade.create(autista);
 
         Pacchetto p;
         List<String> d;
@@ -120,7 +122,7 @@ public class RiempiDB implements RiempiDBLocal {
 
     }
 
-    private Pacchetto creap(String p, String a, Autista aut, List<String> d) throws ParseException {
+    private Pacchetto creap(String p, String a, Viaggiatore aut, List<String> d) throws ParseException {
         Pacchetto pacchetto = new Pacchetto();
         Tappa part = gestoreViaggiBean.geocoding(p);
         Tappa arr = gestoreViaggiBean.geocoding(a);

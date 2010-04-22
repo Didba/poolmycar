@@ -5,14 +5,12 @@
 
 package ejb;
 
-import facades.AutistaFacadeLocal;
+
 import facades.ViaggiatoreFacadeLocal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import utenti.Autista;
 import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
@@ -22,8 +20,6 @@ import utenti.Viaggiatore;
  */
 @Stateless
 public class GestoreUtentiBean implements GestoreUtentiLocal {
-    @EJB
-    private AutistaFacadeLocal autistaFacade;
     @EJB
     private ViaggiatoreFacadeLocal viaggiatoreFacade;
     
@@ -39,8 +35,7 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
 
     public boolean registraUtente(String login, String password) {
       
-        /*Viaggiatore viaggiatore=new Viaggiatore();*/
-        Viaggiatore viaggiatore=new Autista();
+        Viaggiatore viaggiatore=new Viaggiatore();
         viaggiatore.setLogin(login);
         viaggiatore.setPassword(password);
         Viaggiatore v = viaggiatoreFacade.findLogin(login);
@@ -54,13 +49,14 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
 
     public boolean diventaAutista(Viaggiatore viaggiatore, String patente, String tipoMezzo) {
 
-        Autista autista=new Autista();
+        Viaggiatore autista=new Viaggiatore();
 
+        autista.setAutista(true);
         TipoMezzo tp=new TipoMezzo();
         tp.setNome(tipoMezzo);
         Set<TipoMezzo> tipiMezzo=new HashSet<TipoMezzo>();
         tipiMezzo.add(tp);
-        autista.setTipoMezzo(tipiMezzo);
+        autista.setMezzi(tipiMezzo);
         autista.setNumeroPatente(patente);
 
         autista.setId(viaggiatore.getId());

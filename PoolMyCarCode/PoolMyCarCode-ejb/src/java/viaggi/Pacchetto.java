@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
-import utenti.Autista;
 import utenti.CommentoAutista;
 import utenti.CommentoViaggiatore;
 import utenti.Viaggiatore;
@@ -28,6 +27,8 @@ import utenti.Viaggiatore;
  */
 @Entity
 public class Pacchetto implements Serializable {
+    @ManyToOne
+    private Viaggiatore autista;
     @OneToOne(mappedBy = "pacchetto")
     private Bacheca bacheca;
     @OneToMany(mappedBy = "pacchetto")
@@ -42,8 +43,7 @@ public class Pacchetto implements Serializable {
     private Tappa arrivo;
     @OneToMany(cascade=CascadeType.ALL)
     private List<Tappa> tappeIntermedie;
-    @ManyToOne
-    private Autista autista;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar fine;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -95,13 +95,7 @@ public class Pacchetto implements Serializable {
         this.arrivo = arrivo;
     }
 
-    public Autista getAutista() {
-        return autista;
-    }
-
-    public void setAutista(Autista autista) {
-        this.autista = autista;
-    }
+    
 
     public Bacheca getBacheca() {
         return bacheca;
@@ -228,5 +222,19 @@ public class Pacchetto implements Serializable {
      */
     public void setTappeIntermedie(List<Tappa> tappeIntermedie) {
         this.tappeIntermedie = tappeIntermedie;
+    }
+
+    /**
+     * @return the autista
+     */
+    public Viaggiatore getAutista() {
+        return autista;
+    }
+
+    /**
+     * @param autista the autista to set
+     */
+    public void setAutista(Viaggiatore autista) {
+        this.autista = autista;
     }
 }
