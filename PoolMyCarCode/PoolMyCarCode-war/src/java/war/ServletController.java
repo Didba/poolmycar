@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utenti.Autista;
 import utenti.Indirizzo;
 import utenti.Viaggiatore;
 import viaggi.Pacchetto;
@@ -74,20 +73,7 @@ public class ServletController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            /*gestoreUtentiBean.registraUtente("aaa", "bbb", true);
-            Autista a=(Autista) gestoreUtentiBean.doLogin("aaa","bbb");
-
-            Tappa t=gestoreViaggiBeanBean.geocoding("torino");
-            Tappa t2=gestoreViaggiBeanBean.geocoding("milano");
-            List<Tappa> l =new LinkedList<Tappa>();
-            l.add(t);
-            l.add(t2);
-            Calendar d=new GregorianCalendar();
-            List<Calendar> ld = new LinkedList<Calendar>();
-            ld.add(d);
-
-            gestoreViaggiBeanBean.inserisciPacchetto(l, ld, a, null, true);*/
-
+            
 
             String action = request.getParameter("operation");
             if (action == null) {
@@ -187,12 +173,13 @@ public class ServletController extends HttpServlet {
                     }
                     Viaggiatore viaggiatore = (Viaggiatore) session.getAttribute("utente");
                     //Se è già un autista lo rimando a notpermitted
-                    try {
-                        Autista autista= (Autista) viaggiatore;
+                    
+                    if(viaggiatore.isAutista()) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
-                    } catch (ClassCastException e) {} //eccezione catturata:va tutto bene
+                    }
+                    
                     String tipoMezzo=request.getParameter("tipoMezzo");
                     String patente=request.getParameter("patente");
                     gestoreUtentiBean.diventaAutista(viaggiatore, patente, tipoMezzo);
@@ -212,16 +199,13 @@ public class ServletController extends HttpServlet {
 
                     Viaggiatore viaggiatore = (Viaggiatore) session.getAttribute("utente");
 
-                    Autista autista = null;
-                    try {
-                        autista = (Autista) viaggiatore;
-                    } catch (ClassCastException e) {
+
+                    if(!viaggiatore.isAutista()){
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-                    session.setAttribute("utente", autista);
-
+                    
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/InserisciLuoghiViaggio.jsp");
                     rd.forward(request, response);
@@ -238,10 +222,9 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-                    try{
-                        Autista autista=(Autista) session.getAttribute("utente");
-                    }
-                    catch(ClassCastException e){
+
+                    Viaggiatore autista=(Viaggiatore) session.getAttribute("utente");
+                    if(!autista.isAutista()){
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -295,10 +278,9 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-                    try{
-                        Autista autista=(Autista) session.getAttribute("utente");
-                    }
-                    catch(ClassCastException e){
+
+                    Viaggiatore autista=(Viaggiatore) session.getAttribute("utente");
+                    if(!autista.isAutista()){
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -353,11 +335,10 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-                    Autista autista=null;
-                    try{
-                        autista=(Autista) session.getAttribute("utente");
-                    }
-                    catch(ClassCastException e){
+
+
+                    Viaggiatore autista=(Viaggiatore) session.getAttribute("utente");
+                    if(!autista.isAutista()){
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
