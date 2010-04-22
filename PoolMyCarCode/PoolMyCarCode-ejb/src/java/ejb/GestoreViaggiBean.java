@@ -4,6 +4,7 @@
  */
 package ejb;
 
+import facades.IndirizzoFacadeLocal;
 import facades.PacchettoFacadeLocal;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -41,7 +42,8 @@ import viaggi.Viaggio;
  */
 @Stateless
 public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
-
+    @EJB
+    private IndirizzoFacadeLocal indirizzoFacade;
     @EJB
     private PacchettoFacadeLocal pacchettoFacade;
     private float percentuale = 0.5f;
@@ -128,7 +130,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     }
 
-    @SuppressWarnings("empty-statement")
     private Indirizzo reverseGeocoding(double lat, double lon) {
         //http://www.java-tips.org/java-se-tips/javax.xml.parsers/how-to-read-xml-file-in-java.html
         //http://code.google.com/intl/it-IT/apis/maps/documentation/geocoding/index.html#XML
@@ -312,5 +313,9 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     public Pacchetto aggiornaPacchetto(Pacchetto pacchetto) {
         pacchettoFacade.edit(pacchetto);
         return pacchettoFacade.findAll().get(0);
+    }
+
+    public List<String> getCitta(String subCitta) {
+        return indirizzoFacade.getCitta(subCitta);
     }
 }

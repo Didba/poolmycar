@@ -5,6 +5,7 @@
 
 package facades;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,6 +39,19 @@ public class IndirizzoFacade implements IndirizzoFacadeLocal {
 
     public List<Indirizzo> findAll() {
         return em.createQuery("select object(o) from Indirizzo as o").getResultList();
+    }
+
+    public List<String> getCitta(String subCitta) {
+        /*
+        return (List<String>) em.createQuery("select distinct citta from Indirizzo as i where upper(i.citta) LIKE upper('"+subCitta+"%')").getResultList();
+         */
+        List<Indirizzo> indirizzi=findAll();
+        List<String> citta = new LinkedList<String>();
+        for(Indirizzo i: indirizzi){
+            if(i.getCitta().toUpperCase().startsWith(subCitta.toUpperCase()))
+                citta.add(i.getCitta());
+        }
+        return citta;
     }
 
 }

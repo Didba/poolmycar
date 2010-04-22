@@ -31,4 +31,5 @@ public interface PacchettoFacadeLocal {
 
     public java.util.List<viaggi.Pacchetto> findDataSingola(Calendar dataOra);
 
+
 }

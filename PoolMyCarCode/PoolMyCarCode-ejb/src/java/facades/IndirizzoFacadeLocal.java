@@ -26,4 +26,6 @@ public interface IndirizzoFacadeLocal {
 
     List<Indirizzo> findAll();
 
+    public List<String> getCitta(String subCitta);
+
 }

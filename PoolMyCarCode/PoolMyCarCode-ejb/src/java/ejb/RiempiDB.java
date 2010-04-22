@@ -54,6 +54,7 @@ public class RiempiDB implements RiempiDBLocal {
         Indirizzo ind = new Indirizzo();
         ind.setCap("109");
         ind.setCitta("collegno");
+        ind.setProvincia("TO");
         autista.setIndirizzo(ind);
         autista.setTelefono("1234345");
         autista.setNote("nota");
