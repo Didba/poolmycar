@@ -110,6 +110,7 @@ public class ServletController extends HttpServlet {
                     String cf = request.getParameter("cf");
                     String telefono = request.getParameter("telefono");
                     String via = request.getParameter("via");
+                    String provincia = request.getParameter("provincia");
                     String numero_civico = request.getParameter("numero");
                     String citta = request.getParameter("citta");
                     String cap = request.getParameter("cap");
@@ -127,6 +128,7 @@ public class ServletController extends HttpServlet {
                         viaggiatore.setFumatore(fumatore);
                         Indirizzo ind=new Indirizzo();
                         ind.setCitta(citta);
+                        ind.setProvincia(provincia.toUpperCase());
                         ind.setVia(via);
                         ind.setNumerocivico(numero_civico);
                         ind.setStato(stato);
@@ -147,7 +149,65 @@ public class ServletController extends HttpServlet {
                         rd.forward(request, response);
                     }
                 }
+                if (action.equals("autoCompletamento")) {
+                    String ricerca=request.getParameter("q");
 
+                    List<String> risposta=gestoreViaggiBean.getCitta(ricerca);
+
+                    String buffer="";
+                    for(String s: risposta){
+                        buffer = buffer + s+"<br>";
+                    }
+                    out.print(buffer);
+                }
+                ///RICERCA----------------------------------
+                if (action.equals("cerca")) {
+                    HttpSession session = request.getSession();
+                    // salva i parametri di ricerca
+                    String partenza = request.getParameter("partenza");
+
+
+                    session.setAttribute("partenza", partenza);
+                    String arrivo =  request.getParameter("arrivo");
+                    session.setAttribute("arrivo", arrivo);
+                    boolean intervallo = request.getParameter("opIntervalloDate").equals("Date");
+                    session.setAttribute("intervallo", intervallo);
+                    Date data1=null;
+                    Date data2=null;
+                    Date dataOraPartenza = null;
+                    if(intervallo)
+                    {
+                    //Formato per la data
+                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+                    data1 = df.parse(request.getParameter("data1").trim());
+                    session.setAttribute("data1", data1);
+
+                    data2 = df.parse(request.getParameter("data2"));
+                    session.setAttribute("data2", data2);
+                    }
+                    else
+                    {
+                    String d = request.getParameter("dataPartenza");
+                    String ora = request.getParameter("ora");
+                    String min = request.getParameter("min");
+
+                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy H.mm");
+                    dataOraPartenza = df.parse(d.trim() +" "+ ora+"."+min);
+                    session.setAttribute("dataOraPartenza", dataOraPartenza);
+
+
+                    }
+
+                    // richiede la creazione del bean con i risultati e lo salva in sessione
+                    RisultatiRicercaViaggi ris = gestoreViaggiBean.ricercaViaggi(partenza, arrivo, intervallo, data1, data2, dataOraPartenza);
+                    session.setAttribute("risulatatoRicerca", ris);
+                    //forward alla pagina di visualizzazione
+                    ServletContext sc = getServletContext();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/RisultatiRicerca.jsp");
+                    rd.forward(request, response);
+
+                }
+                //-------------------------------
 
 
                 /////////////////////////////////solo cose da loggato////////////////////
@@ -363,52 +423,7 @@ public class ServletController extends HttpServlet {
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                     rd.forward(request, response);
-                } ///RICERCA----------------------------------
-                if (action.equals("cerca")) {
-                    // salva i parametri di ricerca
-                    String partenza = request.getParameter("partenza");
-                    
-                    
-                    session.setAttribute("partenza", partenza);
-                    String arrivo =  request.getParameter("arrivo");
-                    session.setAttribute("arrivo", arrivo);
-                    boolean intervallo = request.getParameter("opIntervalloDate").equals("Date");
-                    session.setAttribute("intervallo", intervallo);
-                    Date data1=null;
-                    Date data2=null;
-                    Date dataOraPartenza = null;
-                    if(intervallo)
-                    {
-                    //Formato per la data
-                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
-                    data1 = df.parse(request.getParameter("data1").trim());
-                    session.setAttribute("data1", data1);
-                  
-                    data2 = df.parse(request.getParameter("data2"));
-                    session.setAttribute("data2", data2);
-                    }
-                    else
-                    {
-                    String d = request.getParameter("dataPartenza");
-                    String ora = request.getParameter("ora");
-
-                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy H.mm");
-                    dataOraPartenza = df.parse(d.trim() +" "+ ora.trim());
-                    session.setAttribute("dataOraPartenza", dataOraPartenza);
-                    
-
-                    }
-
-                    // richiede la creazione del bean con i risultati e lo salva in sessione
-                    RisultatiRicercaViaggi ris = gestoreViaggiBean.ricercaViaggi(partenza, arrivo, intervallo, data1, data2, dataOraPartenza);
-                    session.setAttribute("risulatatoRicerca", ris);
-                    //forward alla pagina di visualizzazione
-                    ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/RisultatiRicerca.jsp");
-                    rd.forward(request, response);
-                     
-                }
-                //-------------------------------
+                } 
                 if (action.equals("modificaViaggio")) {
                     Pacchetto p=gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
                     session.setAttribute("pacchetto",p);

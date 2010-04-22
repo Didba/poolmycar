@@ -31,10 +31,10 @@
   <a id="trigger" href="#">[open calendar...]</a>
 
   <div id="output"></div>
-  <form name="dati" id="formDate" action="ServletController" method="POST">
-  ora: <input name="ora" type="text" size="2"/>:<input name="min" type="text" size="2"/>
+  <form name="dati" id="formDate" action="ServletController" method="POST" onSubmit="return(scriviDate());">
+  ora: <input name="ora" id="ora" type="text" size="2"/>:<input id="min" name="min" type="text" size="2"/>
   <input type="hidden" name="date" id="campoDate" value=""/>
-  <input type="submit" name="operation" value="inserisciDate" onClick="scriviDate();"/>
+  <input type="submit" name="operation" value="inserisciDate" />
   </form>
 
   <script type="text/javascript">//<![CDATA[
@@ -43,8 +43,17 @@
     var stringDate="";
 
     function scriviDate(){
+        if(document.getElementById("ora").value<=23 && document.getElementById("ora").value>=0 && document.getElementById("min").value<=59 && document.getElementById("min").value>=0){
 	    var el = document.getElementById("campoDate");
 	    el.setAttribute("value",stringDate);
+            return true;
+        }
+        else{
+            alert("inserisci un'ora realistica");
+            document.getElementById("ora").value="";
+            document.getElementById("min").value="";
+            return false;
+        }
 
     }
 
