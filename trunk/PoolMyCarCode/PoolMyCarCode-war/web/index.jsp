@@ -41,7 +41,6 @@
                     <ul>
                         <li><a href="index.jsp"><span>Home</span></a></li>
                         <li><a href="RicercaViaggio.jsp"><span>Cerca Viaggio</span></a></li>
-                        <li><a href="ServletController"><span>Inserisci Viaggio</span></a></li>
                          <li><a href="ServletController"><span>Cerca Autista</span></a></li>
                         <li><a href=""><span>Partner</span></a></li>
                         <li><a href=""><span>Chi siamo</span></a></li>
@@ -85,6 +84,7 @@
                 </ul>
             </div>
         </div>
+    </body>
 
 
 </html>
