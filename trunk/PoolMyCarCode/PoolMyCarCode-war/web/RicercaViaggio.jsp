@@ -111,7 +111,7 @@
                             <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('Date');" value="Date"/> vuoi intervallo date
                             <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('DataSingola');" value="DataSingola"/> vuoi data singola
                         </div>
-
+                        <table><tr><td>
                         <div id="intervalloDate" style="visibility: hidden;">
                             Intervallo Date <br>
                             <table>
@@ -129,7 +129,7 @@
                                 </tr>
                             </table>
                         </div>
-
+                        </td><td>
 
                         <div id="dataSingola" style="visibility: hidden;">
                             Data Singola<br>
@@ -146,6 +146,10 @@
                                 </tr>
                             </table>
                         </div>
+
+                        </td>
+                       </tr>
+                      </table>
                         <input type="submit" name="operation" value="cerca"/>
                     </form>
                     </center>
