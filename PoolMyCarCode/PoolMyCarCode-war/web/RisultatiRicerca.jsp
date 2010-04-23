@@ -24,8 +24,11 @@
         <title>Risultati Ricerca</title>
         <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA"
       type="text/javascript"></script>
-        
-        <script language="JavaScript" type="text/javascript">
+
+
+    <link rel=stylesheet href="style.css" type="text/css"/>
+
+    <script language="JavaScript" type="text/javascript">
 
         var i=0;
         var map;

@@ -187,12 +187,12 @@ public class ServletController extends HttpServlet {
                     }
                     else
                     {
-                    String d = request.getParameter("dataPartenza");
+                    String d = request.getParameter("dataSingola");
                     String ora = request.getParameter("ora");
                     String min = request.getParameter("min");
 
                     SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy H.mm");
-                    dataOraPartenza = df.parse(d.trim() +" "+ ora+"."+min);
+                    dataOraPartenza = df.parse(d.trim() +" "+ ora.trim()+"."+min.trim());
                     session.setAttribute("dataOraPartenza", dataOraPartenza);
 
 
