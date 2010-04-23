@@ -155,7 +155,7 @@
                         }else{
                         %>
                     <div  id="map" style="width: 600px; height: 300px"></div>
-                    <table border=1 width="600px" align="center">
+                    <table border=1 width="600px" align="center" >
 
                     <%    for(int i = 0; i<pacchetti.size();i++){
                           Pacchetto p = pacchetti.get(i);
@@ -169,15 +169,17 @@
                           percorso += ("to: " + p.getArrivo().getIndirizzo().toString());
                           String id = "id"+i;
                           int k = pacchetti.size();
-                          String chiamata = "mappa('"+ percorso +"','map','dir'); deseleziona('"+k+"'); document.getElementById('" + id+ "').style.backgroundColor = 'gray'";
+                          String chiamata = "mappa('"+ percorso +"','map','dir'); deseleziona('"+k+"'); document.getElementById('" + id+ "').style.backgroundColor = '#d3f0ef'";
                     %>
-                    <tr class ="<%=id%>" id ="<%=id%>" onclick="<%=chiamata%>">
+                    <tr class ="<%=id%>" id ="<%=id%>" onclick="<%=chiamata%>" >
                         <td>
                             
                             <i class="sub">partenza: </i>  <%= p.getPartenza().getIndirizzo().toString()%><br>
                             <i class="sub">arrivo: </i><%= p.getArrivo().getIndirizzo().toString()%><br>
                             <i class="sub">autista: </i><a href=""><%= p.getAutista().getCognome()%></a><br>
                             descrizione<br><br>
+                        </td>
+                        <td>
                             <%
                                 for(Viaggio v :p.getViaggi()){
                                     String dp = "" + v.getDataPartenza().get(Calendar.DAY_OF_MONTH);
