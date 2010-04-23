@@ -207,19 +207,16 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         return ris;
     }
 
-    public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Date data1, Date data2, Date dataOraPartenza) {
-        Calendar cdata1= new GregorianCalendar();
-        Calendar cdata2= new GregorianCalendar();
-        Calendar cdataOraPartenza= new GregorianCalendar();
+    public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Calendar data1, Calendar data2, Calendar dataOraPartenza) {
+        
         List<Pacchetto> pacchetti = null;
         if (intervallo) {
-            cdata1.setTime(data1);
-            cdata2.setTime(data2);
-            pacchetti = pacchettoFacade.findDate(cdata1, cdata2);
+            
+            pacchetti = pacchettoFacade.findDate(data1, data2);
 
         } else {
-            cdataOraPartenza.setTime(dataOraPartenza);
-            pacchetti = pacchettoFacade.findDataSingola(cdataOraPartenza);
+            
+            pacchetti = pacchettoFacade.findDataSingola(dataOraPartenza);
         }
 
 
@@ -257,14 +254,14 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             while(it.hasNext()){
                 Viaggio v = (Viaggio) it.next();
                 if(intervallo){
-                    if((v.getDataPartenza().compareTo(cdata1)<0) || (v.getDataPartenza().compareTo(cdata2)>0))
+                    if((v.getDataPartenza().compareTo(data1)<0) || (v.getDataPartenza().compareTo(data2)>0))
                         it.remove();
                 }
                 else{
-                    Calendar c2 = (Calendar)cdataOraPartenza.clone();
+                    Calendar c2 = (Calendar)dataOraPartenza.clone();
                     c2.set(Calendar.HOUR_OF_DAY, 23);
                     c2.set(Calendar.MINUTE, 59);
-                    if((v.getDataPartenza().compareTo(cdataOraPartenza)<0) || (v.getDataPartenza().compareTo(c2)>0))
+                    if((v.getDataPartenza().compareTo(dataOraPartenza)<0) || (v.getDataPartenza().compareTo(c2)>0))
                         it.remove();
                 }
             }

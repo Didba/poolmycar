@@ -140,9 +140,9 @@ public class GestoreViaggiBeanTest {
         String partenza = "";
         String arrivo = "";
         boolean intervallo = false;
-        Date data1 = null;
-        Date data2 = null;
-        Date dataOraPartenza = null;
+        Calendar data1 = null;
+        Calendar data2 = null;
+        Calendar dataOraPartenza = null;
         GestoreViaggiBean instance = new GestoreViaggiBean();
         RisultatiRicercaViaggi expResult = null;
         RisultatiRicercaViaggi result = instance.ricercaViaggi(partenza, arrivo, intervallo, data1, data2, dataOraPartenza);
