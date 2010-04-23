@@ -10,7 +10,7 @@ ul{list-style-type:none}
 #topPan{width:778px; height:65px; background:url(images/topbg.jpg) 0 0 no-repeat #fff; color:#828282; position:relative; margin:0 auto;}
 #topPan img.logo{width:136px; height:31px; position:absolute; top:12px; left:235px;}
 #topPan p.caption{width:200px; background:#fff; color:#828282; position:absolute; top:43px; left:235px;}
-#topcontactPan{width:181px; height:36px; background:url(images/icon1.jpg) 68px 0px no-repeat; position:absolute; top:11px; left:567px; padding:7px 0 0;}
+#topcontactPan{width:181px; height:36px;  position:absolute; top:11px; left:567px; padding:7px 0 0;}
 
 #topcontactPan p.callus{width:63px; height:17px; display:block; background:#DDC40C; color:#fff; font:14px/17px "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; text-align:center;}
 #topcontactPan p.tollfree{width:63px; height:20px; display:block; background:#fff; color:#A99607; font:11px/20px "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; text-align:center;}
@@ -18,29 +18,21 @@ ul{list-style-type:none}
 /*----/TOP PANEL----*/
 
 /*----HEADER PANEL----*/
-#headerPan{width:686px; height:153px; background:url(images/header.jpg) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px;}
+#headerPan{width:686px; height:315px; background:url(images/duc.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px; text-align:right;}
 
 #headerPan ul.leftmenu{width:87px;}
-#headerPan ul.leftmenu li{width:87px; height:22px; border-bottom:1px dashed #AECCCA;}
-#headerPan ul.leftmenu li a{width:72px; height:22px; display:block; background:url(images/bullet-normal.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
+#headerPan ul.leftmenu li{width:87px; height:10px; border-bottom:1px dashed #AECCCA;}
+#headerPan ul.leftmenu li a{width:72px; height:10px; display:block; background:url(images/bullet-normal.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
 #headerPan ul.leftmenu li a:hover{background:url(images/bullet-hover.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
-#headerPan ul.leftmenu li.Solutions{width:72px; height:22px; display:block; background:url(images/bullet-hover.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
+#headerPan ul.leftmenu li.Solutions{width:72px; height:10px; display:block; background:url(images/bullet-hover.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
 #headerPan ul.leftmenu li.clients{width:87px; height:22px; border-bottom:none;}
 
-#headerPan ul.botton{width:150px; height:45px; position:absolute; top:118px; left:250px;}
+#headerPan ul.botton{width:150px; height:45px; position:absolute; top:118px; left:550px;}
 #headerPan ul.botton li{float:left; height:45px;}
-#headerPan ul.botton li.home a{width:42px; height:45px; display:block; background:url(images/home-normal.gif) 0 0 no-repeat; text-indent:-200000px; margin:0 12px 0 0;}
-#headerPan ul.botton li.home a:hover{background:url(images/home-hover.gif) 0 0 no-repeat;}
-
-#headerPan ul.botton li.aboutus a{width:42px; height:45px; display:block; background:url(images/aboutus-normal.gif) 0 0 no-repeat; text-indent:-200000px; margin:0 12px 0 0;}
-#headerPan ul.botton li.aboutus a:hover{background:url(images/aboutus-hover.gif) 0 0 no-repeat;}
-
-#headerPan ul.botton li.contact a{width:42px; height:45px; display:block; background:url(images/contact-normal.gif) 0 0 no-repeat; text-indent:-200000px; margin:0px;}
-#headerPan ul.botton li.contact a:hover{background:url(images/contact-hover.gif) 0 0 no-repeat;}
 /*----/HEADER PANEL----*/
 
 /*----BODY PANEL----*/
-#bodyPan{width:686px; background:url(images/bodybg.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:22px 0 0 92px;}
+#bodyPan{width:686px; background:url(images/bodybg.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:10px 0 0 92px;}
 /*----Body Left Panel----*/
 #leftPan{width:114px; float:left;}
 
