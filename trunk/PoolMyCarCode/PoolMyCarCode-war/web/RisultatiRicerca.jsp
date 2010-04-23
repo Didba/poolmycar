@@ -83,16 +83,62 @@
          
             }
 
+            function seleziona(i){
+                var clickevent=document.createEvent("MouseEvents");
+                clickevent.initEvent("click", true, true);
+                document.getElementById("id"+i).dispatchEvent(clickevent);
+                
+            }
 
         </script>
-
+    <style>
+        .sub{
+           color: #007163;
+}
+    </style>
 
     </head>
     
-    <body  onunload="GUnload()">
+    <body  onunload="GUnload();" onload="seleziona('0');">
         <center>
-            <form action="RisultatiRicerca.jsp" method="POST">
-                <h1>Ecco i tuoi viaggi</h1>
+            <form action="RisultatiRicerca.jsp" method="POST" >
+                <h1>Viaggi Trovati</h1>
+                <div border="1">
+                    Criteri<br>
+                    <%
+                        //String paramPartenza = session.getAttribute("partenza")==null? null : (String)(session.getAttribute("partenza"));
+                        //String paramArrivo = session.getAttribute("arrivo")==null? null : (String)(session.getAttribute("arrivo"));
+                        String paramPartenza = (String)(session.getAttribute("partenza"));
+                        String paramArrivo = (String)(session.getAttribute("arrivo"));
+                    %>
+                    <% if(paramPartenza!=null && !paramPartenza.equals("")){%><i class="sub">partenza: </i> <%= paramPartenza%>  <br><%}%>
+                    <% if(paramArrivo!=null && !paramArrivo.equals("")){%><i class="sub">arrivo: </i><%= paramArrivo%><br><%}%>
+                    <%
+                        if((Boolean)session.getAttribute("intervallo")){
+                            Calendar paramD1 = (Calendar)session.getAttribute("data1");
+                            Calendar paramD2 = (Calendar)session.getAttribute("data2");
+                            String dp1 = "" + paramD1.get(Calendar.DAY_OF_MONTH);
+                            dp1 = dp1 + "/" + (paramD1.get(Calendar.MONTH)+1);
+                            dp1 = dp1 + "/" + paramD1.get(Calendar.YEAR);
+                            String dp2 = "" + paramD2.get(Calendar.DAY_OF_MONTH);
+                            dp2 = dp2 + "/" + (paramD2.get(Calendar.MONTH)+1);
+                            dp2 = dp2 + "/" + paramD2.get(Calendar.YEAR);
+                    %>
+                    <i class="sub">dal: </i> <%= dp1%> <i class="sub"> al: </i><%= dp2%><br>
+                     <%   }else{
+                            Calendar paramDop = (Calendar)session.getAttribute("dataOraPartenza");
+                            String dp = "" + paramDop.get(Calendar.DAY_OF_MONTH);
+                            dp = dp + "/" + (paramDop.get(Calendar.MONTH)+1);
+                            dp = dp + "/" + paramDop.get(Calendar.YEAR);
+                            String ora = "" + (paramDop.get(Calendar.MINUTE)<10? "0" : "" )+paramDop.get(Calendar.MINUTE);
+                            ora = ""+ paramDop.get(Calendar.HOUR_OF_DAY)+ ":" +ora;
+                     %>
+                     <i class="sub">il: </i> <%= dp%> <i class="sub"> dalle: </i><%= ora%><br>
+                      <%  }
+                    %>
+                    <br>
+                    <a href="./RicercaViaggio.jsp">Nuova Ricerca</a>
+                </div>
 
 
                     <%
@@ -108,14 +154,8 @@
                            <%
                         }else{
                         %>
-                    <div  id="map" style="width: 310px; height: 400px"></div>
-                    <table border=1>
-                    <tr>
-                        <td>Partenza</td>
-                        <td>Arrivo</td>
-                        <td>Autista</td>
-                        <td>Date Partenza</td>
-                    </tr>
+                    <div  id="map" style="width: 600px; height: 300px"></div>
+                    <table border=1 width="600px" align="center">
 
                     <%    for(int i = 0; i<pacchetti.size();i++){
                           Pacchetto p = pacchetti.get(i);
@@ -129,20 +169,36 @@
                           percorso += ("to: " + p.getArrivo().getIndirizzo().toString());
                           String id = "id"+i;
                           int k = pacchetti.size();
-                          String chiamata = "mappa('"+ percorso +"','map','dir'); deseleziona('"+k+"'); document.getElementById('" + id+ "').style.backgroundColor = 'red'";
+                          String chiamata = "mappa('"+ percorso +"','map','dir'); deseleziona('"+k+"'); document.getElementById('" + id+ "').style.backgroundColor = 'gray'";
                     %>
-                    <tr id ="<%=id%>" onclick="<%=chiamata%>">
+                    <tr class ="<%=id%>" id ="<%=id%>" onclick="<%=chiamata%>">
                         <td>
-                            <%= p.getPartenza().getIndirizzo().toString()%>
-                        </td>
-                        <td>
-                            <%= p.getArrivo().getIndirizzo().toString()%>
-                        </td>
-                        <td>
-                            <%= p.getAutista().getCognome()%>
-                        </td>
-                        <td>
-                            <%= p.getInizio().getTime().toString()%>
+                            
+                            <i class="sub">partenza: </i>  <%= p.getPartenza().getIndirizzo().toString()%><br>
+                            <i class="sub">arrivo: </i><%= p.getArrivo().getIndirizzo().toString()%><br>
+                            <i class="sub">autista: </i><a href=""><%= p.getAutista().getCognome()%></a><br>
+                            descrizione<br><br>
+                            <%
+                                for(Viaggio v :p.getViaggi()){
+                                    String dp = "" + v.getDataPartenza().get(Calendar.DAY_OF_MONTH);
+                                    dp = dp + "/" + (v.getDataPartenza().get(Calendar.MONTH)+1);
+                                    dp = dp + "/" + v.getDataPartenza().get(Calendar.YEAR);
+                                    String ora = "" + (v.getDataPartenza().get(Calendar.MINUTE)<10? "0" : "" )+v.getDataPartenza().get(Calendar.MINUTE);
+                                    ora = ""+ v.getDataPartenza().get(Calendar.HOUR_OF_DAY)+ ":" +ora;
+                            %>
+
+                            <i class="sub">il </i><%=dp %>
+                            <i class="sub"> alle ore </i><%=ora %>
+                                <%
+                                    if(session.getAttribute("utente")!=null){
+
+                                 %>
+                                    <a href="">prenota</a>
+                                <%}%>
+                                <br>
+                            <%}
+                            %>
+                            
                         </td>
                         
                     </tr>

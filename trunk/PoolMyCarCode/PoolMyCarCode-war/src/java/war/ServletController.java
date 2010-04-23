@@ -39,6 +39,7 @@ import viaggi.Tappa;
  * @author berto
  */
 public class ServletController extends HttpServlet {
+
     @EJB
     private RiempiDBLocal riempiDB;
     @EJB
@@ -73,7 +74,7 @@ public class ServletController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
 
-            
+
 
             String action = request.getParameter("operation");
             if (action == null) {
@@ -126,7 +127,7 @@ public class ServletController extends HttpServlet {
                         viaggiatore.setTelefono(telefono);
                         viaggiatore.setNote(nota);
                         viaggiatore.setFumatore(fumatore);
-                        Indirizzo ind=new Indirizzo();
+                        Indirizzo ind = new Indirizzo();
                         ind.setCitta(citta);
                         ind.setProvincia(provincia.toUpperCase());
                         ind.setVia(via);
@@ -150,13 +151,13 @@ public class ServletController extends HttpServlet {
                     }
                 }
                 if (action.equals("autoCompletamento")) {
-                    String ricerca=request.getParameter("q");
+                    String ricerca = request.getParameter("q");
 
-                    List<String> risposta=gestoreViaggiBean.getCitta(ricerca);
+                    List<String> risposta = gestoreViaggiBean.getCitta(ricerca);
 
-                    String buffer="";
-                    for(String s: risposta){
-                        buffer = buffer + s+"<br>";
+                    String buffer = "";
+                    for (String s : risposta) {
+                        buffer = buffer + s + "<br>";
                     }
                     out.print(buffer);
                 }
@@ -168,32 +169,31 @@ public class ServletController extends HttpServlet {
 
 
                     session.setAttribute("partenza", partenza);
-                    String arrivo =  request.getParameter("arrivo");
+                    String arrivo = request.getParameter("arrivo");
                     session.setAttribute("arrivo", arrivo);
                     boolean intervallo = request.getParameter("opIntervalloDate").equals("Date");
                     session.setAttribute("intervallo", intervallo);
-                    Date data1=null;
-                    Date data2=null;
-                    Date dataOraPartenza = null;
-                    if(intervallo)
-                    {
-                    //Formato per la data
-                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
-                    data1 = df.parse(request.getParameter("data1").trim());
-                    session.setAttribute("data1", data1);
+                    Calendar data1 = new GregorianCalendar();
+                    Calendar data2 = new GregorianCalendar();
+                    Calendar dataOraPartenza = new GregorianCalendar();
+                    if (intervallo) {
+                        //Formato per la data
+                        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                        Date d1 = df.parse(request.getParameter("data1").trim());
+                        data1.setTime(d1);
+                        session.setAttribute("data1", data1);
+                        Date d2 = df.parse(request.getParameter("data2"));
+                        data2.setTime(d2);
+                        session.setAttribute("data2", data2);
+                    } else {
+                        String d = request.getParameter("dataSingola");
+                        String ora = request.getParameter("ora");
+                        String min = request.getParameter("min");
 
-                    data2 = df.parse(request.getParameter("data2"));
-                    session.setAttribute("data2", data2);
-                    }
-                    else
-                    {
-                    String d = request.getParameter("dataSingola");
-                    String ora = request.getParameter("ora");
-                    String min = request.getParameter("min");
-
-                    SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy H.mm");
-                    dataOraPartenza = df.parse(d.trim() +" "+ ora.trim()+"."+min.trim());
-                    session.setAttribute("dataOraPartenza", dataOraPartenza);
+                        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy H.mm");
+                        Date dOP = df.parse(d.trim() + " " + ora.trim() + "." + min.trim());
+                        dataOraPartenza.setTime(dOP);
+                        session.setAttribute("dataOraPartenza", dataOraPartenza);
 
 
                     }
@@ -213,7 +213,7 @@ public class ServletController extends HttpServlet {
                 /////////////////////////////////solo cose da loggato////////////////////
                 HttpSession session = request.getSession();
 
-                 if (action.equals("diventaAutista")) {
+                if (action.equals("diventaAutista")) {
                     if (session == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
@@ -233,18 +233,18 @@ public class ServletController extends HttpServlet {
                     }
                     Viaggiatore viaggiatore = (Viaggiatore) session.getAttribute("utente");
                     //Se è già un autista lo rimando a notpermitted
-                    
-                    if(viaggiatore.isAutista()) {
+
+                    if (viaggiatore.isAutista()) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-                    
-                    String tipoMezzo=request.getParameter("tipoMezzo");
-                    String patente=request.getParameter("patente");
+
+                    String tipoMezzo = request.getParameter("tipoMezzo");
+                    String patente = request.getParameter("patente");
                     gestoreUtentiBean.diventaAutista(viaggiatore, patente, tipoMezzo);
 
-                    session.setAttribute("utente",viaggiatore);
+                    session.setAttribute("utente", viaggiatore);
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/Profilo.jsp");
                     rd.forward(request, response);
@@ -260,12 +260,12 @@ public class ServletController extends HttpServlet {
                     Viaggiatore viaggiatore = (Viaggiatore) session.getAttribute("utente");
 
 
-                    if(!viaggiatore.isAutista()){
+                    if (!viaggiatore.isAutista()) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
-                    
+
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/InserisciLuoghiViaggio.jsp");
                     rd.forward(request, response);
@@ -283,8 +283,8 @@ public class ServletController extends HttpServlet {
                         rd.forward(request, response);
                     }
 
-                    Viaggiatore autista=(Viaggiatore) session.getAttribute("utente");
-                    if(!autista.isAutista()){
+                    Viaggiatore autista = (Viaggiatore) session.getAttribute("utente");
+                    if (!autista.isAutista()) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -298,9 +298,9 @@ public class ServletController extends HttpServlet {
 
                     int i = 0;
                     while (request.getParameter(new String("tappa" + i)) != null) {
-                        indirizzo=request.getParameter(new String("tappa" + i));
-                        System.out.println("indirizzo="+indirizzo);
-                        if(!indirizzo.equals("")){
+                        indirizzo = request.getParameter(new String("tappa" + i));
+                        System.out.println("indirizzo=" + indirizzo);
+                        if (!indirizzo.equals("")) {
                             Tappa tappa = gestoreViaggiBean.geocoding(indirizzo);
                             if (tappa == null) {  //geocoding fallito
                                 ServletContext sc = getServletContext();
@@ -309,12 +309,12 @@ public class ServletController extends HttpServlet {
                             } else {
                                 tappe.add(tappa);
                             }
-                       }
-                       i++;
+                        }
+                        i++;
 
                     }
 
-                    
+
                     //-------istanziazione del session bean------------
                     /*CarrelloInserimentoViaggioLocal viaggio = new CarrelloInserimentoViaggioBean();
                     viaggio.setTappe(tappe);*/
@@ -333,14 +333,14 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
-                    if (session.getAttribute("utente") == null || creazioneViaggiBean==null || creazioneViaggiBean.getTappe() == null) {
+                    if (session.getAttribute("utente") == null || creazioneViaggiBean == null || creazioneViaggiBean.getTappe() == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
 
-                    Viaggiatore autista=(Viaggiatore) session.getAttribute("utente");
-                    if(!autista.isAutista()){
+                    Viaggiatore autista = (Viaggiatore) session.getAttribute("utente");
+                    if (!autista.isAutista()) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -348,7 +348,7 @@ public class ServletController extends HttpServlet {
 
                     int ora = new Integer(request.getParameter("ora"));
                     int minuti = new Integer(request.getParameter("min"));
-                    System.out.println("ora "+ora+":"+minuti);
+                    System.out.println("ora " + ora + ":" + minuti);
 
                     List<Calendar> date = new LinkedList<Calendar>();
                     String stringaDate = request.getParameter("date");
@@ -358,23 +358,24 @@ public class ServletController extends HttpServlet {
                     for (int i = 0; i < arrayDate.length; i++) {
                         s = arrayDate[i];
                         String[] arrString = s.split(" ");
-                        Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]),ora, minuti);
+                        Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]), ora, minuti);
                         //Calendar c = new GregorianCalendar(new Integer(arrString[3]), getMese(arrString[2]), new Integer(arrString[1]));
                         date.add(c);
                     }
 
-                    
+
                     //ordina le date nella lista
-                    int i=0;
-                    CalendarSortable[] dateArray=new CalendarSortable[date.size()];
-                    for(Calendar c: date){
-                        dateArray[i]=new CalendarSortable(c);
+                    int i = 0;
+                    CalendarSortable[] dateArray = new CalendarSortable[date.size()];
+                    for (Calendar c : date) {
+                        dateArray[i] = new CalendarSortable(c);
                         i++;
                     }
                     Arrays.sort(dateArray);
                     date = new LinkedList<Calendar>();
-                    for(int j=0; j<dateArray.length; j++)
+                    for (int j = 0; j < dateArray.length; j++) {
                         date.add(dateArray[j].getCalendar());
+                    }
                     ////////////////////////////////
 
                     creazioneViaggiBean.setDate(date);
@@ -390,15 +391,15 @@ public class ServletController extends HttpServlet {
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
-                    if (session.getAttribute("utente") == null || creazioneViaggiBean==null || creazioneViaggiBean.getTappe() == null || creazioneViaggiBean.getDate() == null) {
+                    if (session.getAttribute("utente") == null || creazioneViaggiBean == null || creazioneViaggiBean.getTappe() == null || creazioneViaggiBean.getDate() == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
                     }
 
 
-                    Viaggiatore autista=(Viaggiatore) session.getAttribute("utente");
-                    if(!autista.isAutista()){
+                    Viaggiatore autista = (Viaggiatore) session.getAttribute("utente");
+                    if (!autista.isAutista()) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -414,19 +415,19 @@ public class ServletController extends HttpServlet {
                     creazioneViaggiBean.setNota(nota);
                     creazioneViaggiBean.setRichiestaContributi(richiestaContributo);
 
-                    Pacchetto p=gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(),(String)session.getAttribute("distanza"));
+                    Pacchetto p = gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(), (String) session.getAttribute("distanza"));
 
-                    System.out.println("partenza: "+p.getPartenza().getIndirizzo().getCitta()+"    arrivo: "+p.getArrivo().getIndirizzo().getCitta());
+                    System.out.println("partenza: " + p.getPartenza().getIndirizzo().getCitta() + "    arrivo: " + p.getArrivo().getIndirizzo().getCitta());
 
-                    session.setAttribute("pacchetto",p);
+                    session.setAttribute("pacchetto", p);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                     rd.forward(request, response);
-                } 
+                }
                 if (action.equals("modificaViaggio")) {
-                    Pacchetto p=gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
-                    session.setAttribute("pacchetto",p);
+                    Pacchetto p = gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
+                    session.setAttribute("pacchetto", p);
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                     rd.forward(request, response);
@@ -434,11 +435,11 @@ public class ServletController extends HttpServlet {
 
                 //--------------------------
             }
-            
-            
-            
-            
-            
+
+
+
+
+
 
         } catch (Exception e) {
             out.println("<html><body>");
@@ -528,34 +529,33 @@ public class ServletController extends HttpServlet {
     }// </editor-fold>
 
     //classe privata per il sorting delle date
-    private class CalendarSortable implements Comparable{
+    private class CalendarSortable implements Comparable {
+
         private Calendar calendar;
         private long currenTime;
 
-        public CalendarSortable(Calendar c){
-            calendar=c;
-            currenTime=c.getTimeInMillis();
+        public CalendarSortable(Calendar c) {
+            calendar = c;
+            currenTime = c.getTimeInMillis();
         }
 
         public int compareTo(Object o) {
-            CalendarSortable c=(CalendarSortable) o;
-            if(currenTime<c.getTime())
+            CalendarSortable c = (CalendarSortable) o;
+            if (currenTime < c.getTime()) {
                 return -1;
-            else if(currenTime==c.getTime())
+            } else if (currenTime == c.getTime()) {
                 return 0;
-            else
+            } else {
                 return 1;
+            }
         }
 
         public long getTime() {
             return currenTime;
         }
 
-        public Calendar getCalendar(){
+        public Calendar getCalendar() {
             return calendar;
         }
-
-
-
     }
 }

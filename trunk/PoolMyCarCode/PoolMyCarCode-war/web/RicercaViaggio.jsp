@@ -71,13 +71,13 @@
                 <table>
                     <tr>
                         <td>Dal</td>
-                        <td><input name="data1" type="text" size="10" readonly/>
+                        <td><input name="data1" type="text" maxlength="10" size="10" readonly onclick="displayDatePicker('data1');"/>
                             <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('data1');"><img src="calendarSingleDate/calendar_ico.gif"></button>
                         </td>
                     </tr>
                     <tr>
                         <td>Al</td>
-                        <td><input name="data2" type="text" size="10" readonly/>
+                        <td><input name="data2" type="text" maxlength="10" readonly size="10" onclick="displayDatePicker('data2');"/>
                             <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('data2');"><img src="calendarSingleDate/calendar_ico.gif"></button>
                         </td>
                     </tr>
@@ -90,13 +90,13 @@
                 <table>
                     <tr>
                         <td> Data</td>
-                        <td><input type="text" name="dataSingola" id="dataSingola" readonly size="10"/>
+                        <td><input type="text" name="dataSingola" id="dataSingola" readonly maxlength="10" size="10" onclick="displayDatePicker('dataSingola');"/>
                             <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('dataSingola');"><img src="calendarSingleDate/calendar_ico.gif"></button>
                         </td>
                     </tr>
                     <tr>
                         <td>Ora </td>
-                        <td><input id="ora" name="ora" type="text" size="2" />:<input id="min" name="min" type="text" size="2" /></td>
+                        <td><input id="ora" name="ora" type="text" maxlength="2"  size="2" />:<input id="min" name="min" type="text" maxlength="2" size="2"/></td>
                     </tr>
                 </table>
             </div>
