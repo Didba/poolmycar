@@ -72,7 +72,7 @@ var monthArrayLong = new Array('Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio
 // If you want to use a different format by default, change the defaultDateSeparator
 // and defaultDateFormat variables either here or on your HTML page.
 var defaultDateSeparator = "/";        // common values would be "/" or "."
-var defaultDateFormat = "mdy"    // valid values are "mdy", "dmy", and "ymd"
+var defaultDateFormat = "dmy"    // valid values are "mdy", "dmy", and "ymd"
 var dateSeparator = defaultDateSeparator;
 var dateFormat = defaultDateFormat;
 

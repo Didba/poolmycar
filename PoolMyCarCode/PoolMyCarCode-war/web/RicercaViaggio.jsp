@@ -71,13 +71,13 @@
                 <table>
                     <tr>
                         <td>Dal</td>
-                        <td><input name="data1" type="text" size="10" disabled/>
+                        <td><input name="data1" type="text" size="10" readonly/>
                             <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('data1');"><img src="calendarSingleDate/calendar_ico.gif"></button>
                         </td>
                     </tr>
                     <tr>
                         <td>Al</td>
-                        <td><input name="data2" type="text" size="10" disabled/>
+                        <td><input name="data2" type="text" size="10" readonly/>
                             <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('data2');"><img src="calendarSingleDate/calendar_ico.gif"></button>
                         </td>
                     </tr>
@@ -90,7 +90,7 @@
                 <table>
                     <tr>
                         <td> Data</td>
-                        <td><input type="text" name="dataSingola" id="dataSingola" disabled size="10"/>
+                        <td><input type="text" name="dataSingola" id="dataSingola" readonly size="10"/>
                             <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('dataSingola');"><img src="calendarSingleDate/calendar_ico.gif"></button>
                         </td>
                     </tr>
