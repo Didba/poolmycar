@@ -85,4 +85,16 @@ public class IndirizzoFacade implements IndirizzoFacadeLocal {
         return false;
     }
 
+    public List<String> getCitta() {
+
+        List<Indirizzo> indirizzi=em.createQuery("select object(o) from Indirizzo as o").getResultList();
+        List<String> citta = new LinkedList<String>();
+        for(Indirizzo i: indirizzi)
+        
+                    citta.add(i.getCitta());
+
+        return citta;
+
+    }
+
 }
