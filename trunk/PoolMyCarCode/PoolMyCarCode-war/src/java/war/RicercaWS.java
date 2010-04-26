@@ -5,6 +5,7 @@
 
 package war;
 
+import ejb.Percorso;
 import ejb.RicercaWSLocal;
 import java.util.Calendar;
 import java.util.List;
@@ -14,7 +15,6 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
-import viaggi.Pacchetto;
 
 /**
  *
@@ -28,7 +28,7 @@ public class RicercaWS {
     // "Web Service > Add Operation"
 
     @WebMethod(operationName = "ricerca")
-    public List<Pacchetto> ricerca(@WebParam(name = "partenza")
+    public List<Percorso> ricerca(@WebParam(name = "partenza")
     String partenza, @WebParam(name = "arrivo")
     String arrivo, @WebParam(name = "giorno")
     String giorno, @WebParam(name = "mese")
@@ -40,7 +40,7 @@ public class RicercaWS {
     @WebMethod(operationName = "ricerca_1")
     @RequestWrapper(className = "ricerca_1")
     @ResponseWrapper(className = "ricerca_1Response")
-    public List<Pacchetto> ricerca(@WebParam(name = "partenza")
+    public List<Percorso> ricerca(@WebParam(name = "partenza")
     String partenza, @WebParam(name = "arrivo")
     String arrivo, @WebParam(name = "giorno1")
     String giorno1, @WebParam(name = "mese1")
@@ -55,7 +55,7 @@ public class RicercaWS {
     @WebMethod(operationName = "ricerca_2")
     @RequestWrapper(className = "ricerca_2")
     @ResponseWrapper(className = "ricerca_2Response")
-    public List<Pacchetto> ricerca(@WebParam(name = "partenza")
+    public List<Percorso> ricerca(@WebParam(name = "partenza")
     String partenza, @WebParam(name = "arrivo")
     String arrivo, @WebParam(name = "data")
     Calendar data) {
@@ -65,7 +65,7 @@ public class RicercaWS {
     @WebMethod(operationName = "ricerca_3")
     @RequestWrapper(className = "ricerca_3")
     @ResponseWrapper(className = "ricerca_3Response")
-    public List<Pacchetto> ricerca(@WebParam(name = "partenza")
+    public List<Percorso> ricerca(@WebParam(name = "partenza")
     String partenza, @WebParam(name = "arrivo")
     String arrivo, @WebParam(name = "data1")
     Calendar data1, @WebParam(name = "data2")
