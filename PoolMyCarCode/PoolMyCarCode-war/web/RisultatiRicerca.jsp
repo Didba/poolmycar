@@ -110,9 +110,9 @@
 
                     <center>
                         <form action="RisultatiRicerca.jsp" method="POST" >
-                            <h1>Viaggi Trovati</h1>
+                            <h3>Viaggi Trovati</h3>
                             <div>
-                                Criteri<br>
+                              
                                 <%
                                             //String paramPartenza = session.getAttribute("partenza")==null? null : (String)(session.getAttribute("partenza"));
                                             //String paramArrivo = session.getAttribute("arrivo")==null? null : (String)(session.getAttribute("arrivo"));
@@ -145,7 +145,6 @@
                                 <%  }
                                 %>
                                 <br>
-                                <a href="./RicercaViaggio.jsp">Nuova Ricerca</a>
                             </div>
 
 
@@ -159,10 +158,25 @@
                                             pacchetti = ris.getPredPacchetti();
                                 }
                                 if (pacchetti == null || pacchetti.size() == 0) {%>
-                            Nulla
+                                <h5>Non è stato trovato nessun viaggio</h5>
                             <%                                                   } else {
                             %>
-                            <div  id="map" style="width: 600px; height: 300px"></div>
+<div  id="map" style="width: 600px; height: 300px"></div>
+                            <div align="right">
+                             <%
+                                                if (ris.indietro()) {%>
+                            <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
+
+                            <%}
+                                                        if (ris.avanti()) {
+                            %>
+                            <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
+                            <%}%>
+                           
+                            </div>
+
+                            
+
                             <table border=1 width="600px" align="center" >
 
                                 <%    for (int i = 0; i < pacchetti.size(); i++) {
@@ -217,7 +231,7 @@
 %>
                             </table>
                             <input type="hidden" value="avanti" id="idDirezione" name="direzione"/>
-
+                            <div align="right">
                             <%
                                                 if (ris.indietro()) {%>
                             <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
@@ -228,7 +242,7 @@
                             <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
                             <%}%>
                             <%} //chiusura due else%>
-
+                            </div>
                         </form>
                     </center>
 
