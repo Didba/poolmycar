@@ -43,6 +43,8 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
         return em.find(Viaggiatore.class, id);
     }
 
+    
+
     public List<Viaggiatore> findAll() {
         return em.createQuery("select object(o) from Viaggiatore as o").getResultList();
     }

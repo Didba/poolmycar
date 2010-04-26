@@ -21,7 +21,7 @@ public interface GestoreViaggiBeanLocal {
 
     public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Calendar data1, Calendar data2, Calendar dataOraPartenza);
 
-    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, String nota, boolean richiestaContributi,String distanza) throws IllegalStateException;
+    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, long idMezzo,String nota, boolean richiestaContributi,String distanza) throws IllegalStateException;
 
     public Pacchetto aggiornaPacchetto(Pacchetto pacchetto);
 

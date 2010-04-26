@@ -36,6 +36,10 @@ public class TipoMezzoFacade implements TipoMezzoFacadeLocal {
         return em.find(TipoMezzo.class, id);
     }
 
+    public TipoMezzo find(long id) {
+        return em.find(TipoMezzo.class, id);
+    }
+
     public List<TipoMezzo> findAll() {
         return em.createQuery("select object(o) from TipoMezzo as o").getResultList();
     }

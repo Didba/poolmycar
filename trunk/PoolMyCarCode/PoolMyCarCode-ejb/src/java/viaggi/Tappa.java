@@ -83,7 +83,8 @@ public class Tappa implements Serializable {
 
     @Override
     public String toString() {
-        return "viaggi.Tappa[id=" + id + "]";
+        //return "viaggi.Tappa[id=" + id + "]";
+        return indirizzo.toString();
     }
 
         }

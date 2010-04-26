@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import utenti.CommentoAutista;
 import utenti.CommentoViaggiatore;
+import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
 /**
@@ -27,6 +28,9 @@ import utenti.Viaggiatore;
  */
 @Entity
 public class Pacchetto implements Serializable {
+
+    @ManyToOne
+    private TipoMezzo tipoMezzo;
     @ManyToOne
     private Viaggiatore autista;
     @OneToOne(mappedBy = "pacchetto")
@@ -35,7 +39,7 @@ public class Pacchetto implements Serializable {
     private List<CommentoViaggiatore> commentiViaggiatori;
     @OneToMany(mappedBy = "pacchetto")
     private List<CommentoAutista> commentiAutista;
-    @OneToMany(mappedBy = "pacchetto")
+    @OneToMany
     private List<Viaggio> viaggi;
     @OneToOne
     private Tappa partenza;
@@ -72,6 +76,25 @@ public class Pacchetto implements Serializable {
     public void setLunghezzaPercorso(float lunghezzaPercorso) {
         this.lunghezzaPercorso = lunghezzaPercorso;
     }
+
+    /**
+     * Get the value of tipoMezzo
+     *
+     * @return the value of tipoMezzo
+     */
+    public TipoMezzo getTipoMezzo() {
+        return tipoMezzo;
+    }
+
+    /**
+     * Set the value of tipoMezzo
+     *
+     * @param tipoMezzo new value of tipoMezzo
+     */
+    public void setTipoMezzo(TipoMezzo tipoMezzo) {
+        this.tipoMezzo = tipoMezzo;
+    }
+
     public Long getId() {
         return id;
     }
@@ -184,7 +207,6 @@ public class Pacchetto implements Serializable {
             Viaggio viaggio=new Viaggio();
             viaggio.setPartenza(partenza);
             viaggio.setArrivo(arrivo);
-            viaggio.setPacchetto(this);
             viaggio.setDataPartenza(d);
             viaggio.setLunghezzaPercorso(lunghezzaPercorso); 
             viaggio.setViaggiatori(new LinkedList<Viaggiatore>());

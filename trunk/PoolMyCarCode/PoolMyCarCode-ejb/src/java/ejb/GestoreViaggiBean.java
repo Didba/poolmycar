@@ -6,6 +6,7 @@ package ejb;
 
 import facades.IndirizzoFacadeLocal;
 import facades.PacchettoFacadeLocal;
+import facades.TipoMezzoFacadeLocal;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -13,8 +14,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -42,6 +41,8 @@ import viaggi.Viaggio;
  */
 @Stateless
 public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
+    @EJB
+    private TipoMezzoFacadeLocal tipoMezzoFacade;
     @EJB
     private IndirizzoFacadeLocal indirizzoFacade;
     @EJB
@@ -95,7 +96,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     }
 
-    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
+    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, long idMezzo, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
 
         //controllo dei parametri
         if (tappe.size() < 2) {
@@ -120,6 +121,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         pacchetto.setRichiestaContributi(richiestaContributi);
         pacchetto.setBacheca(new Bacheca());
         pacchetto.setLunghezzaPercorso(Float.parseFloat(distanza));//TO-DO
+        pacchetto.setTipoMezzo(tipoMezzoFacade.find(idMezzo));
         //va fatta per ultima
         pacchetto.creaViaggi(date);
         
