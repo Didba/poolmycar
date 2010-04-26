@@ -130,7 +130,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     }
 
-    private Indirizzo reverseGeocoding(double lat, double lon) {
+    protected Indirizzo reverseGeocoding(double lat, double lon) {
         //http://www.java-tips.org/java-se-tips/javax.xml.parsers/how-to-read-xml-file-in-java.html
         //http://code.google.com/intl/it-IT/apis/maps/documentation/geocoding/index.html#XML
         Indirizzo ris = new Indirizzo();
@@ -155,6 +155,8 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             Document doc = db.parse(new ByteArrayInputStream(buffer.getBytes()));
             String value = "";
             String type = "";
+
+            //System.out.print(buffer);
 
             doc.getDocumentElement().normalize();
 
@@ -191,6 +193,8 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                     } else if (type.equals("country")) {
                         ris.setStato(value);
                     } else if (type.equals("postal_code")) {
+                        ris.setCap(value);
+                    } else if (type.equals("administrative_area_level_2")) {
                         ris.setCap(value);
                     }
                 }
