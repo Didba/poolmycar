@@ -151,9 +151,9 @@ public class ServletController extends HttpServlet {
                     }
                 }
                 if (action.equals("autoCompletamento")) {
-                    String ricerca = request.getParameter("q");
+                   // String ricerca = request.getParameter("q");
 
-                    List<String> risposta = gestoreViaggiBean.getCitta(ricerca);
+                    List<String> risposta = gestoreViaggiBean.getCitta();
 
                     String buffer = "";
                     for (String s : risposta) {

@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel=stylesheet href="style.css" type="text/css">
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,18 +13,22 @@
 <html>
     <head>
         <!-- calendar stylesheet -->
+        <link rel=stylesheet href="style.css" type="text/css">
         <link rel="stylesheet" type="text/css" media="all" href="calendarSingleDate/calendarSingleDate.css"/>
 
         <!-- main calendar program -->
         <script type="text/javascript" src="calendarSingleDate/calendarSingleDate.js"></script>
 
-
+        <script language="javascript" type="text/javascript" src="Autocompletamento/autocomplete.js"></script>
 
 
 
 
         <script type="text/javascript" src="ajaxjs.js"></script>
         <script language="JavaScript" type="text/javascript">
+            
+   
+ 
             function abilitaIntervallo(n){
                 var divInt = document.getElementById("intervalloDate");
                 var divData = document.getElementById("dataSingola");
@@ -56,7 +60,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ricerca Viaggio</title>
     </head>
-    <body>
+    <body onload="loadContent();">
 
 
         <div id="mainPan">
@@ -101,14 +105,16 @@
 
                     <form action="ServletController" method="POST" onSubmit="return(checkDate());">
                         <div>
-                            Partenza <input name="partenza" type="text" onkeyup="if(this.value!=''){loadContent(this.value);}else{document.getElementById('prtCnt').innerHTML=''}"/>
-                            Arrivo <input name="arrivo" type="text" onkeyup="if(this.value!=''){loadContent(this.value);}else{document.getElementById('prtCnt').innerHTML=''}"/>
+                            Partenza <input id="partenza" name="partenza" type="text"/>
+                            Arrivo <input id="arrivo" name="arrivo" type="text"/>
+                           <!-- Partenza <input id="partenza" name="partenza" type="text" onkeyup="if(this.value!=''){loadContent(this.value);}else{document.getElementById('prtCnt').innerHTML=''}"/>
+                            Arrivo <input id="arrivo" name="arrivo" type="text" onkeyup="if(this.value!=''){loadContent(this.value);}else{document.getElementById('prtCnt').innerHTML=''}"/>-->
                         </div>
 
                         <div id="prtCnt"></div>
 
                         <div>
-                            <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('Date');" value="Date"/> vuoi intervallo date
+                            <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('Date'); " value="Date"/> vuoi intervallo date
                             <input name="opIntervalloDate" type="radio" onclick="abilitaIntervallo('DataSingola');" value="DataSingola"/> vuoi data singola
                         </div>
                         <table><tr><td>
