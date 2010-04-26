@@ -319,4 +319,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     public List<String> getCitta(String subCitta) {
         return indirizzoFacade.getCitta(subCitta);
     }
+     public List<String> getCitta() {
+        return indirizzoFacade.getCitta();
+    }
 }

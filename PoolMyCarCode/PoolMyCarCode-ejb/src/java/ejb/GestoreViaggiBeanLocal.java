@@ -27,4 +27,6 @@ public interface GestoreViaggiBeanLocal {
 
     public List<String> getCitta(String subCitta);
 
+    public java.util.List<java.lang.String> getCitta();
+
 }
