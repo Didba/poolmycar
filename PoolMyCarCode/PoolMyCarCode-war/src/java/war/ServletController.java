@@ -411,11 +411,11 @@ public class ServletController extends HttpServlet {
                         richiestaContributo = true;
                     }
 
-
                     creazioneViaggiBean.setNota(nota);
                     creazioneViaggiBean.setRichiestaContributi(richiestaContributo);
+                    long idMezzo=new Long(request.getParameter("tipoMezzo"));
 
-                    Pacchetto p = gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(), (String) session.getAttribute("distanza"));
+                    Pacchetto p = gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, idMezzo,creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(), (String) session.getAttribute("distanza"));
 
                     System.out.println("partenza: " + p.getPartenza().getIndirizzo().getCitta() + "    arrivo: " + p.getArrivo().getIndirizzo().getCitta());
 
@@ -489,7 +489,7 @@ public class ServletController extends HttpServlet {
         if (s.equals("December")) {
             return Calendar.DECEMBER;
         }
-        return 0;
+        return -1;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
