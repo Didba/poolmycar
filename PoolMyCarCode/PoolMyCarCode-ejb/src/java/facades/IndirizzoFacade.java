@@ -87,13 +87,8 @@ public class IndirizzoFacade implements IndirizzoFacadeLocal {
 
     public List<String> getCitta() {
 
-        List<Indirizzo> indirizzi=em.createQuery("select DISTINCT (o.citta) from Indirizzo as o").getResultList();
-        List<String> citta = new LinkedList<String>();
-        for(Indirizzo i: indirizzi)
+        List<String> citta=em.createQuery("select DISTINCT(o.citta) from Indirizzo as o").getResultList();
         
-                    citta.add(i.getCitta());
-
-        System.out.println("------------- le citta" + citta);
         return citta;
 
     }
