@@ -7,9 +7,10 @@ ul{list-style-type:none}
 #mainPan{width:778px; position:relative; margin:0 auto;}
 
 /*----TOP PANEL----*/
-#topPan{width:778px; height:65px; background:url(images/topbg.jpg) 0 0 no-repeat #fff; color:#828282; padding-left:10px;}
+#topPan{width:778px; height:65px; background:url(images/topbg.jpg) 0 0 no-repeat #fff; color:#828282; position:relative; margin:0 auto;}
+#topPan img.logo{width:136px; height:31px; position:absolute; top:12px; left:235px;}
 #topPan p.caption{width:200px; background:#fff; color:#828282; position:absolute; top:43px; left:235px;}
-#topcontactPan{width:181px; height:36px;  position:absolute; top:11px; left:567px; padding:7px 0 0;}
+#topcontactPan{width:181px; height:36px; background:url(images/icon1.jpg) 68px 0px no-repeat; position:absolute; top:11px; left:567px; padding:7px 0 0;}
 
 #topcontactPan p.callus{width:63px; height:17px; display:block; background:#DDC40C; color:#fff; font:14px/17px "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; text-align:center;}
 #topcontactPan p.tollfree{width:63px; height:20px; display:block; background:#fff; color:#A99607; font:11px/20px "Trebuchet MS", Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; text-align:center;}
@@ -17,23 +18,31 @@ ul{list-style-type:none}
 /*----/TOP PANEL----*/
 
 /*----HEADER PANEL----*/
-#headerPan{width:686px; height:315px; background:url(images/PMC.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 30px; text-align:right;}
+#headerPan{width:686px; height:153px; background:url(images/PMC2.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px;}
 
 #headerPan ul.leftmenu{width:87px;}
-#headerPan ul.leftmenu li{width:87px; height:10px; border-bottom:1px dashed #AECCCA;}
-#headerPan ul.leftmenu li a{width:72px; height:10px; display:block; background:url(images/bullet-normal.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
+#headerPan ul.leftmenu li{width:87px; height:22px; border-bottom:1px dashed #AECCCA;}
+#headerPan ul.leftmenu li a{width:72px; height:22px; display:block; background:url(images/bullet-normal.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
 #headerPan ul.leftmenu li a:hover{background:url(images/bullet-hover.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
-#headerPan ul.leftmenu li.Solutions{width:72px; height:10px; display:block; background:url(images/bullet-hover.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
+#headerPan ul.leftmenu li.Solutions{width:72px; height:22px; display:block; background:url(images/bullet-hover.gif) 0 7px no-repeat #fff; color:#305E5C; line-height:22px; text-decoration:none; padding:0 0 0 15px;}
 #headerPan ul.leftmenu li.clients{width:87px; height:22px; border-bottom:none;}
 
-#headerPan ul.botton{width:150px; height:45px; position:absolute; top:78px; left:550px;}
-#headerPan ul.botton li{float:left; height:30px;}
+#headerPan ul.botton{width:150px; height:45px; position:absolute; top:118px; left:250px;}
+#headerPan ul.botton li{float:left; height:45px;}
+#headerPan ul.botton li.home a{width:42px; height:45px; display:block; background:url(images/home-normal.gif) 0 0 no-repeat; text-indent:-200000px; margin:0 12px 0 0;}
+#headerPan ul.botton li.home a:hover{background:url(images/home-hover.gif) 0 0 no-repeat;}
+
+#headerPan ul.botton li.aboutus a{width:42px; height:45px; display:block; background:url(images/aboutus-normal.gif) 0 0 no-repeat; text-indent:-200000px; margin:0 12px 0 0;}
+#headerPan ul.botton li.aboutus a:hover{background:url(images/aboutus-hover.gif) 0 0 no-repeat;}
+
+#headerPan ul.botton li.contact a{width:42px; height:45px; display:block; background:url(images/contact-normal.gif) 0 0 no-repeat; text-indent:-200000px; margin:0px;}
+#headerPan ul.botton li.contact a:hover{background:url(images/contact-hover.gif) 0 0 no-repeat;}
 /*----/HEADER PANEL----*/
 
 /*----BODY PANEL----*/
-#bodyPan{width:686px; background:url(images/bodybg.gif) 0 0 no-repeat; position:relative; margin:0 auto; top:0px;}
+#bodyPan{width:686px; background:url(images/bodybg.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:22px 0 0 92px;}
 /*----Body Left Panel----*/
-#leftPan{width:114px; float:left; }
+#leftPan{width:114px; float:left;}
 
 #leftPan h2{width:114px; height:34px; background:#fff; color:#5F7A77; font-size:18px; line-height:34px;}
 
@@ -44,8 +53,8 @@ ul{list-style-type:none}
 #leftPan ul li span{text-decoration:underline;}
 /*----/Body Left Panel----*/
 /*----Body Right Panel----*/
-#rightPan{width:511px; float:left; border-left:1px solid #C8E8E2; margin:12px 0 0; padding:0 12px;}
-#rightPan p{padding:0 0 0px 0;}
+#rightPan{width:511px; float:left; border-left:1px solid #C8E8E2; margin:28px 0 0; padding:0 30px;}
+#rightPan p{padding:0 0 10px 0;}
 #rightPan p.more{width:502px; height:25px; float:left; background:url(images/sky-color-bg.gif) 0 10px repeat-x; padding:0 0 20px 0;}
 #rightPan p.more a{width:92px; height:21px; display:block; background:url(images/icon2.jpg) 0 0 no-repeat #fff; color:#958201; line-height:21px; text-transform:uppercase; text-decoration:none; margin:0 0 0 328px; padding:4px 0 0 50px;}
 #rightPan p.more a:hover{background:url(images/icon2.jpg) 0 0 no-repeat #fff; color:#645804; text-decoration:none;}
@@ -105,6 +114,9 @@ ul{list-style-type:none}
 #footerPancss a{width:49px; height:24px; display:block; background:url(images/css-normal.gif) 0 0 no-repeat #D3F0F0; color:#fff; font-size:13px; line-height:24px; font-weight:bold; text-decoration:none; text-transform:uppercase; padding:0 0 0 10px;}
 #footerPancss a:hover{background:url(images/css-hover.gif) 0 0 no-repeat #D3F0F0; color:#fff; text-decoration:none;}
 /*----/FOOTER PANEL----*/
+
+
+
 div.suggestions {
     -moz-box-sizing: border-box;
     /*box-sizing: border-box;*/
@@ -120,4 +132,3 @@ div.suggestions div.current {
     background-color: #6580D8;
     color: white;
 }
-
