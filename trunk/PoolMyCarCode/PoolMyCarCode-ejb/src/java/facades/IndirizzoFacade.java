@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import utenti.Indirizzo;
 
 /**
@@ -42,16 +43,46 @@ public class IndirizzoFacade implements IndirizzoFacadeLocal {
     }
 
     public List<String> getCitta(String subCitta) {
-        /*
-        return (List<String>) em.createQuery("select distinct citta from Indirizzo as i where upper(i.citta) LIKE upper('"+subCitta+"%')").getResultList();
-         */
-        List<Indirizzo> indirizzi=findAll();
+        
+        //Query q = em.createQuery("select object(o) from Indirizzo as o where UPPER(o.citta) LIKE UPPER('t%') GROUP BY o.citta ORDER BY COUNT(o.citta) DESC");
+        /*Query q = em.createQuery("select object(o) from Indirizzo as o where UPPER(o.citta) LIKE UPPER('t%')");
+
+        List<Indirizzo> ris = q.getResultList();
+        
+
         List<String> citta = new LinkedList<String>();
+
+        int i=0;
+        for(Indirizzo ind: ris)
+            if(i==3)
+                break;
+            else{
+                citta.add(ind.getCitta());
+                i++;
+            }
+        */
+
+        List<Indirizzo> indirizzi=em.createQuery("select object(o) from Indirizzo as o").getResultList();
+        List<String> citta = new LinkedList<String>();
+        int j=0;
+        // è o(2n) perchè è quadratica, ma può contenere solo 3 elementi
         for(Indirizzo i: indirizzi){
             if(i.getCitta().toUpperCase().startsWith(subCitta.toUpperCase()))
-                citta.add(i.getCitta());
+                if(!contiene(citta,i.getCitta())){
+                    citta.add(i.getCitta());
+                    j++;
+                }
+            if(j==3)
+                break;
         }
         return citta;
+    }
+
+    private boolean contiene(List<String> citta, String c) {
+        for(String s: citta)
+            if(s.equals(c))
+                return true;
+        return false;
     }
 
 }
