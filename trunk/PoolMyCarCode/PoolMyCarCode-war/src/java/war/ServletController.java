@@ -129,7 +129,7 @@ public class ServletController extends HttpServlet {
                         viaggiatore.setFumatore(fumatore);
                         Indirizzo ind = new Indirizzo();
                         ind.setCitta(citta);
-                        ind.setProvincia(provincia.toUpperCase());
+                        ind.setProvincia(provincia);
                         ind.setVia(via);
                         ind.setNumerocivico(numero_civico);
                         ind.setStato(stato);

@@ -40,17 +40,21 @@
     </target>
     <target name="-deploy-ant" depends="-parse-sun-web,-add-resources" if="deploy.ant.enabled">
         <echo message="Deploying ${deploy.ant.archive}"/>
-        <tempfile prefix="gfv3" property="gfv3.results.file" destdir="${java.io.tmpdir}"/>  <!-- do not forget to delete this! -->
-        <property name="full.deploy.ant.archive" location="${deploy.ant.archive}"/>
-        <get src="${gfv3.url}/__asadmin/deploy?path=${full.deploy.ant.archive}${deploy.context.root.argument}?force=true?name=${ant.project.name}"
-            dest="${gfv3.results.file}"/>
-        <delete file="${gfv3.results.file}"/>    
+        <taskdef name="sun-appserv-deploy" classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.DeployTask"
+                 classpath="${sjsas.root}/lib/sun-appserv-ant.jar" />
+        <sun-appserv-deploy user="${sjsas.username}"
+                passwordfile="${sjsas.password.file}"
+                host="${sjsas.host}" port="${sjsas.port}"
+                file="${deploy.ant.archive}" asinstalldir="${sjsas.root}"/>
+        <delete file="${sjsas.password.file}"/>
     </target>
     <target name="-undeploy-ant" depends="-init-cl-deployment-env" if="deploy.ant.enabled">
-        <echo message="Undeploying ${deploy.ant.archive}"/>
-        <tempfile prefix="gfv3" property="gfv3.results.file" destdir="${java.io.tmpdir}"/>  <!-- do not forget to delete this! -->
-        <get src="${gfv3.url}/__asadmin/undeploy?name=${ant.project.name}"
-            dest="${gfv3.results.file}"/>
-        <delete file="${gfv3.results.file}"/>    
+        <taskdef name="sun-appserv-undeploy" classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.UndeployTask"
+                 classpath="${sjsas.root}/lib/sun-appserv-ant.jar" />
+        <sun-appserv-undeploy user="${sjsas.username}"
+                passwordfile="${sjsas.password.file}"
+                host="${sjsas.host}" port="${sjsas.port}"
+                file="${deploy.ant.archive}" asinstalldir="${sjsas.root}"/>
+        <delete file="${sjsas.password.file}"/>
     </target>
 </project>
