@@ -84,10 +84,10 @@ public class RiempiDB implements RiempiDBLocal {
         pacchettoFacade.create(p);
 
         d = new LinkedList<String>();
-        d.add("12/04/2010 9:00");
-        d.add("14/04/2010 9:00");
-        d.add("16/04/2010 9:00");
-        d.add("19/04/2010 9:00");
+        d.add("12/04/2010 09:00");
+        d.add("14/04/2010 09:00");
+        d.add("16/04/2010 09:00");
+        d.add("19/04/2010 09:00");
         p = creap("Torino", "Manduria", autista, d);
         pacchettoFacade.create(p);
 
