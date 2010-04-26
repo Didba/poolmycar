@@ -1,6 +1,7 @@
 var xmlhttp
+var data
 
-function loadContent(str)
+function loadContent()
 {
 
  xmlhttp=GetXmlHttpObject();
@@ -11,9 +12,7 @@ function loadContent(str)
    return;
   }
 
-    var url="ServletController?operation=autoCompletamento&";
-    url=url+"q="+str;
-
+    var url="ServletController?operation=autoCompletamento";
     xmlhttp.onreadystatechange=getOutput;
     xmlhttp.open("GET",url,true);
     xmlhttp.send(null);
@@ -23,7 +22,12 @@ function getOutput()
 {
   if (xmlhttp.readyState==4)
   {
-  document.getElementById("prtCnt").innerHTML=xmlhttp.responseText;
+  //document.getElementById("prtCnt").innerHTML=xmlhttp.responseText;
+  data = ((String) (xmlhttp.responseText)).split("<br>");
+  data= data.sort();
+
+ var oTextbox = new AutoSuggestControl(document.getElementById("partenza"), new StateSuggestions(data));
+ var oTextbox2 = new AutoSuggestControl(document.getElementById("arrivo"), new StateSuggestions(data));
   }
 }
 
