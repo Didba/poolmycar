@@ -51,11 +51,13 @@ public class GestoreUtentiBean implements GestoreUtentiLocal {
 
         autista.setAutista(true);
         TipoMezzo tp=new TipoMezzo();
-        tp.setNome(tipoMezzo);
+        tp.setPosti(new Integer(tipoMezzo));
+        tp.setNome("Mezzo a "+tipoMezzo+" posti");
         Set<TipoMezzo> tipiMezzo=new HashSet<TipoMezzo>();
         tipiMezzo.add(tp);
         autista.setMezzi(tipiMezzo);
         autista.setNumeroPatente(patente);
+        viaggiatoreFacade.edit(autista);
 
         return true;
     }

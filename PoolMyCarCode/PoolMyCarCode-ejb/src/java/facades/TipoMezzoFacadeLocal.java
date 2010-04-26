@@ -24,6 +24,8 @@ public interface TipoMezzoFacadeLocal {
 
     TipoMezzo find(Object id);
 
+    public TipoMezzo find(long id);
+
     List<TipoMezzo> findAll();
 
 }

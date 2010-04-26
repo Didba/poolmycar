@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -26,8 +25,6 @@ import utenti.Viaggiatore;
  */
 @Entity
 public class Viaggio implements Serializable {
-    @ManyToOne
-    private Pacchetto pacchetto;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar dataPartenza;
     private float lunghezzaPercorso;
@@ -126,14 +123,6 @@ public class Viaggio implements Serializable {
 
     public void setLunghezzaPercorso(float lunghezzaPercorso) {
         this.lunghezzaPercorso = lunghezzaPercorso;
-    }
-
-    public Pacchetto getPacchetto() {
-        return pacchetto;
-    }
-
-    public void setPacchetto(Pacchetto pacchetto) {
-        this.pacchetto = pacchetto;
     }
 
     public List<Richiesta> getRichieste() {

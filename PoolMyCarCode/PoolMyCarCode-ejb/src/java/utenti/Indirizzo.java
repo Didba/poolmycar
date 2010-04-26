@@ -154,14 +154,23 @@ public class Indirizzo implements Serializable {
         this.stato = stato;
     }
 
+    @Override
     public String toString(){
         String s = "";
         if(via!=null && !via.equals(""))
             s +=(via+ " ");
         if(numerocivico!=null && !numerocivico.equals(""))
             s +=(numerocivico+ " ");
+        if(cap!=null && !cap.equals("")){
+            s +=(cap+ " ");
+        }
         if(citta!=null && !citta.equals(""))
             s +=(citta+ " ");
+        if(provincia!=null && !provincia.equals(""))
+            s +=(provincia+ " ");
+        if(stato!=null && !stato.equals(""))
+            s +=(" - "+stato+ "\n");
+
 
         return s;
     }
