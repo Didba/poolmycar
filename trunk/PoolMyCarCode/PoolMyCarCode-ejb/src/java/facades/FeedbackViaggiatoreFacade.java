@@ -11,8 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import utenti.FeedbackViaggiatore;
 
-/**
- *
+/**Oggetto che viene usato per scrivere l'oggetto FeedbackViaggiatore nel database
+ * Questo oggetto contiene i metodi utili a scrivere un oggetto nel database. Viene usato per la persistenza di tale oggetto
  * @author berto
  */
 @Stateless

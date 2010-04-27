@@ -20,8 +20,8 @@ import viaggi.Pacchetto;
 import viaggi.Richiesta;
 import viaggi.Viaggio;
 
-/**
- *
+/** Un viaggiatore
+ * Questa classe definisce gli oggetti di tipo Viaggiatore. Esso può essere autista o meno in base al valore del campo isAutista
  * @author Erica
  */
 @Entity

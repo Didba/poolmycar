@@ -14,8 +14,8 @@ import javax.persistence.Query;
 import viaggi.Pacchetto;
 import viaggi.Viaggio;
 
-/**
- *
+/**Oggetto che viene usato per scrivere l'indirizzo nel database
+ * Questo oggetto contiene i metodi utili a scrivere un oggetto nel database. Viene usato per la persistenza di tale oggetto
  * @author berto
  */
 @Stateless
@@ -72,7 +72,7 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
         return l;
     }
 
-    /** i pacchetti relativi alla data nel parametro
+    /** legge i pacchetti relativi alla data nel parametro
      * esegue una query per caricando tutti i pacchetti che intercorrono nella data compresa nel parametro a partire dall'ora indicata nell'oggetto calendar.
      * Questo metodo verrà usato per la ricerca dei viaggi
      * @param dataOra l'oggetto che comprende data e ora relativa ai viaggi da cercare

@@ -15,8 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import viaggi.Pacchetto;
 
-/**
- *
+/**Oggetto che rappresenta di un viaggiatore
+ *Oggetto che rappresenta un commento dato ad un autista da un viaggiatore a fronte di un viaggio
  * @author Erica
  */
 @Entity

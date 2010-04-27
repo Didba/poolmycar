@@ -10,8 +10,8 @@ import java.util.List;
 import javax.ejb.Local;
 import viaggi.Pacchetto;
 
-/**
- *
+/** Interfaccia di PacchettoFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Pacchetto
  * @author berto
  */
 @Local
@@ -38,7 +38,7 @@ public interface PacchettoFacadeLocal {
      */
     public java.util.List<viaggi.Pacchetto> findDate(Calendar data1,  Calendar data2);
 
-    /** i pacchetti relativi alla data nel parametro
+    /** carica i pacchetti relativi alla data nel parametro
      * esegue una query per caricando tutti i pacchetti che intercorrono nella data compresa nel parametro a partire dall'ora indicata nell'oggetto calendar.
      * Questo metodo verrà usato per la ricerca dei viaggi
      * @param dataOra l'oggetto che comprende data e ora relativa ai viaggi da cercare

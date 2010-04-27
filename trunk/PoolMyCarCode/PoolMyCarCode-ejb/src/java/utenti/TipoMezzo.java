@@ -11,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
+/**Rappresenta un tipo di mezzo relativo ad un autista
+ *Oggetto che rappresenta un tipo di mezzo relativo ad un autista. Contiene una stringa che lo rappresenta ed un intero relativo al numero di posti
  * @author Erica
  */
 @Entity

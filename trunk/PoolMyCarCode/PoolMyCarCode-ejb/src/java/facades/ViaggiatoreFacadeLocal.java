@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import utenti.Viaggiatore;
 
-/**
- *
+/** Interfaccia di ViaggiatoreFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Viaggiatore
  * @author berto
  */
 @Local
@@ -27,7 +27,7 @@ public interface ViaggiatoreFacadeLocal {
     List<Viaggiatore> findAll();
     
     /**Esegue la login
-     * Esegue la query sul database e carica l'oggetto o Viaggiatore tale che o.login=usr
+     * Esegue la query sul database e carica l'oggetto o di tipo Viaggiatore tale che o.login=usr
      * @param usr login dell'utente
      * @return puntatore all'oggetto Viaggiatore relativo all'input
      */

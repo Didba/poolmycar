@@ -11,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
+/**Un indirizzo relativo ad un viaggiatore oppure ad una tappa
+ * Un oggetto che rappresenta un indirizzo. Esso può essere relativo indistintamente al domicilio di un viaggiatore oppure ad una tappa facente parte del percorso di un viaggio
  * @author Erica
  */
 @Entity

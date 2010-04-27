@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import viaggi.Tappa;
 
-/**
- *
+/** Interfaccia di TappaFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Tappa
  * @author berto
  */
 @Local

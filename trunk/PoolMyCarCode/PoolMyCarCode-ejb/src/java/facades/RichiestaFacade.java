@@ -11,8 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import viaggi.Richiesta;
 
-/**
- *
+/**Oggetto che viene usato per scrivere una richiesta di partecipazione ad un viaggio nel database
+ * Questo oggetto contiene i metodi utili a scrivere un oggetto nel database. Viene usato per la persistenza di tale oggetto
  * @author berto
  */
 @Stateless

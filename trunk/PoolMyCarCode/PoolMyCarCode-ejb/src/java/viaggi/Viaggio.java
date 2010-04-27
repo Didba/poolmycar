@@ -19,9 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import utenti.Viaggiatore;
 
-/**
- *
- * @author Fra ahahahah
+/**Classe che rappresenta un viaggio
+ * Questa classe definisce i metodi e le variabili relative ad un Viaggio
+ * @author Fra
  */
 @Entity
 public class Viaggio implements Serializable {

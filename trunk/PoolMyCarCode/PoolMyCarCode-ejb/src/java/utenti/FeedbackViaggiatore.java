@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-/**
- *
+/**Il feedback di un viaggiatore
+ * Oggetto che rappresenta il feedback di un viaggiatore.
+ * Esso è calcolato sulla base di tutti i commenti dati dagli autisti dei viaggi ai quali il viaggiatore ha partecipato
+ * Contiene quindi un puntatore alla lista di commenti e tre punteggi calcolati.
  * @author Erica
  */
 @Entity
@@ -25,6 +27,9 @@ public class FeedbackViaggiatore implements Serializable {
     private Long id;
     @OneToMany(mappedBy = "feedbackViaggiatore")
     private List<CommentoViaggiatore> commenti;
+    private int puntualita;
+    private int flessibilita;
+    private int cordialitaCorrettezza;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -61,11 +66,7 @@ public class FeedbackViaggiatore implements Serializable {
     public void setPuntualita(int puntualita) {
         this.puntualita = puntualita;
     }
-    private int puntualita;
-    private int flessibilita;
-    private int cordialitaCorrettezza;
-
-
+    
     public Long getId() {
         return id;
     }

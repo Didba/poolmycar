@@ -18,9 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import utenti.Viaggiatore;
 
-/**
- *
- * @author Erica
+/**Classe che rappresenta una richiesta
+ * Questa classe definisce i metodi e le variabili relative ad una richiesta di partecipazione di un viaggio fatta da un viaggiatore all'autista
+ * @author Fra
  */
 @Entity
 public class Richiesta implements Serializable {
