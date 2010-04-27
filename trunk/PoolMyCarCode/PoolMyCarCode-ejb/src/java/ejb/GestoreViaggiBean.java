@@ -124,6 +124,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         pacchetto.setTipoMezzo(tipoMezzoFacade.find(idMezzo));
         //va fatta per ultima
         pacchetto.creaViaggi(date);
+
         
         pacchettoFacade.create(pacchetto);
 

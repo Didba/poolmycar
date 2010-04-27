@@ -6,13 +6,10 @@
 package facades;
 
 import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
 /**
@@ -64,19 +61,5 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
         return viaggiatore;
     }
 
-    public void diventaAutista(Viaggiatore viaggiatore, String patente, Set<TipoMezzo> tipoMezzi) {
-        //em.createQuery("UPDATE Viaggiatore v SET v.DTYPE='Autista' WHERE c.ID='"+viaggiatore.getId()+"'").executeUpdate();
-
-        Query q=em.createQuery("UPDATE Viaggiatore v SET v.DTYPE = 'Autista' WHERE v.login = 'pino'");
-        //q.setParameter("nome", "pino");
-        q.executeUpdate();
-        /*Autista autista=(Autista)findLogin(viaggiatore.getLogin());
-        autista.setNumeroPatente(patente);
-        autista.setTipoMezzo(tipoMezzi);
-        for(TipoMezzo t:autista.getTipoMezzo())
-            tipoMezzoFacade.create(t);
-        autistaFacade.edit(autista);*/
-
-    }
-
+    
 }
