@@ -2,7 +2,6 @@
 
 // Calendar EN language
 // Author: Mihai Bazon, <mihai_bazon@yahoo.com>
-// Translator: Fabio Di Bernardini, <altraqua@email.it>
 // Encoding: any
 // Distributed under the same terms as the calendar itself.
 
@@ -44,6 +43,10 @@ Calendar._SDN = new Array
  "Sab",
  "Dom");
 
+// First day of the week. "0" means display Sunday first, "1" means display
+// Monday first, etc.
+Calendar._FD = 1;
+
 // full month names
 Calendar._MN = new Array
 ("Gennaio",
@@ -53,7 +56,7 @@ Calendar._MN = new Array
  "Maggio",
  "Giugno",
  "Luglio",
- "Augosto",
+ "Agosto",
  "Settembre",
  "Ottobre",
  "Novembre",
@@ -94,12 +97,12 @@ Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "- o Shift+click per decrementarlo\n" +
 "- o click e sinistra o destra per variarlo.";
 
-Calendar._TT["PREV_YEAR"] = "Anno prec.(clicca a lungo per il menù)";
-Calendar._TT["PREV_MONTH"] = "Mese prec. (clicca a lungo per il menù)";
-Calendar._TT["GO_TODAY"] = "Oggi";
-Calendar._TT["NEXT_MONTH"] = "Pross. mese (clicca a lungo per il menù)";
-Calendar._TT["NEXT_YEAR"] = "Pross. anno (clicca a lungo per il menù)";
-Calendar._TT["SEL_DATE"] = "Seleziona data";
+Calendar._TT["PREV_YEAR"] = "Anno Precedente";
+Calendar._TT["PREV_MONTH"] = "Mese Precedente";
+Calendar._TT["GO_TODAY"] = "Vai ad oggi";
+Calendar._TT["NEXT_MONTH"] = "Mese Successivo";
+Calendar._TT["NEXT_YEAR"] = "Anno Successivo";
+Calendar._TT["SEL_DATE"] = "Seleziona Data";
 Calendar._TT["DRAG_TO_MOVE"] = "Trascina per spostarlo";
 Calendar._TT["PART_TODAY"] = " (oggi)";
 
