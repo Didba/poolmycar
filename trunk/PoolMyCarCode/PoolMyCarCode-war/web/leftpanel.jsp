@@ -9,7 +9,7 @@
              if(v!=null){
         %>
         <li><a href=""><span>I miei viaggi</span></a></li>
-        <li><a href="ServletController"><span>Il mio profilo</span></a></li>
+        <li><a href="Profilo.jsp"><span>Il mio profilo</span></a></li>
         <%      if(v.isAutista()){
         %>
                 <li><a href="InserisciLuoghiViaggio.jsp"><span>Inserisci viaggio</span></a></li>
