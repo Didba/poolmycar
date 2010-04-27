@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import viaggi.Richiesta;
 
-/**
- *
+/** Interfaccia di RichiestaFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Richiesta
  * @author berto
  */
 @Local

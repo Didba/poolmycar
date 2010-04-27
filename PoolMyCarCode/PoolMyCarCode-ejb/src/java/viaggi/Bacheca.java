@@ -15,9 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-/**
- *
- * @author Erica
+/**Classe che rappresenta una bacheca
+ * Questa classe definisce i metodi e le variabili relative alla bacheca di un dato viaggio
+ * @author Fra
  */
 @Entity
 public class Bacheca implements Serializable {

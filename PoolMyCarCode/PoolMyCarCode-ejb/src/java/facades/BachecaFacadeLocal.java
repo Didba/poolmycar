@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import viaggi.Bacheca;
 
-/**
- *
+/** Interfaccia di BachecaFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Bacheca
  * @author berto
  */
 @Local

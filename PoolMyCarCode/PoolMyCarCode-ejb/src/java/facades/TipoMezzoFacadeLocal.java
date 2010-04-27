@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import utenti.TipoMezzo;
 
-/**
- *
+/** Interfaccia di TipoMezzoFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Tipomezzo
  * @author berto
  */
 @Local

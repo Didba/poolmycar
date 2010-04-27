@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import utenti.Indirizzo;
 
-/**
- *
+/** Interfaccia di IndirizzoFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Indirizzo
  * @author berto
  */
 @Local

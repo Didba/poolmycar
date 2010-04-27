@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import utenti.FeedbackAutista;
 
-/**
- *
+/** Interfaccia di FeedbackAutistaFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto FeedbackAutista
  * @author berto
  */
 @Local

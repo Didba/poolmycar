@@ -11,8 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import utenti.CommentoAutista;
 
-/**
- *
+/**Oggetto che viene usato per scrivere i commenti dell'autista nel database
+ * Questo oggetto contiene i metodi utili a scrivere un oggetto nel database. Viene usato per la persistenza di tale oggetto
  * @author berto
  */
 @Stateless

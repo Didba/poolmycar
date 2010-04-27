@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import utenti.FeedbackViaggiatore;
 
-/**
- *
+/** Interfaccia di FeedbackViaggiatoreFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto FeedbackViaggiatore
  * @author berto
  */
 @Local

@@ -6,14 +6,13 @@
 package facades;
 
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import utenti.Viaggiatore;
 
-/**
- *
+/**Oggetto che viene usato per scrivere un viaggiatore nel database
+ * Questo oggetto contiene i metodi utili a scrivere un oggetto nel database. Viene usato per la persistenza di tale oggetto
  * @author berto
  */
 @Stateless
@@ -45,7 +44,7 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
     }
 
     /**Esegue la login
-     * Esegue la query sul database e carica l'oggetto o Viaggiatore tale che o.login=usr
+     * Esegue la query sul database e carica l'oggetto o di tipo Viaggiatore tale che o.login=usr
      * @param usr login dell'utente
      * @return puntatore all'oggetto Viaggiatore relativo all'input
      */

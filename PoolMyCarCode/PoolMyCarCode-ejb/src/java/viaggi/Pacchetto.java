@@ -22,9 +22,9 @@ import utenti.CommentoViaggiatore;
 import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 
-/**
- *
- * @author Erica
+/**Classe che rappresenta un pacchetto
+ * Questa classe definisce i metodi e le variabili relative ad un pacchetto di viaggi
+ * @author Fra
  */
 @Entity
 public class Pacchetto implements Serializable {

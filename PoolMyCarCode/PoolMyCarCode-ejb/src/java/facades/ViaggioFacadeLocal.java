@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import viaggi.Viaggio;
 
-/**
- *
+/** Interfaccia di ViaggioFacade
+ * Interfaccia ad uso locale dell'oggetto che rende persistente l'oggetto Viaggio
  * @author berto
  */
 @Local

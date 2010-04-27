@@ -15,9 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import utenti.Viaggiatore;
 
-/**
- *
- * @author Erica
+/**Classe che rappresenta un post
+ * Questa classe definisce i metodi e le variabili relative ad un post nella bacheca di un viaggio
+ * @author Fra
  */
 @Entity
 public class Post implements Serializable {

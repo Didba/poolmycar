@@ -14,9 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import utenti.Indirizzo;
 
-/**
- *
- * @author Erica
+/**Classe che rappresenta una tappa
+ * Questa classe definisce i metodi e le variabili relative ad una Tappa di un viaggio
+ * @author Fra
  */
 @Entity
 public class Tappa implements Serializable {

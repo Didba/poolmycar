@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-/**
- *
+/**Il feedback di un autista
+ * Oggetto che rappresenta il feedback di un autista.
+ * Esso è calcolato sulla base di tutti i commenti dati dai viaggiatori che hanno partecipato a viaggi indetti dall'autista
+ * Contiene quindi un puntatore alla lista di commenti e quattro punteggi calcolati.
  * @author Erica
  */
 @Entity

@@ -12,8 +12,8 @@ import javax.persistence.PersistenceContext;
 import viaggi.Tappa;
 import viaggi.Viaggio;
 
-/**
- *
+/**Oggetto che viene usato per scrivere un viaggio nel database
+ * Questo oggetto contiene i metodi utili a scrivere un oggetto nel database. Viene usato per la persistenza di tale oggetto
  * @author berto
  */
 @Stateless
