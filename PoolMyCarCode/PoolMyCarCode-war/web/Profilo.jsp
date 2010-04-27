@@ -7,12 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="utenti.Viaggiatore" %>
 <%@page import="viaggi.*" %>
+<%@page import="utenti.TipoMezzo" %>
 <%@page import="java.util.*" %>
 <link rel=stylesheet href="style.css" type="text/css">
 
 
 <%!    List<Pacchetto> pacchetti;
         int k=0;
+        int n=0;
+        String s="";
+        List<Viaggio> viaggi;
+        Set<TipoMezzo> mezzi;
+        TipoMezzo elem;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -77,31 +83,52 @@
                         <form name="dati" action="ServletController" method="POST">
                             <table border=0>
                                 <tr><td>Tipo Mezzo <select name="tipoMezzo"  disabled>
-                                            <option value="2">Auto a 2 posti</option>
-                                            <option value="4">Auto a 4 posti</option>
-                                            <option value="5">Auto a 5 posti</option>
-                                            <option value="6">Auto a 6 posti</option>
-                                            <option value="7">Auto a 7 o più posti</option>
+                                            <%mezzi = utente.getMezzi();
+                                            for(k=0; k<mezzi.size(); k++){
+                                                elem = mezzi.iterator().next();%>
+                                                <option value="<%=k%>"> <%= elem.getNome() %> </option>
+                                            <%}%>
+                                            
+                                            
                                         </select></td>
                                     <td>Numero Patente</td><td> <input name="patente" type="text" value="<%= utente.getNumeroPatente()%>"  disabled size=15/> </td></tr>
                             </table>
                         </form>
+                            
                         <% pacchetti = utente.getPacchettiDaAutista();
-         if (pacchetti != null && pacchetti.size() != 0) {
-             for(k=0;k<pacchetti.size();k++){
-                        %>
-                        <table border=1>
-                            <tr><td>Pacchetto n. <%=k%>Partenza</td><td><%=pacchetti.get(0).getPartenza() %></td></tr>
-                            <tr><td>Arrivo</td><td><%=pacchetti.get(0).getArrivo() %></td></tr>
-                            <tr><td>Numero Patente</td><td> <input name="patente" type="text" value="<%= utente.getNumeroPatente()%>"  disabled size=15/> </td></tr>
-                        </table>
+         if (pacchetti != null && pacchetti.size() > 0) {%>
+         <br>
+         <br>
+         Pacchetti Utente
+         <table border=0 align="center">
+             <tr align="center">
+                                <td>Indirizzo Partenza</td>
+                                <td>Indirizzo Arrivo</td>
+                                <td>Date</td>
+                                <td></td>
+                            </tr>
 
-                        <%}
-                        }%>
-                        <form action="ServletController" method="POST">
-                            <input type="SUBMIT" value="inserisciViaggio" name="operation">
-                        </form>
-                        <%            } else {
+         <%    for(k=0;k<pacchetti.size();k++){
+                        %>
+                        
+                        <tr align="center">
+                                <td><%=pacchetti.get(k).getPartenza().getIndirizzo().getVia() + " " + pacchetti.get(k).getPartenza().getIndirizzo().getCitta() + " - " + pacchetti.get(k).getPartenza().getIndirizzo().getStato() %></td>
+                                <td><%=pacchetti.get(k).getArrivo().getIndirizzo().getVia() + " " + pacchetti.get(k).getArrivo().getIndirizzo().getCitta() + " - " + pacchetti.get(k).getArrivo().getIndirizzo().getStato() %></td>
+                                <% viaggi = pacchetti.get(k).getViaggi();
+                                s="";
+                                for(n=0;n<viaggi.size(); n++){
+                                    
+                                    s=viaggi.get(n).getDataPartenza().getTime().toString() + "\n"; }%>
+                                <td><%=s%></td>
+                                
+                                <td> <input type="submit" name="mod" value="cancella"/></td>
+                            </tr>
+                            
+                        <%}%>
+                        </table>
+                        <%}%>
+                        
+                        <%   } else {
                         %>
                         <form action="ServletController" method="POST">
                             <input type="SUBMIT" value="diventaAutista" name="operation">

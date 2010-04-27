@@ -98,6 +98,13 @@ public class ServletController extends HttpServlet {
                     }
                     rd.forward(request, response);
                 }
+                if(action.equals("logout")){
+                        HttpSession session = request.getSession();
+                        session.invalidate();
+
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                        rd.forward(request, response);
+                }
                 if (action.equals("registrati")) {
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/Registrazione.jsp");
