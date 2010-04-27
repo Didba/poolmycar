@@ -109,4 +109,19 @@ public class CarrelloInserimentoViaggioBean implements CarrelloInserimentoViaggi
         this.tappe = tappe;
     }
 
+    public String getPercorso(){
+        String percorso = "";
+        if(tappe.size()>0){
+        percorso += ("from: " + tappe.get(0).getIndirizzo().toString());
+
+            for (Tappa t : tappe.subList(1, tappe.size())) {
+                percorso += (" to: " + t.getIndirizzo().toString());
+            }
+
+
+
+        }
+        return percorso;
+    }
+
 }

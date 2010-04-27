@@ -168,8 +168,8 @@ public class Indirizzo implements Serializable {
             s +=(citta+ " ");
         if(provincia!=null && !provincia.equals(""))
             s +=(provincia+ " ");
-        if(stato!=null && !stato.equals(""))
-            s +=(" - "+stato+ "\n");
+        //if(stato!=null && !stato.equals(""))
+         //   s +=(" "+stato);
 
 
         return s;
