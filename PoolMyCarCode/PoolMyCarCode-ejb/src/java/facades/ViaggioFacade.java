@@ -24,6 +24,10 @@ public class ViaggioFacade implements ViaggioFacadeLocal {
     @PersistenceContext
     private EntityManager em;
 
+    /** scrive nel database un viaggio
+     * scrive nel database un'oggetto di tipo Viaggio e i suoi relativi dati, creando le i vari oggetti di tipo Tappa che lo compongono
+     * @param viaggio l'oggetto da scrivere
+     */
     public void create(Viaggio viaggio) {
         tappaFacade.create(viaggio.getPartenza());
         tappaFacade.create(viaggio.getArrivo());

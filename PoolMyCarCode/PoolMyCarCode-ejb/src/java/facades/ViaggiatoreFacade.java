@@ -18,8 +18,6 @@ import utenti.Viaggiatore;
  */
 @Stateless
 public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
-    @EJB
-    private TipoMezzoFacadeLocal tipoMezzoFacade;
 
     @PersistenceContext
     private EntityManager em;

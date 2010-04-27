@@ -16,6 +16,9 @@ import viaggi.Viaggio;
 @Local
 public interface ViaggioFacadeLocal {
 
+    /** scrive nel database un viaggio
+     * @param viaggio l'oggetto da scrivere
+     */
     void create(Viaggio viaggio);
 
     void edit(Viaggio viaggio);

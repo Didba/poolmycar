@@ -28,6 +28,10 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
     @PersistenceContext
     private EntityManager em;
 
+    /** scrive nel database un pacchetto
+     * scrive nel database un'oggetto di tipo pacchetto e i suoi relativi viaggi
+     * @param pacchetto l'oggetto da scrivere
+     */
     public void create(Pacchetto pacchetto) {
         bachecaFacade.create(pacchetto.getBacheca());
         for (Viaggio v : pacchetto.getViaggi()) {
@@ -52,6 +56,13 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
         return em.createQuery("select object(o) from Pacchetto as o").getResultList();
     }
 
+    /** Seleziona i pacchetti che intercorrono tra i due parametri
+     * Fa una query su database caricando e restituendo tutti i pacchetti che intercorrono tra data1 e data2
+     * Questo metodo verrà usato per la ricerca dei viaggi
+     * @param data1 la data da cui iniziare la ricerca
+     * @param data2 la data in cui finire la ricerca
+     * @return una lista di pacchetti contenti i viaggi corrispondenti alle features di ricerca
+     */
     public List<Pacchetto> findDate(Calendar data1, Calendar data2) {
         Query q = em.createQuery("select object(o) from Pacchetto as o where (o.inizio BETWEEN :d1 AND :d2) OR (o.fine BETWEEN :d1 AND :d2) ORDER BY o.inizio,o.fine");
         q.setParameter("d1", data1);
@@ -61,6 +72,12 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
         return l;
     }
 
+    /** i pacchetti relativi alla data nel parametro
+     * esegue una query per caricando tutti i pacchetti che intercorrono nella data compresa nel parametro a partire dall'ora indicata nell'oggetto calendar.
+     * Questo metodo verrà usato per la ricerca dei viaggi
+     * @param dataOra l'oggetto che comprende data e ora relativa ai viaggi da cercare
+     * @return una lista di pacchetti contenti i viaggi corrispondenti alle features di ricerca
+     */
     public List<Pacchetto> findDataSingola(Calendar dataOra) {
         Query q = em.createQuery("select object(o) from Pacchetto as o where (:d1 BETWEEN o.inizio AND o.fine) ORDER BY o.inizio,o.fine");
         q.setParameter("d1", dataOra);
