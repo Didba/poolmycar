@@ -46,6 +46,11 @@ public class ViaggiatoreFacade implements ViaggiatoreFacadeLocal {
         return em.createQuery("select object(o) from Viaggiatore as o").getResultList();
     }
 
+    /**Esegue la login
+     * Esegue la query sul database e carica l'oggetto o Viaggiatore tale che o.login=usr
+     * @param usr login dell'utente
+     * @return puntatore all'oggetto Viaggiatore relativo all'input
+     */
     public Viaggiatore findLogin(String usr){
         Viaggiatore viaggiatore=null;
 

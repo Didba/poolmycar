@@ -41,26 +41,13 @@ public class IndirizzoFacade implements IndirizzoFacadeLocal {
         return em.createQuery("select object(o) from Indirizzo as o").getResultList();
     }
 
+    /** Restituisce tutte le stringe "citta" che iniziano con il parametro
+     * Esegue la query su DB nella tavola Indirizzo i dove i.citta inizia con subcitta. questo metodo viene usato per l'autocompletamento
+     * @param subCitta la stringa da cercare
+     * @return una lista di stringhe che rappresentano i nomi delle citta presenti su db
+     */
     public List<String> getCitta(String subCitta) {
         
-        //Query q = em.createQuery("select object(o) from Indirizzo as o where UPPER(o.citta) LIKE UPPER('t%') GROUP BY o.citta ORDER BY COUNT(o.citta) DESC");
-        /*Query q = em.createQuery("select object(o) from Indirizzo as o where UPPER(o.citta) LIKE UPPER('t%')");
-
-        List<Indirizzo> ris = q.getResultList();
-        
-
-        List<String> citta = new LinkedList<String>();
-
-        int i=0;
-        for(Indirizzo ind: ris)
-            if(i==3)
-                break;
-            else{
-                citta.add(ind.getCitta());
-                i++;
-            }
-        */
-
         List<Indirizzo> indirizzi=em.createQuery("select object(o) from Indirizzo as o").getResultList();
         List<String> citta = new LinkedList<String>();
         int j=0;
@@ -84,6 +71,10 @@ public class IndirizzoFacade implements IndirizzoFacadeLocal {
         return false;
     }
 
+    /** carica tutti i nomi della città presenti nel database
+     * Esegue la query su DB nella tavola Indirizzo e legge tutti i nomi del campo citta
+     * @return la lista dei nomi delle città sotto forma di String
+     */
     public List<String> getCitta() {
 
         List<String> citta=em.createQuery("select DISTINCT(o.citta) from Indirizzo as o").getResultList();
