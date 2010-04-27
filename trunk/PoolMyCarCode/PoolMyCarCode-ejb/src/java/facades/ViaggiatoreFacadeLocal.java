@@ -25,7 +25,12 @@ public interface ViaggiatoreFacadeLocal {
     Viaggiatore find(Object id);
 
     List<Viaggiatore> findAll();
-
+    
+    /**Esegue la login
+     * Esegue la query sul database e carica l'oggetto o Viaggiatore tale che o.login=usr
+     * @param usr login dell'utente
+     * @return puntatore all'oggetto Viaggiatore relativo all'input
+     */
     public Viaggiatore findLogin(String user);
 
 }
