@@ -4,6 +4,7 @@
  */
 package war;
 
+import ejb.CarrelloInserimentoViaggioBean;
 import ejb.CarrelloInserimentoViaggioLocal;
 import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
@@ -325,10 +326,10 @@ public class ServletController extends HttpServlet {
 
 
                     //-------istanziazione del session bean------------
-                    /*CarrelloInserimentoViaggioLocal viaggio = new CarrelloInserimentoViaggioBean();
-                    viaggio.setTappe(tappe);*/
-                    creazioneViaggiBean.setTappe(tappe);
-                    session.setAttribute("creazioneViaggiBean", creazioneViaggiBean);
+                    CarrelloInserimentoViaggioLocal viaggio = new CarrelloInserimentoViaggioBean();
+                    viaggio.setTappe(tappe);
+                    /*creazioneViaggiBean.setTappe(tappe);*/
+                    session.setAttribute("creazioneViaggiBean", viaggio);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/InserisciDateViaggio.jsp");
@@ -462,40 +463,40 @@ public class ServletController extends HttpServlet {
     }
 
     private int getMese(String s) {
-        if (s.equals("January")) {
+        if (s.equals("Gennaio")) {
             return Calendar.JANUARY;
         }
-        if (s.equals("February")) {
+        if (s.equals("Febbraio")) {
             return Calendar.FEBRUARY;
         }
-        if (s.equals("March")) {
+        if (s.equals("Marzo")) {
             return Calendar.MARCH;
         }
-        if (s.equals("April")) {
+        if (s.equals("Aprile")) {
             return Calendar.APRIL;
         }
-        if (s.equals("May")) {
+        if (s.equals("Maggio")) {
             return Calendar.MAY;
         }
-        if (s.equals("June")) {
+        if (s.equals("Giugno")) {
             return Calendar.JUNE;
         }
-        if (s.equals("July")) {
+        if (s.equals("Luglio")) {
             return Calendar.JULY;
         }
-        if (s.equals("August")) {
+        if (s.equals("Agosto")) {
             return Calendar.AUGUST;
         }
-        if (s.equals("September")) {
+        if (s.equals("Settembre")) {
             return Calendar.SEPTEMBER;
         }
-        if (s.equals("October")) {
+        if (s.equals("Ottobre")) {
             return Calendar.OCTOBER;
         }
-        if (s.equals("November")) {
+        if (s.equals("Novembre")) {
             return Calendar.NOVEMBER;
         }
-        if (s.equals("December")) {
+        if (s.equals("Dicembre")) {
             return Calendar.DECEMBER;
         }
         return -1;
