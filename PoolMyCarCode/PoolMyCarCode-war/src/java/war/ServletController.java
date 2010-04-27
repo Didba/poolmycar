@@ -116,6 +116,7 @@ public class ServletController extends HttpServlet {
                     String citta = request.getParameter("citta");
                     String cap = request.getParameter("cap");
                     String stato = request.getParameter("stato");
+                    String cognome = request.getParameter("cognome");
                     String nota = request.getParameter("nota");
                     boolean fumatore = (request.getParameter("fumatore")) != null;
 
@@ -124,6 +125,7 @@ public class ServletController extends HttpServlet {
                         Viaggiatore viaggiatore = gestoreUtentiBean.doLogin(login, password);
                         viaggiatore.setCf(cf);
                         viaggiatore.setNome(nome);
+                        viaggiatore.setCognome(cognome);
                         viaggiatore.setTelefono(telefono);
                         viaggiatore.setNote(nota);
                         viaggiatore.setFumatore(fumatore);
