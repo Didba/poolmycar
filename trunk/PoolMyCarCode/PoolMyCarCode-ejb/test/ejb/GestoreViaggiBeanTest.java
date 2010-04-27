@@ -63,7 +63,7 @@ public class GestoreViaggiBeanTest {
         String distanza = "";
         GestoreViaggiBean instance = new GestoreViaggiBean();
         Pacchetto expResult = null;
-        Pacchetto result = instance.inserisciPacchetto(tappe, date, autista, nota, richiestaContributi, distanza);
+        Pacchetto result = instance.inserisciPacchetto(tappe, date, autista,67, nota, richiestaContributi, distanza);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

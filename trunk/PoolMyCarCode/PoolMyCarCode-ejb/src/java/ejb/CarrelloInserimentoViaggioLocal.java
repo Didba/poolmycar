@@ -35,4 +35,6 @@ public interface CarrelloInserimentoViaggioLocal {
     int getLunghezzaPercorso();
 
     void setLunghezzaPercorso(int lunghezzaPercorso);
+
+    public java.lang.String getPercorso();
 }
