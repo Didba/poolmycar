@@ -9,8 +9,9 @@ import java.util.Calendar;
 import java.util.List;
 import viaggi.Tappa;
 
-/**
- *
+/**Classe che mima le funzionalità dell'entità Viaggio
+ * Viene utilizzata come parametro del WEB Service per evitare le implicazioni derivate dalla costruzione di template XML
+ * con riferimenti incrociati
  * @author berto
  */
 public class Percorso {
@@ -26,7 +27,16 @@ public class Percorso {
 
     public Percorso(){}
 
-
+    /** Setta in una sola volta tutti i parametri della classe Percorso
+     *
+     * @param i
+     * @param p
+     * @param a
+     * @param t
+     * @param d
+     * @param l
+     * @param pl
+     */
     public void setAll(long i,Tappa p,Tappa a,List<Tappa> t,Calendar d,float l,int pl){
         id=i;
         partenza=p;

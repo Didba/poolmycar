@@ -10,7 +10,7 @@ import java.util.List;
 import javax.ejb.Local;
 import viaggi.Tappa;
 
-/**
+/**Interfaccia per il mantenimento di dati di sessione durnte l'inserimento
  *
  * @author berto
  */

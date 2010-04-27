@@ -7,8 +7,8 @@ package ejb;
 
 import javax.ejb.Local;
 
-/**
- *
+/**Interfaccia per il bean RiempiDB
+ * Interfaccia per l'oggetto assegnato a riempire il DB di prova nel momento di inizializzazione
  * @author Erica
  */
 @Local

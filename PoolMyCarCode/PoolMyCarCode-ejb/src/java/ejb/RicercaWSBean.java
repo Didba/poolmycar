@@ -14,8 +14,8 @@ import javax.ejb.Stateless;
 import viaggi.Pacchetto;
 import viaggi.Viaggio;
 
-/**
- *
+/**Definisce le funzionalità di ricerca utilizzabili da applicazioni terze
+ * Rende disponibile la ricerca di viaggi come logica di business utilizzabile tramite invocazioni al nostro WEB Service
  * @author berto
  */
 @Stateless
@@ -23,8 +23,17 @@ public class RicercaWSBean implements RicercaWSRemote {
     @EJB
     private GestoreViaggiBeanLocal gestoreViaggiBean;
     
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method" or "Web Service > Add Operation")
+    /**Utilizza la logica di business interna per ricercare un viaggio
+     * Resituisce la lista di viaggi che partono il giorno selezionato. E' possibile restringere ulteriormente il campo di ricerca
+     * specificando ulteriormente la partenza e l'arrivo
+     * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
+     * @param arrivo la stringa che rappresenta un indirizzo di arrivo, può essere nullo
+     * @param giorno una stringa che indica il giorno di partenza. E' necessario specificarlo sottoforma di numero del mese (a doppia cifra)
+     * @param mese una stringa che indica il mese di partenza. E' necessario specificarlo sottoforma di numero (a doppia cifra) oppure nome
+     * completo in inglese o italiano
+     * @param anno l'anno di partenza del viaggio
+     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     */
     public List<Percorso> ricerca(String partenza, String arrivo, String giorno, String mese, String anno) {
 
         Calendar data=new GregorianCalendar(new Integer(anno),getMese(mese),new Integer(giorno), 0 , 0);
@@ -41,8 +50,22 @@ public class RicercaWSBean implements RicercaWSRemote {
 
         return l;
     }
-
-        public List<Percorso> ricerca(String partenza, String arrivo, String giorno1, String mese1, String anno1, String giorno2, String mese2, String anno2) {
+    /**Utilizza la logica di business interna per ricercare un viaggio
+     * Resituisce la lista di viaggi che partono il giorno compreso tra i due intervalli forniti. E' possibile restringere ulteriormente il campo di ricerca
+     * specificando ulteriormente la partenza e l'arrivo
+     * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
+     * @param arrivo la stringa che rappresenta un indirizzo di arrivo, può essere nullo
+     * @param giorno1 una stringa che indica l'estremo inferiore del giorno di partenza. E' necessario specificarlo sottoforma di numero del mese (a doppia cifra)
+     * @param mese1 una stringa che indica l'estremo inferiore del mese di partenza. E' necessario specificarlo sottoforma di numero (a doppia cifra) oppure nome
+     * completo in inglese o italiano
+     * @param anno1 l'anno estremo inferiore di partenza del viaggio
+     * @param giorno2 una stringa che indica l'estremo superiore del giorno di partenza. E' necessario specificarlo sottoforma di numero del mese (a doppia cifra)
+     * @param mese1 una stringa che indica l'estremo superiore del mese di partenza. E' necessario specificarlo sottoforma di numero (a doppia cifra) oppure nome
+     * completo in inglese o italiano
+     * @param anno1 l'anno estremo superiore di partenza del viaggio
+     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     */
+    public List<Percorso> ricerca(String partenza, String arrivo, String giorno1, String mese1, String anno1, String giorno2, String mese2, String anno2) {
 
         Calendar data1=new GregorianCalendar(new Integer(anno1),getMese(mese1),new Integer(giorno1), 0, 0);
         Calendar data2=new GregorianCalendar(new Integer(anno2),getMese(mese2),new Integer(giorno2), 0, 0);
@@ -60,7 +83,14 @@ public class RicercaWSBean implements RicercaWSRemote {
 
         return l;
     }
-
+    /**Utilizza la logica di business interna per ricercare un viaggio
+     * Resituisce la lista di viaggi che partono il giorno selezionato. E' possibile restringere ulteriormente il campo di ricerca
+     * specificando ulteriormente la partenza e l'arrivo
+     * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
+     * @param arrivo la stringa che rappresenta un indirizzo di arrivo, può essere nullo
+     * @param data un oggetto che indica il giorno di partenza
+     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     */
     public List<Percorso> ricerca(String partenza, String arrivo, Calendar data) {
 
         RisultatiRicercaViaggi risult= gestoreViaggiBean.ricercaViaggi(partenza, arrivo, false, null, null, data);
@@ -78,6 +108,15 @@ public class RicercaWSBean implements RicercaWSRemote {
         return l;
     }
 
+    /**Utilizza la logica di business interna per ricercare un viaggio
+     * Resituisce la lista di viaggi che partono il giorno compreso tra i due intervalli forniti. E' possibile restringere ulteriormente il campo di ricerca
+     * specificando ulteriormente la partenza e l'arrivo
+     * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
+     * @param arrivo la stringa che rappresenta un indirizzo di arrivo, può essere nullo
+     * @param data1 rappresenta l'estremo inferiore dell'intervallo di date
+     * @param data1 rappresenta l'estremo superiore dell'intervallo di date
+     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     */
     public List<Percorso> ricerca(String partenza, String arrivo, Calendar data1, Calendar data2) {
 
         RisultatiRicercaViaggi risult= gestoreViaggiBean.ricercaViaggi(partenza, arrivo, true, data1, data2, null);

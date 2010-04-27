@@ -10,8 +10,9 @@ import java.util.List;
 import javax.ejb.Stateful;
 import viaggi.Tappa;
 
-/**
- *
+/**Bean Stateful usato per mantenere i dati di sessione durante l'inserimento
+ * La classe mantiene al suo interno le informazioni reltive alle tappe selezionate, alle date,
+ * e altri parametri del viaggio da inserire
  * @author berto
  */
 @Stateful
