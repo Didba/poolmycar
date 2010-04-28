@@ -10,7 +10,7 @@
 <%@page import="utenti.TipoMezzo" %>
 <%@page import="java.util.*" %>
 <link rel=stylesheet href="style.css" type="text/css">
-
+<jsp:useBean id="gestore" scope="session" class="ejb.GestoreViaggiBean"/>
 
 <%!    List<Pacchetto> pacchetti;
         int k=0;
@@ -77,6 +77,7 @@
                         <%
 
      if (utente.isAutista()) {
+         gestore.caricaViaggi(utente);
                         %>
                         <br>
                         <br>
