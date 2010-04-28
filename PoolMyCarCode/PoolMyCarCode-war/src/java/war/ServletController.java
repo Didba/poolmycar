@@ -146,6 +146,7 @@ public class ServletController extends HttpServlet {
                         ind.setStato(stato);
                         ind.setCap(cap);
                         viaggiatore.setIndirizzo(ind);
+                        gestoreUtentiBean.aggiornaUtente(viaggiatore);
 
 
                         HttpSession session = request.getSession();
