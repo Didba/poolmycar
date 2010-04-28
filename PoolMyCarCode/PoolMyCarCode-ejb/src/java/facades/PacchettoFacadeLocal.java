@@ -8,6 +8,7 @@ package facades;
 import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Local;
+import utenti.Viaggiatore;
 import viaggi.Pacchetto;
 
 /** Interfaccia di PacchettoFacade
@@ -46,7 +47,7 @@ public interface PacchettoFacadeLocal {
      */
     public java.util.List<viaggi.Pacchetto> findDataSingola(Calendar dataOra);
 
-    public java.util.List<viaggi.Pacchetto> findDaAutista(long id);
+    public java.util.List<viaggi.Pacchetto> findDaAutista(Viaggiatore autista);
 
 
 }
