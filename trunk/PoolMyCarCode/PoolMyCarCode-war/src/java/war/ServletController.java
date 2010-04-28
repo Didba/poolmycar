@@ -93,6 +93,7 @@ public class ServletController extends HttpServlet {
 
                     if (viaggiatore != null) {
                         session.setAttribute("utente", viaggiatore);
+                        gestoreViaggiBean.caricaViaggi(viaggiatore);
                         rd = sc.getRequestDispatcher("/Profilo.jsp");
                     } else {
                         rd = sc.getRequestDispatcher("/index.jsp"); //<-- controllare
@@ -430,6 +431,7 @@ public class ServletController extends HttpServlet {
                     System.out.println("partenza: " + p.getPartenza().getIndirizzo().getCitta() + "    arrivo: " + p.getArrivo().getIndirizzo().getCitta());
 
                     session.setAttribute("pacchetto", p);
+                    gestoreViaggiBean.caricaViaggi(autista);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
