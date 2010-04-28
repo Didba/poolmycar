@@ -52,5 +52,5 @@ public class ViaggioFacade implements ViaggioFacadeLocal {
     public List<Viaggio> findAll() {
         return em.createQuery("select object(o) from Viaggio as o").getResultList();
     }
-
+   
 }

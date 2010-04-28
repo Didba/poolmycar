@@ -377,4 +377,9 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
     public List<String> getCitta() {
         return indirizzoFacade.getCitta();
     }
+
+    public void caricaViaggi(Viaggiatore autista){
+        System.out.println("id " + autista.getId());
+        autista.setPacchettiDaAutista( pacchettoFacade.findDaAutista(autista.getId()));
+    }
 }
