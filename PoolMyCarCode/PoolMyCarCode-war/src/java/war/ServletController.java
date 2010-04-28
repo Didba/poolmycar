@@ -438,8 +438,7 @@ public class ServletController extends HttpServlet {
                     rd.forward(request, response);
                 }
                 if (action.equals("modificaViaggio")) {
-                    Pacchetto p = gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
-                    session.setAttribute("pacchetto", p);
+                    gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
                     rd.forward(request, response);
