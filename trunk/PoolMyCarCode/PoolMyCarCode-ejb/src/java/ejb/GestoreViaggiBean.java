@@ -380,6 +380,6 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     public void caricaViaggi(Viaggiatore autista){
         System.out.println("id " + autista.getId());
-        autista.setPacchettiDaAutista( pacchettoFacade.findDaAutista(autista.getId()));
+        autista.setPacchettiDaAutista( pacchettoFacade.findDaAutista(autista));
     }
 }

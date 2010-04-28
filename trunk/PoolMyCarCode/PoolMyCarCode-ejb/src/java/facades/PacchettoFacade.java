@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import utenti.Viaggiatore;
 import viaggi.Pacchetto;
 import viaggi.Viaggio;
 
@@ -87,8 +88,11 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
         return l;
     }
 
-    public List<Pacchetto> findDaAutista(long id){
-        List<Pacchetto> l = em.createQuery("select object(o) from Viaggio as o where o.AUTISTA_ID = " + id).getResultList();
+    public List<Pacchetto> findDaAutista(Viaggiatore a){
+        Query q = em.createQuery("select object(o) from Pacchetto as o where o.autista = :a");
+        q.setParameter("a", a);
+        List<Pacchetto> l = q.getResultList();
+        
         System.out.println("lista viaggi da autista: " + l);
         return l;
     }
