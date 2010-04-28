@@ -1,24 +1,24 @@
 <%-- 
-    Document   : ConfermaViaggio
-    Created on : 12-apr-2010, 14.52.06
+    Document   : PaginaPacchetto
+    Created on : 28-apr-2010, 17.15.44
     Author     : berto
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="viaggi.Pacchetto" %>
+<%@page import="viaggi.Tappa" %>
+<%@page import="utenti.Indirizzo" %>
 <%@page import="java.util.*" %>
-<%@page import="viaggi.*" %>
-<%@page import="utenti.*" %>
-<%@page import="ejb.CarrelloInserimentoViaggioBean" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Conferma Viaggio</title>
+        <title>Visualizza Pacchetto</title>
         <link rel=stylesheet href="style.css" type="text/css">
         <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA"
         type="text/javascript"></script>
+        <jsp:useBean id="pacchetto" scope="session" class="viaggi.Pacchetto" />
         <script language="JavaScript" type="text/javascript">
 
             var i=0;
@@ -83,9 +83,10 @@
 
         </script>
     </head>
+
     <%
-                CarrelloInserimentoViaggioBean c = (CarrelloInserimentoViaggioBean) session.getAttribute("carrello");
-                String chiamata = "mappa('" + c.getPercorso() + "','map','dir');";
+
+        String chiamata = "mappa('" + pacchetto.getPercorso() + "','map','dir');";
     %>
     <body onload="GUnload();<%=chiamata%>">
 
@@ -94,70 +95,32 @@
             <div id="bodyPan">
                 <jsp:include page="/leftpanel.jsp"/>
                 <div id="rightPan">
+                    <div  id="map" style="width: 300px; height: 300px"></div>
 
+                    <%  String partenza = pacchetto.getPartenza().getIndirizzo().getCitta();
+                        String arrivo = pacchetto.getArrivo().getIndirizzo().getCitta();
+                        List<String> tappe = new LinkedList<String>();
+                        for (Tappa t : pacchetto.getTappeIntermedie()) {
+                            tappe.add(t.getIndirizzo().getCitta());
+                        }
+                    %>
+                    partenza:<%=partenza%><br>
+                    arrivo:<%=arrivo%><br>
 
-                    <!-- Contenuto principale della pagina -->
+                    <%
+                    if(tappe.size()>0){ %>
+                        Tappe intermedie:
+                        <%
+                        int i = 0;
+                        for (i = 0; i < tappe.size(); i++) %>
+                            <%=tappe.get(i)%> <br>
+                    <%}%>
 
-                    <jsp:useBean id="utente" scope="session" class="utenti.Viaggiatore" />
-                    <h1>Conferma viaggio</h1>
-                    <table border="0">
-                        <tr>
-                            <td>
-                                <div  id="map" style="width: 300px; height: 300px"></div>
+                    <h1>INSERISCI QUI GLI ALTRI DATI DEL PACCHETTO</h1>
 
-                            </td>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <%
-                                                    for (Tappa t : c.getTappe()) {
-
-                                        %>
-                                        <%= t.getIndirizzo().toString()%><br>
-
-                                    <%   }
-                                    %>
-                                    </tr>
-                                    <tr>
-                                        <%
-                                                    for (Calendar d : c.getDate()) {
-                                                        String dp = "" + d.get(Calendar.DAY_OF_MONTH);
-                                                        dp = dp + "/" + (d.get(Calendar.MONTH) + 1);
-                                                        dp = dp + "/" + d.get(Calendar.YEAR);
-                                                        String ora = "" + (d.get(Calendar.MINUTE) < 10 ? "0" : "") + d.get(Calendar.MINUTE);
-                                                        ora = "" + d.get(Calendar.HOUR_OF_DAY) + ":" + ora;
-                                        %>
-                                        il <%= dp%> alle <%= ora%> <br>
-
-                                    <%   }
-                                    %>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-
-
-                    <form action="ServletController" method="POST">
-                        scegli il tipo mezzo del viaggio
-                        <select name="tipoMezzo">
-                            <%
-                                        for (TipoMezzo tm : utente.getMezzi()) {
-                            %>
-                            <option value="<%=tm.getId()%>"><%=tm.getNome()%></option>
-                            <%}%>
-                        </select>
-                        contributi?<input name="contributi" type="checkbox"/>
-                        nota:<input name="nota" type="text"/>
-
-                        <input type='hidden' name='operation' value='viaggioConfermato'/>
-                        <input type='submit' value='Conferma viaggio'/>
-                    </form>
-
-
+                    <a href="ServletController?operation=modificaViaggio">modifica il pacchetto</a>
                 </div>
             </div>
         </div>
-        <jsp:include page="/foot.jsp"/>
     </body>
 </html>

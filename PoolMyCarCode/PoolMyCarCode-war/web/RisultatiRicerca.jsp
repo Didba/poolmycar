@@ -114,10 +114,10 @@
                             <div>
                               
                                 <%
-                                            //String paramPartenza = session.getAttribute("partenza")==null? null : (String)(session.getAttribute("partenza"));
-                                            //String paramArrivo = session.getAttribute("arrivo")==null? null : (String)(session.getAttribute("arrivo"));
-                                            String paramPartenza = (String) (session.getAttribute("partenza"));
-                                            String paramArrivo = (String) (session.getAttribute("arrivo"));
+                                //String paramPartenza = session.getAttribute("partenza")==null? null : (String)(session.getAttribute("partenza"));
+                                //String paramArrivo = session.getAttribute("arrivo")==null? null : (String)(session.getAttribute("arrivo"));
+                                String paramPartenza = (String) (session.getAttribute("partenza"));
+                                String paramArrivo = (String) (session.getAttribute("arrivo"));
                                 %>
                                 <% if (paramPartenza != null && !paramPartenza.equals("")) {%><i class="sub">partenza: </i> <%= paramPartenza%>  <br><%}%>
                                 <% if (paramArrivo != null && !paramArrivo.equals("")) {%><i class="sub">arrivo: </i><%= paramArrivo%><br><%}%>
