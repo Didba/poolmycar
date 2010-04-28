@@ -45,9 +45,8 @@ public class Pacchetto implements Serializable {
     private Tappa partenza;
     @OneToOne
     private Tappa arrivo;
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tappa> tappeIntermedie;
-    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar fine;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -59,6 +58,7 @@ public class Pacchetto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     /**
      * Get the value of lunghezzaPercorso
      *
@@ -117,8 +117,6 @@ public class Pacchetto implements Serializable {
     public void setArrivo(Tappa arrivo) {
         this.arrivo = arrivo;
     }
-
-    
 
     public Bacheca getBacheca() {
         return bacheca;
@@ -194,29 +192,28 @@ public class Pacchetto implements Serializable {
         this.viaggi = viaggi;
     }
 
-    public void creaViaggi(List<Calendar> date) throws IllegalStateException
-    {
-        if(partenza==null || arrivo==null)
+    public void creaViaggi(List<Calendar> date) throws IllegalStateException {
+        if (partenza == null || arrivo == null) {
             throw new IllegalStateException("Inserisci partenza e/o arrivo");
+        }
 
-        this.viaggi= new LinkedList<Viaggio>();
-        for(Calendar d:date){
+        this.viaggi = new LinkedList<Viaggio>();
+        for (Calendar d : date) {
             d.set(Calendar.MINUTE, this.inizio.get(Calendar.MINUTE));
             d.set(Calendar.HOUR_OF_DAY, this.inizio.get(Calendar.HOUR_OF_DAY));
-            System.out.println("inserisco viaggio del "+d);
-            Viaggio viaggio=new Viaggio();
+            System.out.println("inserisco viaggio del " + d);
+            Viaggio viaggio = new Viaggio();
             viaggio.setPartenza(partenza);
             viaggio.setArrivo(arrivo);
             viaggio.setDataPartenza(d);
-            viaggio.setLunghezzaPercorso(lunghezzaPercorso); 
+            viaggio.setLunghezzaPercorso(lunghezzaPercorso);
             viaggio.setViaggiatori(new LinkedList<Viaggiatore>());
             viaggio.setRichieste(new LinkedList<Richiesta>());
             viaggio.setTappeIntermedie(tappeIntermedie);
             viaggi.add(viaggio);
         }
-        System.out.println("viaggi.size()="+viaggi.size());
+        System.out.println("viaggi.size()=" + viaggi.size());
     }
-    
 
     @Override
     public boolean equals(Object object) {
@@ -262,5 +259,16 @@ public class Pacchetto implements Serializable {
      */
     public void setAutista(Viaggiatore autista) {
         this.autista = autista;
+    }
+
+    public String getPercorso() {
+        String percorso = "from: " + partenza.getIndirizzo().toString();
+
+        for (Tappa t : tappeIntermedie) {
+            percorso += (" to: " + t.getIndirizzo().toString());
+        }
+        percorso += " to: " + arrivo.getIndirizzo().toString();
+
+        return percorso;
     }
 }

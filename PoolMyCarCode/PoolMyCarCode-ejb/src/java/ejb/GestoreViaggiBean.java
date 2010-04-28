@@ -32,6 +32,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 import viaggi.Viaggio;
 
@@ -115,7 +116,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
      * @throws IllegalStateException se il numero di tappe è minore di 2 (mancano partenza e arrivo) o se nessuna data è stata selezionata
      * o se manca l'autista associato al pacchetto
      */
-    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, long idMezzo, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
+    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, TipoMezzo mezzo, String nota, boolean richiestaContributi, String distanza) throws IllegalStateException {
 
         //controllo dei parametri
         if (tappe.size() < 2) {
@@ -140,14 +141,14 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         pacchetto.setRichiestaContributi(richiestaContributi);
         pacchetto.setBacheca(new Bacheca());
         pacchetto.setLunghezzaPercorso(Float.parseFloat(distanza));//TO-DO
-        pacchetto.setTipoMezzo(tipoMezzoFacade.find(idMezzo));
+        pacchetto.setTipoMezzo(mezzo);
         //va fatta per ultima
         pacchetto.creaViaggi(date);
 
         
         pacchettoFacade.create(pacchetto);
 
-        return pacchettoFacade.findAll().get(0);
+        return pacchetto;
 
 
     }
@@ -379,6 +380,11 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
 
     public void caricaViaggi(Viaggiatore autista){
         System.out.println("id " + autista.getId());
-        autista.setPacchettiDaAutista( pacchettoFacade.findDaAutista(autista));
+        autista.setPacchettiDaAutista(pacchettoFacade.findDaAutista(autista));
     }
+
+    public TipoMezzo getTipoMezzo(long idMezzo){
+        return tipoMezzoFacade.find(idMezzo);
+    }
+    
 }
