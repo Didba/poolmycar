@@ -32,11 +32,6 @@
             var geocoder = null;
             var addressMarker;
 
-            function deseleziona(k) {
-                var i;
-                for( i= 0;i<k;i++)
-                    document.getElementById("id" + i).style.backgroundColor = 'white';
-            }
             function mappa(percorso,idMap,idDir) {
                 if (GBrowserIsCompatible()) {
                     map = new GMap2(document.getElementById(idMap));
@@ -76,13 +71,6 @@
             }
 
             function onGDirectionsLoad(){
-
-            }
-
-            function seleziona(i){
-                var clickevent=document.createEvent("MouseEvents");
-                clickevent.initEvent("click", true, true);
-                document.getElementById("id"+i).dispatchEvent(clickevent);
 
             }
 
