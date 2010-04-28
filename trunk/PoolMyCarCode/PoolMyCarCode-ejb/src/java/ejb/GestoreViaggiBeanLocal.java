@@ -74,4 +74,6 @@ public interface GestoreViaggiBeanLocal {
      */
     public java.util.List<java.lang.String> getCitta();
 
+    public void caricaViaggi(utenti.Viaggiatore autista);
+
 }

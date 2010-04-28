@@ -86,4 +86,10 @@ public class PacchettoFacade implements PacchettoFacadeLocal {
         System.out.println("----------- viaggi trovati:" + l);
         return l;
     }
+
+    public List<Pacchetto> findDaAutista(long id){
+        List<Pacchetto> l = em.createQuery("select object(o) from Viaggio as o where o.AUTISTA_ID = " + id).getResultList();
+        System.out.println("lista viaggi da autista: " + l);
+        return l;
+    }
 }

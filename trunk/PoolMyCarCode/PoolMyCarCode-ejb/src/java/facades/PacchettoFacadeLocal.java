@@ -46,5 +46,7 @@ public interface PacchettoFacadeLocal {
      */
     public java.util.List<viaggi.Pacchetto> findDataSingola(Calendar dataOra);
 
+    public java.util.List<viaggi.Pacchetto> findDaAutista(long id);
+
 
 }
