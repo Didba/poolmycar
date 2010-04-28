@@ -356,9 +356,8 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
      * @param pacchetto
      * @return
      */
-    public Pacchetto aggiornaPacchetto(Pacchetto pacchetto) {
+    public void aggiornaPacchetto(Pacchetto pacchetto) {
         pacchettoFacade.edit(pacchetto);
-        return pacchettoFacade.findAll().get(0);
     }
 
     /**Restituisce le citta presenti nel DB che iniziano con la stringa subCitta

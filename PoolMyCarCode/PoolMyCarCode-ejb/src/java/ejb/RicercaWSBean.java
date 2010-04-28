@@ -43,7 +43,7 @@ public class RicercaWSBean implements RicercaWSRemote {
         for(Pacchetto p: risult.getPacchetti()){
             for(Viaggio v: p.getViaggi()){
                 Percorso per=new Percorso();
-                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),(p.getTipoMezzo().getPosti()-v.getViaggiatori().size()));
+                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),0);
                 l.add(per);
             }
         }
