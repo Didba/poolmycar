@@ -37,4 +37,8 @@ public interface CarrelloInserimentoViaggioLocal {
     void setLunghezzaPercorso(int lunghezzaPercorso);
 
     public java.lang.String getPercorso();
+
+    public utenti.TipoMezzo getTipomezzo();
+
+    public void setTipomezzo(utenti.TipoMezzo tipomezzo);
 }

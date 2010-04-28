@@ -8,6 +8,7 @@ package ejb;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import utenti.TipoMezzo;
 import utenti.Viaggiatore;
 import viaggi.Pacchetto;
 import viaggi.Tappa;
@@ -52,7 +53,7 @@ public interface GestoreViaggiBeanLocal {
      * @throws IllegalStateException se il numero di tappe è minore di 2 (mancano partenza e arrivo) o se nessuna data è stata selezionata
      * o se manca l'autista associato al pacchetto
      */
-    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, long idMezzo,String nota, boolean richiestaContributi,String distanza) throws IllegalStateException;
+    public Pacchetto inserisciPacchetto(List<Tappa> tappe, List<Calendar> date, Viaggiatore autista, TipoMezzo mezzo,String nota, boolean richiestaContributi,String distanza) throws IllegalStateException;
 
     /**Aggiorna su DB le modifiche effettuate al pacchetto
      *
@@ -73,7 +74,9 @@ public interface GestoreViaggiBeanLocal {
      * @return
      */
     public java.util.List<java.lang.String> getCitta();
-
+    
     public void caricaViaggi(utenti.Viaggiatore autista);
+
+    public TipoMezzo getTipoMezzo(long idMezzo);
 
 }

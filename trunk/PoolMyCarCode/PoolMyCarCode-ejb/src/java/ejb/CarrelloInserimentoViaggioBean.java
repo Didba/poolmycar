@@ -8,6 +8,7 @@ package ejb;
 import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateful;
+import utenti.TipoMezzo;
 import viaggi.Tappa;
 
 /**Bean Stateful usato per mantenere i dati di sessione durante l'inserimento
@@ -25,6 +26,15 @@ public class CarrelloInserimentoViaggioBean implements CarrelloInserimentoViaggi
     private boolean richiestaContributi;
     private String nota;
     private int lunghezzaPercorso;
+    private TipoMezzo tipomezzo;
+
+    public TipoMezzo getTipomezzo() {
+        return tipomezzo;
+    }
+
+    public void setTipomezzo(TipoMezzo tipomezzo) {
+        this.tipomezzo = tipomezzo;
+    }
 
     public int getLunghezzaPercorso() {
         return lunghezzaPercorso;
