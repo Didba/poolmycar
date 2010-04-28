@@ -5,6 +5,7 @@
 
 package ejb;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import viaggi.Tappa;
@@ -14,7 +15,7 @@ import viaggi.Tappa;
  * con riferimenti incrociati
  * @author berto
  */
-public class Percorso {
+public class Percorso implements Serializable {
 
 
     private long id;
@@ -76,6 +77,7 @@ public class Percorso {
         return tappeIntermedie;
     }
 
+    @Override
     public String toString(){
         String s="";
 

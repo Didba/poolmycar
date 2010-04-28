@@ -59,7 +59,7 @@ public interface GestoreViaggiBeanLocal {
      * @param pacchetto
      * @return
      */
-    public Pacchetto aggiornaPacchetto(Pacchetto pacchetto);
+    public void aggiornaPacchetto(Pacchetto pacchetto);
 
     /**Restituisce le citta presenti nel DB che iniziano con la stringa subCitta
      *
