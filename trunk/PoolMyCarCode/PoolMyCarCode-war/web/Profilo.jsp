@@ -46,8 +46,10 @@
                     <!-- Contenuto principale della pagina -->
                     <center>
                         <h1>Profilo Utente</h1>
-                        <jsp:useBean id="utente" scope="session" class="utenti.Viaggiatore" />
-                        <% if (utente != null) {%>
+
+                        <%
+                        Viaggiatore utente = (Viaggiatore) session.getAttribute("utente");
+                        if (utente != null) {%>
                         <table border=0>
                             <%-- <tr><td>autista?</td><td><input name="autista" type="checkbox"></td></tr> --%>
                             Dati Utente
