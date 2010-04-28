@@ -44,7 +44,7 @@ public class ServletController extends HttpServlet {
     @EJB
     private RiempiDBLocal riempiDB;
     @EJB
-    private CarrelloInserimentoViaggioLocal creazioneViaggiBean;
+    private CarrelloInserimentoViaggioLocal carrello;
     @EJB
     private GestoreViaggiBeanLocal gestoreViaggiBean;
     @EJB
@@ -94,6 +94,7 @@ public class ServletController extends HttpServlet {
                     if (viaggiatore != null) {
                         session.setAttribute("utente", viaggiatore);
                         gestoreViaggiBean.caricaViaggi(viaggiatore);
+                        System.out.println("caricati viaggi dell'utente: "+viaggiatore.getPacchettiDaAutista().size());
                         rd = sc.getRequestDispatcher("/Profilo.jsp");
                     } else {
                         rd = sc.getRequestDispatcher("/index.jsp"); //<-- controllare
@@ -328,10 +329,9 @@ public class ServletController extends HttpServlet {
 
 
                     //-------istanziazione del session bean------------
-                    CarrelloInserimentoViaggioLocal viaggio = new CarrelloInserimentoViaggioBean();
-                    viaggio.setTappe(tappe);
-                    /*creazioneViaggiBean.setTappe(tappe);*/
-                    session.setAttribute("creazioneViaggiBean", viaggio);
+                    carrello = new CarrelloInserimentoViaggioBean();
+                    carrello.setTappe(tappe);
+                    session.setAttribute("carrello", carrello);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/InserisciDateViaggio.jsp");
@@ -339,13 +339,13 @@ public class ServletController extends HttpServlet {
 
                 }
                 if (action.equals("inserisciDate")) {
-                    creazioneViaggiBean = (CarrelloInserimentoViaggioLocal) session.getAttribute("creazioneViaggiBean");
+                    carrello = (CarrelloInserimentoViaggioLocal) session.getAttribute("carrello");
                     if (session == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
-                    if (session.getAttribute("utente") == null || creazioneViaggiBean == null || creazioneViaggiBean.getTappe() == null) {
+                    if (session.getAttribute("utente") == null || carrello == null || carrello.getTappe() == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -390,20 +390,20 @@ public class ServletController extends HttpServlet {
                     }
                     ////////////////////////////////
 
-                    creazioneViaggiBean.setDate(date);
+                    carrello.setDate(date);
 
                     ServletContext sc = getServletContext();
                     RequestDispatcher rd = sc.getRequestDispatcher("/ConfermaViaggio.jsp");
                     rd.forward(request, response);
                 }
                 if (action.equals("viaggioConfermato")) {
-                    creazioneViaggiBean = (CarrelloInserimentoViaggioLocal) session.getAttribute("creazioneViaggiBean");
+                    carrello = (CarrelloInserimentoViaggioLocal) session.getAttribute("carrello");
                     if (session == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/SessionNull.jsp");
                         rd.forward(request, response);
                     }
-                    if (session.getAttribute("utente") == null || creazioneViaggiBean == null || creazioneViaggiBean.getTappe() == null || creazioneViaggiBean.getDate() == null) {
+                    if (session.getAttribute("utente") == null || carrello == null || carrello.getTappe() == null || carrello.getDate() == null) {
                         ServletContext sc = getServletContext();
                         RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
                         rd.forward(request, response);
@@ -423,25 +423,25 @@ public class ServletController extends HttpServlet {
                         richiestaContributo = true;
                     }
 
-                    creazioneViaggiBean.setNota(nota);
-                    creazioneViaggiBean.setRichiestaContributi(richiestaContributo);
+                    carrello.setNota(nota);
+                    carrello.setRichiestaContributi(richiestaContributo);
                     long idMezzo=new Long(request.getParameter("tipoMezzo"));
+                    carrello.setTipomezzo(gestoreViaggiBean.getTipoMezzo(idMezzo));
 
-                    Pacchetto p = gestoreViaggiBean.inserisciPacchetto(creazioneViaggiBean.getTappe(), creazioneViaggiBean.getDate(), autista, idMezzo,creazioneViaggiBean.getNota(), creazioneViaggiBean.getRichiestaContributi(), (String) session.getAttribute("distanza"));
-
-                    System.out.println("partenza: " + p.getPartenza().getIndirizzo().getCitta() + "    arrivo: " + p.getArrivo().getIndirizzo().getCitta());
+                    Pacchetto p = gestoreViaggiBean.inserisciPacchetto(carrello.getTappe(), carrello.getDate(), autista, carrello.getTipomezzo(),carrello.getNota(), carrello.getRichiestaContributi(), (String) session.getAttribute("distanza"));
 
                     session.setAttribute("pacchetto", p);
+
                     gestoreViaggiBean.caricaViaggi(autista);
 
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/PaginaPacchetto.jsp");
                     rd.forward(request, response);
                 }
                 if (action.equals("modificaViaggio")) {
                     gestoreViaggiBean.aggiornaPacchetto((Pacchetto) session.getAttribute("pacchetto"));
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/PaginaViaggio.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/PaginaPacchetto.jsp");
                     rd.forward(request, response);
                 }
 

@@ -22,7 +22,7 @@
         <!-- the following script defines the Calendar.setup helper function, which makes
              adding a calendar a matter of 1 or 2 lines of code. -->
         <script type="text/javascript" src="calendar/calendar-setup.js"></script>
-       <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA"
+        <script src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA"
         type="text/javascript"></script>
         <script language="JavaScript" type="text/javascript">
 
@@ -75,11 +75,11 @@
             }
 
         </script>
-        
+
     </head>
     <%
-        CarrelloInserimentoViaggioBean c = (CarrelloInserimentoViaggioBean)session.getAttribute("creazioneViaggiBean");
-        String chiamata = "mappa('"+ c.getPercorso() +"','map','dir');";
+            CarrelloInserimentoViaggioBean c = (CarrelloInserimentoViaggioBean) session.getAttribute("carrello");
+            String chiamata = "mappa('" + c.getPercorso() + "','map','dir');";
     %>
 
     <body onload="GUnload();<%=chiamata%>">
@@ -88,111 +88,99 @@
             <div id="bodyPan">
                 <jsp:include page="/leftpanel.jsp"/>
                 <div id="rightPan">
-
-
                     <!-- Contenuto principale della pagina -->
-                                       
-
                     <div  id="map" style="width: 600px; height: 300px"></div><br><br>
                     <form name="dati" id="formDate" action="ServletController" method="POST" onSubmit="return(scriviDate());">
-                    <table border="0">
-                        <tr>
-                            <td> <div id="output" align="left"> <h3>Date selezionate</h3>   </div></td>
-                            <td><div align="right"> <a id="trigger" href="#" title="Apri calendario e seleziona le date"> <img src="calendarSingleDate/calendar_ico.gif" alt=""></a></div></td>
-                        </tr>
-                        <tr>
-                            <td align="right"><h3>Ora</h3></td>
-                            <td align="right"><input name="ora" id="ora" type="text" size="2" maxlength="2"/>:</td>
-                            <td align="left"><input id="min" name="min" type="text" size="2" maxlength="2"/></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td><input type="submit" name="operation" value="inserisciDate" /></td>
-                        </tr>
+                        <table border="0">
+                            <tr>
+                                <td> <div id="output" align="left"> <h3>Date selezionate</h3>   </div></td>
+                                <td><div align="right"> <a id="trigger" href="#" title="Apri calendario e seleziona le date"> <img src="calendarSingleDate/calendar_ico.gif" alt=""></a></div></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><h3>Ora</h3></td>
+                                <td align="right"><input name="ora" id="ora" type="text" size="2" maxlength="2"/>:</td>
+                                <td align="left"><input id="min" name="min" type="text" size="2" maxlength="2"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><input type="submit" name="operation" value="inserisciDate" /></td>
+                            </tr>
 
-                    </table>
-                    
-                    
-                   
-                    
-                   
-                    
-                     
+                        </table>
+
                         <input type="hidden" name="date" id="campoDate" value=""/>
-                        
+
                     </form>
-
-
 
                 </div>
             </div>
         </div>
         <jsp:include page="/foot.jsp"/>
-<script type="text/javascript">//<![CDATA[
-    // the default multiple dates selected, first time the calendar is instantiated
-    var MA = [];
-    var stringDate="";
+        <script type="text/javascript">//<![CDATA[
+            // the default multiple dates selected, first time the calendar is instantiated
+            var MA = [];
+            var stringDate="";
 
-    function scriviDate(){
-        if(document.getElementById("ora").value<=23 && document.getElementById("ora").value>=0 && document.getElementById("min").value<=59 && document.getElementById("min").value>=0){
-	    var el = document.getElementById("campoDate");
-	    el.setAttribute("value",stringDate);
-            return true;
-        }
-        else{
-            alert("inserisci un'ora realistica");
-            document.getElementById("ora").value="";
-            document.getElementById("min").value="";
-            return false;
-        }
+            function scriviDate(){
+                if(document.getElementById("ora").value<=23 && document.getElementById("ora").value>=0 && document.getElementById("min").value<=59 && document.getElementById("min").value>=0){
+                    var el = document.getElementById("campoDate");
+                    el.setAttribute("value",stringDate);
+                    return true;
+                }
+                else{
+                    alert("inserisci un'ora realistica");
+                    document.getElementById("ora").value="";
+                    document.getElementById("min").value="";
+                    return false;
+                }
 
-    }
+            }
 
-    function closed(cal) {
+            function closed(cal) {
 
-      // here we'll write the output; this is only for example.  You
-      // will normally fill an input field or something with the dates.
-      var el = document.getElementById("output");
+                // here we'll write the output; this is only for example.  You
+                // will normally fill an input field or something with the dates.
+                var el = document.getElementById("output");
 
-      // reset initial content.
-      el.innerHTML = "<h3>Date selezionate</h3><ul>";
+                // reset initial content.
+                el.innerHTML = "<h3>Date selezionate</h3><ul>";
 
-      // Reset the "MA", in case one triggers the calendar again.
-      // CAREFUL!  You don't want to do "MA = [];".  We need to modify
-      // the value of the current array, instead of creating a new one.
-      // Calendar.setup is called only once! :-)  So be careful.
-      MA.length = 0;
+                // Reset the "MA", in case one triggers the calendar again.
+                // CAREFUL!  You don't want to do "MA = [];".  We need to modify
+                // the value of the current array, instead of creating a new one.
+                // Calendar.setup is called only once! :-)  So be careful.
+                MA.length = 0;
 
-      // walk the calendar's multiple dates selection hash
+                // walk the calendar's multiple dates selection hash
 
-      stringDate="";
-      for (var i in cal.multiple) {
-        var d = cal.multiple[i];
-        // sometimes the date is not actually selected, that's why we need to check.
-        if (d) {
-          // OK, selected.  Fill an input field.  Or something.  Just for example,
-          // we will display all selected dates in the element having the id "output".
-          var stringa=d.print("%A %d %B %Y");
-          el.innerHTML += ("<li><span>"+stringa + "</span></li>");
-          stringDate=stringDate+stringa+";";
-          // and push it in the "MA", in case one triggers the calendar again.
-          MA[MA.length] = d;
-        }
-      }
-      el.innerHTML += "</ul>";
-      cal.hide();
-      return true;
-    };
+                stringDate="";
+                for (var i in cal.multiple) {
+                    var d = cal.multiple[i];
+                    // sometimes the date is not actually selected, that's why we need to check.
+                    if (d) {
+                        // OK, selected.  Fill an input field.  Or something.  Just for example,
+                        // we will display all selected dates in the element having the id "output".
+                        var stringa=d.print("%A %d %B %Y");
+                        el.innerHTML += ("<li><span>"+stringa + "</span></li>");
+                        stringDate=stringDate+stringa+";";
+                        // and push it in the "MA", in case one triggers the calendar again.
+                        MA[MA.length] = d;
+                    }
+                }
+                el.innerHTML += "</ul>";
+                cal.hide();
+                return true;
+            };
 
-    Calendar.setup({
-      align      : "BR",
-      showOthers : true,
-      multiple   : MA, // pass the initial or computed array of multiple dates to be initially selected
-      onClose    : closed,
-      button     : "trigger"
-    });
-  //]]>
-  </script>
+            Calendar.setup({
+                align      : "BR",
+                showOthers : true,
+                multiple   : MA, // pass the initial or computed array of multiple dates to be initially selected
+                onClose    : closed,
+                button     : "trigger"
+            });
+            //]]>
+        </script>
     </body>
 </html>
