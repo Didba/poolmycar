@@ -12,9 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import utenti.Indirizzo;
 import viaggi.Pacchetto;
-import viaggi.Tappa;
 import viaggi.Viaggio;
 
 /**Definisce le funzionalità di ricerca utilizzabili da applicazioni terze
@@ -35,39 +33,30 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param mese una stringa che indica il mese di partenza. E' necessario specificarlo sottoforma di numero (a doppia cifra) oppure nome
      * completo in inglese o italiano
      * @param anno l'anno di partenza del viaggio
-     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     * @return un array di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
     public Percorso[] ricerca(String partenza, String arrivo, String giorno, String mese, String anno) {
 
-        Calendar data=new GregorianCalendar(new Integer(anno),getMese(mese),new Integer(giorno), 0 , 0);
+        Integer a=new Integer(anno);
+        Integer m=getMese(mese);
+        Integer g=new Integer(giorno);
+        Calendar data=new GregorianCalendar(a,m,g, 0 , 0);
         RisultatiRicercaViaggi risult= gestoreViaggiBean.ricercaViaggi(partenza, arrivo, false, null, null, data);
         List<Percorso> l=new LinkedList<Percorso>();
 
         for(Pacchetto p: risult.getPacchetti()){
             for(Viaggio v: p.getViaggi()){
                 Percorso per=new Percorso();
-                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),0);
+                //(p.getTipoMezzo().getPosti()-v.getViaggiatori().size()-1)
+                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),v.getPostiDisponibili());
                 l.add(per);
             }
         }
 
         return creaArray(l);
     }
-
-    public Percorso prova(){
-        Percorso p=new Percorso();
-        p.setId(10);
-        p.setPartenza(gestoreViaggiBean.geocoding("Torino"));
-        p.setArrivo(gestoreViaggiBean.geocoding("Roma"));
-        Calendar c=new GregorianCalendar(2010, 04, 12);
-        p.setDataPartenza(c);
-        Tappa[] t=new Tappa[2];
-        t[0]=gestoreViaggiBean.geocoding("Milano");
-        t[1]=gestoreViaggiBean.geocoding("Firenze");
-        p.setTappeIntermedie(t);
-        return p;
-    }
-
+    
+    
     /**Utilizza la logica di business interna per ricercare un viaggio
      * Resituisce la lista di viaggi che partono il giorno compreso tra i due intervalli forniti. E' possibile restringere ulteriormente il campo di ricerca
      * specificando ulteriormente la partenza e l'arrivo
@@ -81,7 +70,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param mese1 una stringa che indica l'estremo superiore del mese di partenza. E' necessario specificarlo sottoforma di numero (a doppia cifra) oppure nome
      * completo in inglese o italiano
      * @param anno1 l'anno estremo superiore di partenza del viaggio
-     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     * @return un array di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
      public Percorso[] ricerca(String partenza, String arrivo, String giorno1, String mese1, String anno1, String giorno2, String mese2, String anno2) {
 
@@ -94,7 +83,7 @@ public class RicercaWSBean implements RicercaWSRemote {
         for(Pacchetto p: risult.getPacchetti()){
             for(Viaggio v: p.getViaggi()){
                 Percorso per=new Percorso();
-                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),(p.getTipoMezzo().getPosti()-v.getViaggiatori().size()));
+                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),v.getPostiDisponibili());
                 l.add(per);
             }
         }
@@ -107,7 +96,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
      * @param arrivo la stringa che rappresenta un indirizzo di arrivo, può essere nullo
      * @param data un oggetto che indica il giorno di partenza
-     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     * @return un array di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
     public Percorso[] ricerca(String partenza, String arrivo, Calendar data) {
 
@@ -118,7 +107,7 @@ public class RicercaWSBean implements RicercaWSRemote {
         for(Pacchetto p: risult.getPacchetti()){
             for(Viaggio v: p.getViaggi()){
                 Percorso per=new Percorso();
-                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),(p.getTipoMezzo().getPosti()-v.getViaggiatori().size()));
+                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),v.getPostiDisponibili());
                 l.add(per);
             }
         }
@@ -133,7 +122,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param arrivo la stringa che rappresenta un indirizzo di arrivo, può essere nullo
      * @param data1 rappresenta l'estremo inferiore dell'intervallo di date
      * @param data1 rappresenta l'estremo superiore dell'intervallo di date
-     * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
+     * @return un array di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
     public Percorso[] ricerca(String partenza, String arrivo, Calendar data1, Calendar data2) {
 
@@ -144,7 +133,7 @@ public class RicercaWSBean implements RicercaWSRemote {
         for(Pacchetto p: risult.getPacchetti()){
             for(Viaggio v: p.getViaggi()){
                 Percorso per=new Percorso();
-                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),(p.getTipoMezzo().getPosti()-v.getViaggiatori().size()));
+                per.setAll(v.getId(),v.getPartenza(),v.getArrivo(),v.getTappeIntermedie(),v.getDataPartenza(),v.getLunghezzaPercorso(),v.getPostiDisponibili());
                 l.add(per);
             }
         }

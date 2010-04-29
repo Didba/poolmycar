@@ -192,7 +192,7 @@ public class Pacchetto implements Serializable {
         this.viaggi = viaggi;
     }
 
-    public void creaViaggi(List<Calendar> date) throws IllegalStateException {
+    public void creaViaggi(List<Calendar> date, int nPosti) throws IllegalStateException {
         if (partenza == null || arrivo == null) {
             throw new IllegalStateException("Inserisci partenza e/o arrivo");
         }
@@ -211,6 +211,7 @@ public class Pacchetto implements Serializable {
             viaggio.setRichieste(new LinkedList<Richiesta>());
             viaggio.setTappeIntermedie(tappeIntermedie);
             viaggio.setModificato(false);
+            viaggio.setPostiMax(nPosti);
             viaggi.add(viaggio);
         }
         System.out.println("viaggi.size()=" + viaggi.size());

@@ -143,7 +143,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         pacchetto.setLunghezzaPercorso(Float.parseFloat(distanza));//TO-DO
         pacchetto.setTipoMezzo(mezzo);
         //va fatta per ultima
-        pacchetto.creaViaggi(date);
+        pacchetto.creaViaggi(date, mezzo.getPosti());
 
         
         pacchettoFacade.create(pacchetto);
