@@ -18,7 +18,7 @@ ul{list-style-type:none}
 /*----/TOP PANEL----*/
 
 /*----HEADER PANEL----*/
-#headerPan{width:686px; height:153px; background:url(images/PMC2.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px;}
+#headerPan{width:686px; height:153px; background:url(images/PMC.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px;}
 
 #headerPan ul.leftmenu{width:87px;}
 #headerPan ul.leftmenu li{width:87px; height:22px; border-bottom:1px dashed #AECCCA;}

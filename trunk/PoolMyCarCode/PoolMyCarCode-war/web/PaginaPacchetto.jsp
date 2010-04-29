@@ -26,11 +26,7 @@
             var geocoder = null;
             var addressMarker;
 
-            function deseleziona(k) {
-                var i;
-                for( i= 0;i<k;i++)
-                    document.getElementById("id" + i).style.backgroundColor = 'white';
-            }
+            
             function mappa(percorso,idMap,idDir) {
                 if (GBrowserIsCompatible()) {
                     map = new GMap2(document.getElementById(idMap));
@@ -73,13 +69,6 @@
 
             }
 
-            function seleziona(i){
-                var clickevent=document.createEvent("MouseEvents");
-                clickevent.initEvent("click", true, true);
-                document.getElementById("id"+i).dispatchEvent(clickevent);
-
-            }
-
         </script>
     </head>
 
@@ -96,8 +85,8 @@
                 <div id="rightPan">
                     <div  id="map" style="width: 300px; height: 300px"></div>
 
-                    <%  String partenza = pacchetto.getPartenza().getIndirizzo().getCitta();
-                        String arrivo = pacchetto.getArrivo().getIndirizzo().getCitta();
+                    <%  String partenza = pacchetto.getPartenza().getIndirizzo().toString();
+                        String arrivo = pacchetto.getArrivo().getIndirizzo().toString();
                         Viaggiatore autista=pacchetto.getAutista();
                         Bacheca bacheca = pacchetto.getBacheca();
                         List<Viaggio> viaggi = pacchetto.getViaggi();
@@ -107,7 +96,7 @@
 
                         List<String> tappe = new LinkedList<String>();
                         for (Tappa t : pacchetto.getTappeIntermedie()) {
-                            tappe.add(t.getIndirizzo().getCitta());
+                            tappe.add(t.getIndirizzo().toString());
                         }
                     %>
                     partenza:<%=partenza%><br>
@@ -118,9 +107,10 @@
                         Tappe intermedie:
                         <%
                         int i = 0;
-                        for (i = 0; i < tappe.size(); i++) %>
+                        for (i = 0; i < tappe.size(); i++) { %>
                             <%=tappe.get(i)%> <br>
-                    <%} if(nota!=null && !nota.equals("")){%>
+                    <%  }
+                    } if(nota!=null && !nota.equals("")){%>
                     <br>Lughezza percorso: <%=lunghezzaPercorso %>
                     <br>Autista: <a href='ServletController?operation=visualizzaProfilo&id='<%=autista.getId() %>><%=autista.getLogin() %></a>
                     <br><br><%=nota %> <%}%>
