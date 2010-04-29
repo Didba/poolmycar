@@ -72,10 +72,10 @@ public class RicercaWS {
     Calendar data2) {
         return ejbRef.ricerca(partenza, arrivo, data1, data2);
     }
-
+    /*
     @WebMethod(operationName = "prova")
     public Percorso prova() {
         return ejbRef.prova();
-    }
+    }*/
 
 }
