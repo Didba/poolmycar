@@ -5,9 +5,10 @@
 
 package ejb;
 
+import viaggi.Percorso;
 import java.util.Calendar;
-import java.util.List;
 import javax.ejb.Remote;
+import viaggi.Tappa;
 
 /**Definisce le funzionalità di ricerca utilizzabili da applicazioni terze
  *
@@ -26,7 +27,7 @@ public interface RicercaWSRemote {
      * @param anno l'anno di partenza del viaggio
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<ejb.Percorso> ricerca(java.lang.String partenza, java.lang.String arrivo, java.lang.String giorno, java.lang.String mese, java.lang.String anno);
+    public Percorso[] ricerca(java.lang.String partenza, java.lang.String arrivo, java.lang.String giorno, java.lang.String mese, java.lang.String anno);
     /**Utilizza la logica di business interna per ricercare un viaggio
      * 
      * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
@@ -41,7 +42,7 @@ public interface RicercaWSRemote {
      * @param anno1 l'anno estremo superiore di partenza del viaggio
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<ejb.Percorso> ricerca(java.lang.String partenza, java.lang.String arrivo, java.lang.String giorno1, java.lang.String mese1, java.lang.String anno1, java.lang.String giorno2, java.lang.String mese2, java.lang.String anno2);
+    public Percorso[] ricerca(java.lang.String partenza, java.lang.String arrivo, java.lang.String giorno1, java.lang.String mese1, java.lang.String anno1, java.lang.String giorno2, java.lang.String mese2, java.lang.String anno2);
     /**Utilizza la logica di business interna per ricercare un viaggio
      *
      * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
@@ -49,7 +50,7 @@ public interface RicercaWSRemote {
      * @param data un oggetto che indica il giorno di partenza
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<Percorso> ricerca(String partenza, String arrivo, Calendar data);
+    public Percorso[] ricerca(String partenza, String arrivo, Calendar data);
     /**Utilizza la logica di business interna per ricercare un viaggio
      * 
      * @param partenza la stringa che rappresenta un indirizzo di partenza, può essere nullo
@@ -58,6 +59,8 @@ public interface RicercaWSRemote {
      * @param data1 rappresenta l'estremo superiore dell'intervallo di date
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<Percorso> ricerca(String partenza, String arrivo, Calendar data1, Calendar data2);
+    public Percorso[] ricerca(String partenza, String arrivo, Calendar data1, Calendar data2);
+
+    public Percorso prova();
     
 }

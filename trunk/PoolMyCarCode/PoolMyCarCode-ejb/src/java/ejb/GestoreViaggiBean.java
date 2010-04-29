@@ -224,7 +224,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                     } else if (type.equals("postal_code")) {
                         ris.setCap(value);
                     } else if (type.equals("administrative_area_level_2")) {
-                        ris.setCap(value);
+                        ris.setProvincia(value);
                     }
                 }
 
