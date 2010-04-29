@@ -5,9 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="viaggi.Pacchetto" %>
-<%@page import="viaggi.Tappa" %>
-<%@page import="utenti.Indirizzo" %>
+<%@page import="viaggi.*" %>
+<%@page import="utenti.*" %>
 <%@page import="java.util.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -99,6 +98,13 @@
 
                     <%  String partenza = pacchetto.getPartenza().getIndirizzo().getCitta();
                         String arrivo = pacchetto.getArrivo().getIndirizzo().getCitta();
+                        Viaggiatore autista=pacchetto.getAutista();
+                        Bacheca bacheca = pacchetto.getBacheca();
+                        List<Viaggio> viaggi = pacchetto.getViaggi();
+                        String nota = pacchetto.getNota();
+                        boolean richiestaContributi = pacchetto.isRichiestaContributi();
+                        float lunghezzaPercorso = pacchetto.getLunghezzaPercorso();
+
                         List<String> tappe = new LinkedList<String>();
                         for (Tappa t : pacchetto.getTappeIntermedie()) {
                             tappe.add(t.getIndirizzo().getCitta());
@@ -114,11 +120,41 @@
                         int i = 0;
                         for (i = 0; i < tappe.size(); i++) %>
                             <%=tappe.get(i)%> <br>
+                    <%} if(nota!=null && !nota.equals("")){%>
+                    <br>Lughezza percorso: <%=lunghezzaPercorso %>
+                    <br>Autista: <a href='ServletController?operation=visualizzaProfilo&id='<%=autista.getId() %>><%=autista.getLogin() %></a>
+                    <br><br><%=nota %> <%}%>
+                    <br>Ora partenza: <%=viaggi.get(0).getDataPartenza().get(Calendar.HOUR) %>:%=viaggi.get(0).getDataPartenza().get(Calendar.MINUTE) %>
+                    <br>Richiesta contributi: <%if(richiestaContributi){%>Si<%}else{%>No<%}%>
+                    Viaggi:
+                    <% int i=0;
+                    for(i=0; i<viaggi.size(); i++){
+                        Viaggio v=viaggi.get(i);
+                        %>
+                        <br><%=v.getDataPartenza().get(Calendar.DAY_OF_MONTH) %>/<%=v.getDataPartenza().get(Calendar.MONTH) %>/<%=v.getDataPartenza().get(Calendar.YEAR) %>
+                        <%if(v.isModificato()){%><b>*</b><%}%>
                     <%}%>
 
-                    <h1>INSERISCI QUI GLI ALTRI DATI DEL PACCHETTO</h1>
+                    <br><br>Bacheca:<br>
+                    <table border="1" width="80%">
+                    <%
+                    i=0;
+                    List<Post> posts = bacheca.getMessaggi();
+                    for(i=0;i<posts.size();i++){
+                        %><tr><td><%=posts.get(i).toString() %></td></tr>
+                    <%}%>
+                    </table>
+                    <form action="ServletController" method="Post">
+                        <input type="HIDDEN" name="operation" value="addPostBacheca">
+                        <input type="HIDDEN" name="pacchettoId" value="<%=pacchetto.getId() %>">
+                        Testo:
+                        <input type="textarea" name="text" value="">
+                        <input type="SUBMIT" value="Aggiungi commento">
+                    </form>
 
-                    <a href="ServletController?operation=modificaViaggio">modifica il pacchetto</a>
+                    <br><br>
+                    <b>*</b> i viaggi contrassegnati da * hanno tappe diverse da quelle del pacchetto
+                    <!--<a href="ServletController?operation=modificaPacchetto">modifica il pacchetto</a>-->
                 </div>
             </div>
         </div>
