@@ -8,7 +8,7 @@ ul{list-style-type:none}
 
 /*----TOP PANEL----*/
 #topPan{width:778px; height:65px; background:url(images/topbg.jpg) 0 0 no-repeat #fff; color:#828282; position:relative; margin:0 auto;}
-#topPan img.logo{width:136px; height:31px; position:absolute; top:12px; left:235px;}
+#topPan img.logo{width:300px; height:60px; position:absolute; top:12px; left:235px;}
 #topPan p.caption{width:200px; background:#fff; color:#828282; position:absolute; top:43px; left:235px;}
 #topcontactPan{width:181px; height:36px; background:url(images/icon1.jpg) 68px 0px no-repeat; position:absolute; top:11px; left:567px; padding:7px 0 0;}
 
@@ -18,7 +18,7 @@ ul{list-style-type:none}
 /*----/TOP PANEL----*/
 
 /*----HEADER PANEL----*/
-#headerPan{width:686px; height:153px; background:url(images/PMC.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px;}
+#headerPan{width:686px; height:153px; background:url(images/duc.gif) 0 0 no-repeat; position:relative; margin:0 auto; padding:11px 0 0 92px;}
 
 #headerPan ul.leftmenu{width:87px;}
 #headerPan ul.leftmenu li{width:87px; height:22px; border-bottom:1px dashed #AECCCA;}

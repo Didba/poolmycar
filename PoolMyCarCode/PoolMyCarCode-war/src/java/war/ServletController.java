@@ -10,6 +10,7 @@ import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
 import ejb.RiempiDBLocal;
 import ejb.RisultatiRicercaViaggi;
+import facades.PacchettoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -237,6 +238,22 @@ public class ServletController extends HttpServlet {
                     RequestDispatcher rd = sc.getRequestDispatcher("/RegistrazioneAutista.jsp");
                     rd.forward(request, response);
                 }
+                if (action.equals("visualizzapacchetto"))
+                {
+                    String id = request.getParameter("idpacchetto");
+                    if(id!=null && !id.equals("")){
+                        Pacchetto p  = gestoreViaggiBean.trovaPacchetto(new Long(id));
+                        session.setAttribute("pacchettoVis", p);
+                         ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/PaginaPacchetto.jsp");
+                        rd.forward(request, response);
+                    }
+                    else{
+                         ServletContext sc = getServletContext();
+                        RequestDispatcher rd = sc.getRequestDispatcher("/NonPermesso.jsp");
+                        rd.forward(request, response);
+                    }
+                }
 
                 if (action.equals("registrazioneAutista")) {
                     if (session == null) {
@@ -434,8 +451,9 @@ public class ServletController extends HttpServlet {
 
                     gestoreViaggiBean.caricaViaggi(autista);
 
+                    session.setAttribute("pacchettoVis", p);
                     ServletContext sc = getServletContext();
-                    RequestDispatcher rd = sc.getRequestDispatcher("/PaginaPacchetto.jsp");
+                    RequestDispatcher rd = sc.getRequestDispatcher("/ViaggioInserito.jsp");
                     rd.forward(request, response);
                 }
                 if (action.equals("modificaViaggio")) {

@@ -136,20 +136,31 @@
                             </td>
                         </tr>
                     </table>
-
+                    <br><br>
 
                     <form action="ServletController" method="POST">
-                        scegli il tipo mezzo del viaggio
-                        <select name="tipoMezzo">
-                            <%
-                                        for (TipoMezzo tm : utente.getMezzi()) {
-                            %>
-                            <option value="<%=tm.getId()%>"><%=tm.getNome()%></option>
-                            <%}%>
-                        </select>
-                        contributi?<input name="contributi" type="checkbox"/>
-                        nota:<input name="nota" type="text"/>
-
+                        <table>
+                            <tr>
+                                <td>Seleziona il mezzo</td>
+                                <td>
+                                    <select name="tipoMezzo">
+                                        <%
+                                                    for (TipoMezzo tm : utente.getMezzi()) {
+                                        %>
+                                        <option value="<%=tm.getId()%>"><%=tm.getNome()%></option>
+                                        <%}%>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input name="contributi" type="checkbox"/>contributi </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    nota:<input name="nota" type="text"/>
+                                </td>
+                            </tr>
+                        </table>
                         <input type='hidden' name='operation' value='viaggioConfermato'/>
                         <input type='submit' value='Conferma viaggio'/>
                     </form>
