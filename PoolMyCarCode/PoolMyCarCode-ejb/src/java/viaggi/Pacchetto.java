@@ -58,6 +58,25 @@ public class Pacchetto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    protected int postiMax;
+
+    /**
+     * Get the value of postiMax
+     *
+     * @return the value of postiMax
+     */
+    public int getPostiMax() {
+        return postiMax;
+    }
+
+    /**
+     * Set the value of postiMax
+     *
+     * @param postiMax new value of postiMax
+     */
+    public void setPostiMax(int postiMax) {
+        this.postiMax = postiMax;
+    }
 
     /**
      * Get the value of lunghezzaPercorso
@@ -192,7 +211,7 @@ public class Pacchetto implements Serializable {
         this.viaggi = viaggi;
     }
 
-    public void creaViaggi(List<Calendar> date, int nPosti) throws IllegalStateException {
+    public void creaViaggi(List<Calendar> date) throws IllegalStateException {
         if (partenza == null || arrivo == null) {
             throw new IllegalStateException("Inserisci partenza e/o arrivo");
         }
@@ -211,7 +230,7 @@ public class Pacchetto implements Serializable {
             viaggio.setRichieste(new LinkedList<Richiesta>());
             viaggio.setTappeIntermedie(tappeIntermedie);
             viaggio.setModificato(false);
-            viaggio.setPostiMax(nPosti);
+            viaggio.setPostiDisponibili(this.postiMax - 1);
             viaggi.add(viaggio);
         }
         System.out.println("viaggi.size()=" + viaggi.size());

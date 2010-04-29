@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,6 +44,7 @@ import viaggi.Viaggio;
  */
 @Stateless
 public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
+
     @EJB
     private TipoMezzoFacadeLocal tipoMezzoFacade;
     @EJB
@@ -103,6 +105,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         return tappa;
 
     }
+
     /**Crea un nuovo pacchetto su DB
      * A partire dai parametri forniti, costruisce una nuova istanza di Pacchetto e la rende persistente su DB
      * @param tappe la lista di tappe (comprese partenza ed arrivo) per cui passa il viaggio descritto dal pacchetto
@@ -142,16 +145,18 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         pacchetto.setBacheca(new Bacheca());
         pacchetto.setLunghezzaPercorso(Float.parseFloat(distanza));//TO-DO
         pacchetto.setTipoMezzo(mezzo);
+        pacchetto.setPostiMax(mezzo.getPosti());
         //va fatta per ultima
-        pacchetto.creaViaggi(date, mezzo.getPosti());
+        pacchetto.creaViaggi(date);
 
-        
+
         pacchettoFacade.create(pacchetto);
 
         return pacchetto;
 
 
     }
+
     /**Esegue il reverse geocoding della latitudine e logitudine specificate
      * Richiama il servizio di Google per il reverse geocoding tramite una richiesta HTTP. La risposta verrà letta tramite un parse XML per estrarre
      * i dati necessari alla costruzione di un nuovo oggetto Indirizzo
@@ -212,7 +217,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
                     type = ((Node) fstNm.item(0)).getNodeValue();
 
                     if (type.equals("street_number")) {
-                        if (value!=null && !value.contains("-")) {
+                        if (value != null && !value.contains("-")) {
                             ris.setNumerocivico(value);
                         }
                     } else if (type.equals("route")) {
@@ -253,14 +258,14 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
      * @return un bean stateful che contiene al suo interno i risultati della ricerca
      */
     public RisultatiRicercaViaggi ricercaViaggi(String partenza, String arrivo, boolean intervallo, Calendar data1, Calendar data2, Calendar dataOraPartenza) {
-        
+
         List<Pacchetto> pacchetti = null;
         if (intervallo) {
-            
+
             pacchetti = pacchettoFacade.findDate(data1, data2);
 
         } else {
-            
+
             pacchetti = pacchettoFacade.findDataSingola(dataOraPartenza);
         }
 
@@ -281,7 +286,7 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             }
         }
         // se indicato controllo l'arrivo
-        if (arrivo!=null && !arrivo.equals("")) {
+        if (arrivo != null && !arrivo.equals("")) {
             Tappa start = geocoding(arrivo);
             Iterator it = pacchetti.iterator();
             while (it.hasNext()) {
@@ -294,31 +299,39 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
             }
         }
         // individuati i pacchetti per ognuno di essi lascio solo i viaggi di interesse
-        for(Pacchetto p : pacchetti){
+        Calendar today = new GregorianCalendar();
+        for (Pacchetto p : pacchetti) {
             Iterator it = p.getViaggi().iterator();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 Viaggio v = (Viaggio) it.next();
-                if(intervallo){
-                    if((v.getDataPartenza().compareTo(data1)<0) || (v.getDataPartenza().compareTo(data2)>0))
-                        it.remove();
-                }
-                else{
-                    Calendar c2 = (Calendar)dataOraPartenza.clone();
-                    c2.set(Calendar.HOUR_OF_DAY, 23);
-                    c2.set(Calendar.MINUTE, 59);
-                    if((v.getDataPartenza().compareTo(dataOraPartenza)<0) || (v.getDataPartenza().compareTo(c2)>0))
-                        it.remove();
+                if ((v.getDataPartenza().compareTo(today) < 0)) {
+                    it.remove();
+
+                } else {
+                    if (intervallo) {
+                        if ((v.getDataPartenza().compareTo(data1) < 0) || (v.getDataPartenza().compareTo(data2) > 0)) {
+                            it.remove();
+                        }
+                    } else {
+                        Calendar c2 = (Calendar) dataOraPartenza.clone();
+                        c2.set(Calendar.HOUR_OF_DAY, 23);
+                        c2.set(Calendar.MINUTE, 59);
+                        if ((v.getDataPartenza().compareTo(dataOraPartenza) < 0) || (v.getDataPartenza().compareTo(c2) > 0)) {
+                            it.remove();
+                        }
+                    }
                 }
             }
         }
 
         //elimino i pacchetti senza viaggi
         Iterator it = pacchetti.iterator();
-            while(it.hasNext()){
-                Pacchetto v = (Pacchetto) it.next();
-                if(v.getViaggi().size()==0)
-                    it.remove();
+        while (it.hasNext()) {
+            Pacchetto v = (Pacchetto) it.next();
+            if (v.getViaggi().size() == 0) {
+                it.remove();
             }
+        }
 
         System.out.println("-------- pacchetti trovati " + pacchetti);
         RisultatiRicercaViaggi bean = new RisultatiRicercaViaggi();
@@ -378,13 +391,16 @@ public class GestoreViaggiBean implements GestoreViaggiBeanLocal {
         return indirizzoFacade.getCitta();
     }
 
-    public void caricaViaggi(Viaggiatore autista){
+    public void caricaViaggi(Viaggiatore autista) {
         System.out.println("id " + autista.getId());
         autista.setPacchettiDaAutista(pacchettoFacade.findDaAutista(autista));
     }
 
-    public TipoMezzo getTipoMezzo(long idMezzo){
+    public TipoMezzo getTipoMezzo(long idMezzo) {
         return tipoMezzoFacade.find(idMezzo);
     }
-    
+
+    public Pacchetto trovaPacchetto(Long id){
+        return pacchettoFacade.findOne(id);
+    }
 }
