@@ -121,7 +121,7 @@
                     for(i=0; i<viaggi.size(); i++){
                         Viaggio v=viaggi.get(i);
                         %>
-                        <br><%=v.getDataPartenza().get(Calendar.DAY_OF_MONTH) %>/<%=v.getDataPartenza().get(Calendar.MONTH) %>/<%=v.getDataPartenza().get(Calendar.YEAR) %>
+                        <br><%=v.getDataPartenza().get(Calendar.DAY_OF_MONTH) %>/<%=(v.getDataPartenza().get(Calendar.MONTH)+1) %>/<%=v.getDataPartenza().get(Calendar.YEAR) %>
                         <%if(v.isModificato()){%><b>*</b><%}%>
                     <%}%>
 
