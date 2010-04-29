@@ -1,7 +1,7 @@
 
 
 <%@page import="utenti.*" %>
-<div id="topPan"><img src="images/LogoPMC.gif" alt="PoolMyCar" width="200" height="31" border="0"  class="logo" title="PoolMyCar"/>
+<div id="topPan"><img src="images/LogoPMC.gif" alt="PoolMyCar" class="logo" border="0"  title="PoolMyCar"/>
 </div>
 <div id="headerPan">
 

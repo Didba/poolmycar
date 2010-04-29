@@ -9,7 +9,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="ejb.RisultatiRicercaViaggi" %>
 <%@page import="viaggi.*" %>
-<%@page import="viaggi.*" %>
+<%@page import="utenti.*" %>
 <%@page import="java.util.*" %>
 <%!    RisultatiRicercaViaggi ris;
     List<Pacchetto> pacchetti;
@@ -161,16 +161,16 @@
                                 <h5>Non è stato trovato nessun viaggio</h5>
                             <%                                                   } else {
                             %>
-<div  id="map" style="width: 600px; height: 300px"></div>
+                            <div  id="map" style="width: 600px; height: 300px"></div>
                             <div align="right">
                              <%
                                                 if (ris.indietro()) {%>
-                            <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
+                            <input type="submit" name="indietro" value="<<Precedenti" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
 
                             <%}
                                                         if (ris.avanti()) {
                             %>
-                            <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
+                            <input type="submit" name="avanti" value="Successivi>>" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
                             <%}%>
                            
                             </div>
@@ -198,9 +198,27 @@
                                     <td>
 
                                         <i class="sub">partenza: </i>  <%= p.getPartenza().getIndirizzo().toString()%><br>
+                                        <i class="sub">tappe: </i>
+                                        <%
+                                            for(Tappa t: p.getTappeIntermedie()){
+                                                
+                                        %>
+                                            <span> <%=t.getIndirizzo().toString()%></span><br>
+                                        <%}%>
+
                                         <i class="sub">arrivo: </i><%= p.getArrivo().getIndirizzo().toString()%><br>
+                                        <i class="sub">Km </i><%= p.getLunghezzaPercorso() / 1000.0%><br><br>
+
                                         <i class="sub">autista: </i><a href=""><%= p.getAutista().getCognome()%></a><br>
-                                        descrizione<br><br>
+                                        <i class="sub">mezzo: </i><%= p.getTipoMezzo().getNome()%><br>
+                                        <i class="sub">contributi: </i><% if(p.isRichiestaContributi()) out.println("Sì"); else out.println("No");%><br>
+                                        <br>
+                                        <%
+                                            if(!p.getNota().equals("")){
+                                        %>
+                                        <i class="sub">nota: </i><%=p.getNota()%><br>
+                                        <%}%>
+                                        <a href="ServletController?operation=visualizzapacchetto&idpacchetto=<%=p.getId()%>">vedi dettagli</a>
                                     </td>
                                     <td>
                                         <%
@@ -210,15 +228,18 @@
                                                     dp = dp + "/" + v.getDataPartenza().get(Calendar.YEAR);
                                                     String ora = "" + (v.getDataPartenza().get(Calendar.MINUTE) < 10 ? "0" : "") + v.getDataPartenza().get(Calendar.MINUTE);
                                                     ora = "" + v.getDataPartenza().get(Calendar.HOUR_OF_DAY) + ":" + ora;
+                                                    int posti = v.getPostiDisponibili();
                                         %>
 
                                         <i class="sub">il </i><%=dp%>
                                         <i class="sub"> alle ore </i><%=ora%>
+                                        <i class="sub"> posti </i><%=posti%>
                                         <%
-                                                                            if (session.getAttribute("utente") != null) {
+                                            Viaggiatore utente = (Viaggiatore) session.getAttribute("utente");
+                                          if (utente != null && (!utente.getLogin().equals(p.getAutista().getLogin())) &&  posti>0 ) {
 
                                         %>
-                                        <a href="">prenota</a>
+                                        <a href="">Aggregati</a>
                                         <%}%>
                                         <br>
                                         <%}
@@ -234,12 +255,12 @@
                             <div align="right">
                             <%
                                                 if (ris.indietro()) {%>
-                            <input type="submit" name="indietro" value="Indietro" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
+                            <input type="submit" name="indietro" value="<< Precedenti" title="indietro" style="border: hidden" onclick="document.getElementById('idDirezione').value ='indietro'"/>
 
                             <%}
                                                         if (ris.avanti()) {
                             %>
-                            <input type="submit" name="avanti" value="Avanti" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
+                            <input type="submit" name="avanti" value="Successivi >>" title="avanti" style="border: hidden" onclick="document.getElementById('idDirezione').value ='avanti'"/>
                             <%}%>
                             <%} //chiusura due else%>
                             </div>
