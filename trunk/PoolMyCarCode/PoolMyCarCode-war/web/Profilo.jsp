@@ -12,12 +12,14 @@
 <link rel=stylesheet href="style.css" type="text/css">
 
 <%!    List<Pacchetto> pacchetti;
-        int k=0;
-        int n=0;
-        String s="";
-        List<Viaggio> viaggi;
-        Set<TipoMezzo> mezzi;
-        TipoMezzo elem;
+    int k = 0;
+    int n = 0;
+    String s = "";
+    List<Viaggio> viaggi;
+    Set<TipoMezzo> mezzi;
+    TipoMezzo elem;
+    String dp = "";
+    String color;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -42,13 +44,15 @@
                 <div id="rightPan">
 
 
+
+
                     <!-- Contenuto principale della pagina -->
                     <center>
                         <h1>Profilo Utente</h1>
 
                         <%
-                        Viaggiatore utente = (Viaggiatore) session.getAttribute("utente");
-                        if (utente != null) {%>
+            Viaggiatore utente = (Viaggiatore) session.getAttribute("utente");
+            if (utente != null) {%>
                         <table border=0>
                             <%-- <tr><td>autista?</td><td><input name="autista" type="checkbox"></td></tr> --%>
                             Dati Utente
@@ -75,68 +79,101 @@
 
                         <%
 
-     if (utente.isAutista()) {
+                if (utente.isAutista()) {
                         %>
                         <br>
                         <br>
                         Dati Autista
 
                         <form name="dati" action="ServletController" method="POST">
-                            <table border=0>
+                            <table border=0 >
                                 <tr><td>Tipo Mezzo <select name="tipoMezzo"  disabled>
                                             <%mezzi = utente.getMezzi();
-                                            for(k=0; k<mezzi.size(); k++){
-                                                elem = mezzi.iterator().next();%>
-                                                <option value="<%=k%>"> <%= elem.getNome() %> </option>
+         for (k = 0; k < mezzi.size(); k++) {
+             elem = mezzi.iterator().next();%>
+                                            <option value="<%=k%>"> <%= elem.getNome()%> </option>
                                             <%}%>
-                                            
-                                            
+
+
                                         </select></td>
                                     <td>Numero Patente</td><td> <input name="patente" type="text" value="<%= utente.getNumeroPatente()%>"  disabled size=15/> </td></tr>
                             </table>
                         </form>
-                            
+                        <input type="submit" name="mod" value="modifica dati"/>
+
+
                         <% pacchetti = utente.getPacchettiDaAutista();
          if (pacchetti != null && pacchetti.size() > 0) {%>
-         <br>
-         <br>
-         Pacchetti Utente
-         <table border=0 align="center">
-             <tr align="center">
+                        <br>
+                        <br>
+                        <br>
+                        Pacchetti Utente
+                        <table border=0 align="center">
+                            <tr align="center" bgcolor="#d3f0ef" >
                                 <td>Indirizzo Partenza</td>
                                 <td>Indirizzo Arrivo</td>
                                 <td>Date</td>
                                 <td></td>
                             </tr>
+                            <%    for (k = 0; k < pacchetti.size(); k++) {
+                                    if(k%2==0){color="white";}
+                                    else {color="#d3f0ef";}
+                            %>
 
-         <%    for(k=0;k<pacchetti.size();k++){
-                        %>
-                        
-                        <tr align="center">
-                                <td><%=pacchetti.get(k).getPartenza().getIndirizzo().getVia() + " " + pacchetti.get(k).getPartenza().getIndirizzo().getCitta() + " - " + pacchetti.get(k).getPartenza().getIndirizzo().getStato() %></td>
-                                <td><%=pacchetti.get(k).getArrivo().getIndirizzo().getVia() + " " + pacchetti.get(k).getArrivo().getIndirizzo().getCitta() + " - " + pacchetti.get(k).getArrivo().getIndirizzo().getStato() %></td>
-                                <% viaggi = pacchetti.get(k).getViaggi();
-                                s="";
-                                for(n=0;n<viaggi.size(); n++){
+                            <tr align="center" bgcolor="<%=color%>">
+
+                                <td><%=pacchetti.get(k).getPartenza().getIndirizzo().getVia() + " " + pacchetti.get(k).getPartenza().getIndirizzo().getCitta()%></td>
+                                <td><%=pacchetti.get(k).getArrivo().getIndirizzo().getVia() + " " + pacchetti.get(k).getArrivo().getIndirizzo().getCitta()%></td>
+                                <% viaggi = pacchetti.get(k).getViaggi();%>
+                                <td>
+
+                                    <%
+                                   for (Viaggio v : viaggi) {
+                                       dp = "" + v.getDataPartenza().get(Calendar.DAY_OF_MONTH);
+                                       dp = dp + "/" + (v.getDataPartenza().get(Calendar.MONTH) + 1);
+                                       dp = dp + "/" + v.getDataPartenza().get(Calendar.YEAR);
+                                       String ora = "" + (v.getDataPartenza().get(Calendar.MINUTE) < 10 ? "0" : "") + v.getDataPartenza().get(Calendar.MINUTE);
+                                       ora = "" + v.getDataPartenza().get(Calendar.HOUR_OF_DAY) + ":" + ora;
+
+                                    %>
+
+                                    <table border=0>
+                                        <tr>
+                                            <td><%=dp%>  </td>
+                                            <td><i class="sub"><a href="">visualizza</a></i></td>
+                                        </tr>
+                                    </table>
+
+                                    <%}%>
+
+
+
                                     
-                                    s=viaggi.get(n).getDataPartenza().getTime().toString() + "\n"; }%>
-                                <td><%=s%></td>
-                                
+
+
+
+
+
+
+
+
+                                </td>
+
+
                                 <td> <input type="submit" name="mod" value="cancella"/></td>
                             </tr>
-                            
-                        <%}%>
+
+                            <%}%>
                         </table>
                         <%}%>
-                        
+
                         <%   } else {
                         %>
                         <form action="ServletController" method="POST">
                             <input type="SUBMIT" value="diventaAutista" name="operation">
                         </form>
                         <%                }
-            }%>
-                        <input type="submit" name="mod" value="modifica dati"/>
+                }%>
 
 
                     </center>
