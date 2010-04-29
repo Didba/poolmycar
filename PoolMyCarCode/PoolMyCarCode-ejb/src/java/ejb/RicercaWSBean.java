@@ -5,13 +5,16 @@
 
 package ejb;
 
+import viaggi.Percorso;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import utenti.Indirizzo;
 import viaggi.Pacchetto;
+import viaggi.Tappa;
 import viaggi.Viaggio;
 
 /**Definisce le funzionalità di ricerca utilizzabili da applicazioni terze
@@ -34,7 +37,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param anno l'anno di partenza del viaggio
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<Percorso> ricerca(String partenza, String arrivo, String giorno, String mese, String anno) {
+    public Percorso[] ricerca(String partenza, String arrivo, String giorno, String mese, String anno) {
 
         Calendar data=new GregorianCalendar(new Integer(anno),getMese(mese),new Integer(giorno), 0 , 0);
         RisultatiRicercaViaggi risult= gestoreViaggiBean.ricercaViaggi(partenza, arrivo, false, null, null, data);
@@ -48,8 +51,23 @@ public class RicercaWSBean implements RicercaWSRemote {
             }
         }
 
-        return l;
+        return creaArray(l);
     }
+
+    public Percorso prova(){
+        Percorso p=new Percorso();
+        p.setId(10);
+        p.setPartenza(gestoreViaggiBean.geocoding("Torino"));
+        p.setArrivo(gestoreViaggiBean.geocoding("Roma"));
+        Calendar c=new GregorianCalendar(2010, 04, 12);
+        p.setDataPartenza(c);
+        Tappa[] t=new Tappa[2];
+        t[0]=gestoreViaggiBean.geocoding("Milano");
+        t[1]=gestoreViaggiBean.geocoding("Firenze");
+        p.setTappeIntermedie(t);
+        return p;
+    }
+
     /**Utilizza la logica di business interna per ricercare un viaggio
      * Resituisce la lista di viaggi che partono il giorno compreso tra i due intervalli forniti. E' possibile restringere ulteriormente il campo di ricerca
      * specificando ulteriormente la partenza e l'arrivo
@@ -65,7 +83,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param anno1 l'anno estremo superiore di partenza del viaggio
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<Percorso> ricerca(String partenza, String arrivo, String giorno1, String mese1, String anno1, String giorno2, String mese2, String anno2) {
+     public Percorso[] ricerca(String partenza, String arrivo, String giorno1, String mese1, String anno1, String giorno2, String mese2, String anno2) {
 
         Calendar data1=new GregorianCalendar(new Integer(anno1),getMese(mese1),new Integer(giorno1), 0, 0);
         Calendar data2=new GregorianCalendar(new Integer(anno2),getMese(mese2),new Integer(giorno2), 0, 0);
@@ -81,7 +99,7 @@ public class RicercaWSBean implements RicercaWSRemote {
             }
         }
 
-        return l;
+        return creaArray(l);
     }
     /**Utilizza la logica di business interna per ricercare un viaggio
      * Resituisce la lista di viaggi che partono il giorno selezionato. E' possibile restringere ulteriormente il campo di ricerca
@@ -91,7 +109,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param data un oggetto che indica il giorno di partenza
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<Percorso> ricerca(String partenza, String arrivo, Calendar data) {
+    public Percorso[] ricerca(String partenza, String arrivo, Calendar data) {
 
         RisultatiRicercaViaggi risult= gestoreViaggiBean.ricercaViaggi(partenza, arrivo, false, null, null, data);
 
@@ -105,7 +123,7 @@ public class RicercaWSBean implements RicercaWSRemote {
             }
         }
 
-        return l;
+        return creaArray(l);
     }
 
     /**Utilizza la logica di business interna per ricercare un viaggio
@@ -117,7 +135,7 @@ public class RicercaWSBean implements RicercaWSRemote {
      * @param data1 rappresenta l'estremo superiore dell'intervallo di date
      * @return una lista di oggetti Percorso che incapsulano le informazioni essenziali riguardo ai viaggi trovati corrispondenti alla ricerca
      */
-    public List<Percorso> ricerca(String partenza, String arrivo, Calendar data1, Calendar data2) {
+    public Percorso[] ricerca(String partenza, String arrivo, Calendar data1, Calendar data2) {
 
         RisultatiRicercaViaggi risult= gestoreViaggiBean.ricercaViaggi(partenza, arrivo, true, data1, data2, null);
 
@@ -131,7 +149,7 @@ public class RicercaWSBean implements RicercaWSRemote {
             }
         }
 
-        return l;
+        return creaArray(l);
     }
 
     private int getMese(String s) {
@@ -173,5 +191,17 @@ public class RicercaWSBean implements RicercaWSRemote {
         }
     return -1;
     }
+
+    private Percorso[] creaArray(List<Percorso> l) {
+        Percorso[] ris=new Percorso[l.size()];
+        int i=0;
+        for(Percorso p:l){
+            ris[i]=p;
+            i++;
+        }
+        return ris;
+    }
+
+
  
 }
