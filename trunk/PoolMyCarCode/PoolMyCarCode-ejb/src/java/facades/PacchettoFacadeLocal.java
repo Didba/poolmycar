@@ -49,5 +49,7 @@ public interface PacchettoFacadeLocal {
 
     public java.util.List<viaggi.Pacchetto> findDaAutista(Viaggiatore autista);
 
+    public viaggi.Pacchetto findOne(java.lang.Long id);
+
 
 }

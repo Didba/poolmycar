@@ -79,4 +79,6 @@ public interface GestoreViaggiBeanLocal {
 
     public TipoMezzo getTipoMezzo(long idMezzo);
 
+    public viaggi.Pacchetto trovaPacchetto(java.lang.Long id);
+
 }

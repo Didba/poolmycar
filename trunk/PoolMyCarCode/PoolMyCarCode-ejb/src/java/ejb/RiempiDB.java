@@ -45,7 +45,7 @@ public class RiempiDB implements RiempiDBLocal {
             Viaggiatore autista = new Viaggiatore();
             TipoMezzo tp = new TipoMezzo();
             tp.setNome("auto");
-            tp.setPosti(6);
+            tp.setPosti(5);
             Set<TipoMezzo> tipiMezzo = new HashSet<TipoMezzo>();
             tipiMezzo.add(tp);
             autista.setMezzi(tipiMezzo);
@@ -72,42 +72,42 @@ public class RiempiDB implements RiempiDBLocal {
             List<String> d;
 
             d = new LinkedList<String>();
-            d.add("12/04/2010 15:00");
-            d.add("14/04/2010 15:00");
-            d.add("16/04/2010 15:00");
-            d.add("19/04/2010 15:00");
+            d.add("12/05/2010 15:00");
+            d.add("14/05/2010 15:00");
+            d.add("16/05/2010 15:00");
+            d.add("19/05/2010 15:00");
             p = creap("Torino", "Milano", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
-            d.add("19/04/2010 15:00");
-            d.add("20/04/2010 15:00");
-            d.add("21/04/2010 15:00");
-            d.add("22/04/2010 15:00");
+            d.add("19/05/2010 15:00");
+            d.add("20/05/2010 15:00");
+            d.add("21/05/2010 15:00");
+            d.add("22/05/2010 15:00");
             p = creap("Torino", "Bari", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
-            d.add("12/04/2010 09:00");
-            d.add("14/04/2010 09:00");
-            d.add("16/04/2010 09:00");
-            d.add("19/04/2010 09:00");
+            d.add("12/06/2010 09:00");
+            d.add("14/06/2010 09:00");
+            d.add("16/06/2010 09:00");
+            d.add("19/06/2010 09:00");
             p = creap("Torino", "Manduria", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
-            d.add("12/04/2010 21:00");
-            d.add("14/04/2010 21:00");
-            d.add("16/04/2010 21:00");
-            d.add("19/04/2010 21:00");
+            d.add("12/06/2010 21:00");
+            d.add("14/07/2010 21:00");
+            d.add("16/07/2010 21:00");
+            d.add("19/07/2010 21:00");
             p = creap("Torino", "Ancona", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
-            d.add("10/04/2010 15:00");
-            d.add("14/04/2010 15:00");
-            d.add("16/04/2010 15:00");
-            d.add("19/04/2010 15:00");
+            d.add("10/05/2010 15:00");
+            d.add("14/05/2010 15:00");
+            d.add("16/05/2010 15:00");
+            d.add("19/05/2010 15:00");
             p = creap("Torino", "Lecce", autista, d, tp);
             pacchettoFacade.create(p);
 
@@ -153,8 +153,9 @@ public class RiempiDB implements RiempiDBLocal {
         pacchetto.setBacheca(new Bacheca());
         pacchetto.setLunghezzaPercorso(100);//TO-DO
         pacchetto.setTipoMezzo(tp);
+        pacchetto.setPostiMax(tp.getPosti());
         //va fatta per ultima
-        pacchetto.creaViaggi(date, tp.getPosti());
+        pacchetto.creaViaggi(date);
         return pacchetto;
     }
 }
