@@ -45,6 +45,7 @@ public class RiempiDB implements RiempiDBLocal {
             Viaggiatore autista = new Viaggiatore();
             TipoMezzo tp = new TipoMezzo();
             tp.setNome("auto");
+            tp.setPosti(6);
             Set<TipoMezzo> tipiMezzo = new HashSet<TipoMezzo>();
             tipiMezzo.add(tp);
             autista.setMezzi(tipiMezzo);
@@ -75,7 +76,7 @@ public class RiempiDB implements RiempiDBLocal {
             d.add("14/04/2010 15:00");
             d.add("16/04/2010 15:00");
             d.add("19/04/2010 15:00");
-            p = creap("Torino", "Milano", autista, d);
+            p = creap("Torino", "Milano", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
@@ -83,7 +84,7 @@ public class RiempiDB implements RiempiDBLocal {
             d.add("20/04/2010 15:00");
             d.add("21/04/2010 15:00");
             d.add("22/04/2010 15:00");
-            p = creap("Torino", "Bari", autista, d);
+            p = creap("Torino", "Bari", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
@@ -91,7 +92,7 @@ public class RiempiDB implements RiempiDBLocal {
             d.add("14/04/2010 09:00");
             d.add("16/04/2010 09:00");
             d.add("19/04/2010 09:00");
-            p = creap("Torino", "Manduria", autista, d);
+            p = creap("Torino", "Manduria", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
@@ -99,7 +100,7 @@ public class RiempiDB implements RiempiDBLocal {
             d.add("14/04/2010 21:00");
             d.add("16/04/2010 21:00");
             d.add("19/04/2010 21:00");
-            p = creap("Torino", "Ancona", autista, d);
+            p = creap("Torino", "Ancona", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
@@ -107,13 +108,13 @@ public class RiempiDB implements RiempiDBLocal {
             d.add("14/04/2010 15:00");
             d.add("16/04/2010 15:00");
             d.add("19/04/2010 15:00");
-            p = creap("Torino", "Lecce", autista, d);
+            p = creap("Torino", "Lecce", autista, d, tp);
             pacchettoFacade.create(p);
 
             d = new LinkedList<String>();
             d.add("12/05/2010 15:00");
             d.add("14/05/2010 15:00");
-            p = creap("Torino", "Cuneo", autista, d);
+            p = creap("Torino", "Cuneo", autista, d, tp);
             pacchettoFacade.create(p);
 
 
@@ -127,7 +128,7 @@ public class RiempiDB implements RiempiDBLocal {
 
     }
 
-    private Pacchetto creap(String p, String a, Viaggiatore aut, List<String> d) throws ParseException {
+    private Pacchetto creap(String p, String a, Viaggiatore aut, List<String> d, TipoMezzo tp) throws ParseException {
         Pacchetto pacchetto = new Pacchetto();
         Tappa part = gestoreViaggiBean.geocoding(p);
         Tappa arr = gestoreViaggiBean.geocoding(a);
@@ -151,8 +152,9 @@ public class RiempiDB implements RiempiDBLocal {
         pacchetto.setRichiestaContributi(true);
         pacchetto.setBacheca(new Bacheca());
         pacchetto.setLunghezzaPercorso(100);//TO-DO
+        pacchetto.setTipoMezzo(tp);
         //va fatta per ultima
-        pacchetto.creaViaggi(date);
+        pacchetto.creaViaggi(date, tp.getPosti());
         return pacchetto;
     }
 }

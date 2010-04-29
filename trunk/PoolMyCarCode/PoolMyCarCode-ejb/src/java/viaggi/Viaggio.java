@@ -44,6 +44,32 @@ public class Viaggio implements Serializable {
     @OneToOne
     private Tappa arrivo;
     boolean modificato;  //modificato rispetto al pacchetto: true nel momento in cui si aggiungono tappe a questo viaggio
+    int postiDisponibili;
+
+    public boolean addPersona(){
+        if(postiDisponibili==0)
+            return false;
+        postiDisponibili--;
+        return true;
+    }
+
+    public void rimuoviPersona(){
+        postiDisponibili++;
+    }
+
+    public int getPostiDisponibili() {
+        return postiDisponibili;
+    }
+    int postiMax;
+
+    public int getPostiMax() {
+        return postiMax;
+    }
+
+    public void setPostiMax(int postiMax) {
+        this.postiMax = postiMax;
+        postiDisponibili=postiMax-1;
+    }
 
     public boolean isModificato() {
         return modificato;

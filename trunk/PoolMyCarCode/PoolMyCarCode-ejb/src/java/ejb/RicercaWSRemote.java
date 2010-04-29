@@ -61,6 +61,5 @@ public interface RicercaWSRemote {
      */
     public Percorso[] ricerca(String partenza, String arrivo, Calendar data1, Calendar data2);
 
-    public Percorso prova();
     
 }
