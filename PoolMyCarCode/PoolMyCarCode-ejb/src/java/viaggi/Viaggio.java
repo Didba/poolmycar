@@ -43,7 +43,15 @@ public class Viaggio implements Serializable {
     private Tappa partenza;
     @OneToOne
     private Tappa arrivo;
+    boolean modificato;  //modificato rispetto al pacchetto: true nel momento in cui si aggiungono tappe a questo viaggio
 
+    public boolean isModificato() {
+        return modificato;
+    }
+
+    public void setModificato(boolean modificato) {
+        this.modificato = modificato;
+    }
     /**
      * Get the value of partenza
      *
