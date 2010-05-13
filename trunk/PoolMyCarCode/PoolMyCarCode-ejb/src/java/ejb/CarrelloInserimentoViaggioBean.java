@@ -118,7 +118,10 @@ public class CarrelloInserimentoViaggioBean implements CarrelloInserimentoViaggi
     public void setTappe(List<Tappa> tappe) {
         this.tappe = tappe;
     }
-
+ /** Imposta il tipo mezzo del pacchetto
+     *
+     * @param tipomezzo
+     */
     public String getPercorso(){
         String percorso = "";
         if(tappe.size()>0){
