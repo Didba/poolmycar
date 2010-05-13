@@ -10,7 +10,6 @@ import ejb.GestoreUtentiLocal;
 import ejb.GestoreViaggiBeanLocal;
 import ejb.RiempiDBLocal;
 import ejb.RisultatiRicercaViaggi;
-import facades.PacchettoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
