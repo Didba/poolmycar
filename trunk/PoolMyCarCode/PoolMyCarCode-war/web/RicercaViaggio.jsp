@@ -24,7 +24,22 @@
         <script language="JavaScript" type="text/javascript">
             
    
- 
+
+  function invia(){
+                   ds = document.getElementById("ds").value;
+                   ora = document.getElementById("ora").value;
+                   min = document.getElementById("min").value;
+                   data1 = document.getElementById("data1").value;
+                   data2 = document.getElementById("data2").value;
+                   if((ds!="" && ora!="" && min!="") || (data1!="" && data2!="")) {
+                       document.getElementById("form").submit();
+                   }
+                   else{
+                       alert("Inserisci l'intervallo di date o una data singola con l'ora");
+                   }
+            }
+
+
             function abilitaIntervallo(n){
                 var divInt = document.getElementById("intervalloDate");
                 var divData = document.getElementById("dataSingola");
@@ -70,7 +85,7 @@
                         <h1>Inserisci i dati del viaggio</h1>
 
 
-                        <form action="ServletController" method="POST" onSubmit="return(checkDate());">
+                        <form id ="form" action="ServletController" method="POST" onSubmit="return(checkDate());">
                             <div>
                                 Partenza <input id="partenza" name="partenza" type="text"/>
                                 Arrivo <input id="arrivo" name="arrivo" type="text"/>
@@ -90,13 +105,13 @@
                                             <table>
                                                 <tr>
                                                     <td>Dal</td>
-                                                    <td><input name="data1" type="text" maxlength="10" size="10" readonly onclick="displayDatePicker('data1');"/>
+                                                    <td><input id="data1" name="data1" type="text" maxlength="10" size="10" readonly onclick="displayDatePicker('data1');"/>
                                                         <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('data1');"><img src="calendarSingleDate/calendar_ico.gif" alt=""></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Al</td>
-                                                    <td><input name="data2" type="text" maxlength="10" readonly size="10" onclick="displayDatePicker('data2');"/>
+                                                    <td><input id="data2" name="data2" type="text" maxlength="10" readonly size="10" onclick="displayDatePicker('data2');"/>
                                                         <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('data2');"><img src="calendarSingleDate/calendar_ico.gif" alt=""></button>
                                                     </td>
                                                 </tr>
@@ -109,7 +124,7 @@
                                             <table>
                                                 <tr>
                                                     <td> Data</td>
-                                                    <td><input type="text" name="dataSingola" id="dataSingola" readonly maxlength="10" size="10" onclick="displayDatePicker('dataSingola');"/>
+                                                    <td><input type="text" name="dataSingola" id="ds" readonly maxlength="10" size="10" onclick="displayDatePicker('dataSingola');"/>
                                                         <button type="button" value="" style="width: 18px; height: 18px;border-right-style: none; border-left-style: none;border-bottom-style: none;border-top-style: none;" onclick="displayDatePicker('dataSingola');"><img src="calendarSingleDate/calendar_ico.gif" alt=""></button>
                                                     </td>
                                                 </tr>
@@ -123,7 +138,8 @@
                                     </td>
                                 </tr>
                             </table>
-                            <input type="submit" name="operation" value="cerca"/>
+                            <input type="hidden" name="operation" value="cerca"
+                            <input type="button"  name="operation1" value="cerca" onclick="invia()"/>
                         </form>
                     </center>
 

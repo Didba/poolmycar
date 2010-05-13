@@ -131,7 +131,7 @@
                                 <i class="sub">nota: </i><%=pacchetto.getNota()%><br>
                                 <%}%>
 
-                                <i class="sub">ora partenza: </i><%=viaggi.get(0).getDataPartenza().get(Calendar.HOUR)%>:<%=viaggi.get(0).getDataPartenza().get(Calendar.MINUTE)%>
+                                <i class="sub">ora partenza: </i><%=pacchetto.getInizio().get(Calendar.HOUR)%>:<%=pacchetto.getInizio().get(Calendar.MINUTE)%>
                             </td>
                         </tr>
                     </table>
